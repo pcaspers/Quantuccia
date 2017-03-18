@@ -1,0 +1,21 @@
+#include <ql/math/array.hpp>
+#include <ql/math/comparison.hpp>
+#include <ql/math/errorfunction.hpp>
+#include <ql/math/factorial.hpp>
+#include <ql/math/functional.hpp>
+#include <ql/math/generallinearleastsquares.hpp>
+#include <ql/math/incompletegamma.hpp>
+#include <ql/math/interpolation.hpp>
+#include <ql/math/linearleastsquaresregression.hpp>
+#include <ql/math/matrix.hpp>
+#include <ql/math/rounding.hpp>
+#include <ql/math/solver1d.hpp>
+
+#include <ql/math/distributions/all.hpp>
+#include <ql/math/integrals/all.hpp>
+#include <ql/math/interpolations/all.hpp>
+#include <ql/math/matrixutilities/all.hpp>
+#include <ql/math/optimization/all.hpp>
+#include <ql/math/randomnumbers/all.hpp>
+#include <ql/math/solvers1d/all.hpp>
+#include <ql/math/statistics/all.hpp>
