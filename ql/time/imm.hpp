@@ -280,7 +280,7 @@ namespace QuantLib {
         return nextDate(immDate+1, mainCycle);
     }
 
-    std::string IMM::nextCode(const Date& d,
+    inline std::string IMM::nextCode(const Date& d,
                               bool mainCycle) {
         Date date = nextDate(d, mainCycle);
         return code(date);

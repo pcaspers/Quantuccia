@@ -67,16 +67,15 @@ namespace QuantLib {
 
         Real relAccuracy_;
         const bool useConvergenceEstimate_;
-        const static Real alpha_, beta_, x1_, x2_, x3_;
+
+        static Real alpha_() { return std::sqrt(2.0/3.0); }
+        static Real beta_()  { return 1.0/std::sqrt(5.0); }
+        static Real x1_()    { return 0.94288241569547971906; }
+        static Real x2_()    { return 0.64185334234578130578; }
+        static Real x3_()    { return 0.23638319966214988028; }
     };
 
     // implementation
-
-    const Real GaussLobattoIntegral::alpha_ = std::sqrt(2.0/3.0); 
-    const Real GaussLobattoIntegral::beta_  = 1.0/std::sqrt(5.0);
-    const Real GaussLobattoIntegral::x1_    = 0.94288241569547971906; 
-    const Real GaussLobattoIntegral::x2_    = 0.64185334234578130578;
-    const Real GaussLobattoIntegral::x3_    = 0.23638319966214988028;
 
     inline GaussLobattoIntegral::GaussLobattoIntegral(Size maxIterations,
                                                Real absAccuracy,
@@ -88,7 +87,7 @@ namespace QuantLib {
     }
 
     inline Real GaussLobattoIntegral::integrate(
-                                     const boost::function<Real (Real)>& f, 
+                                     const boost::function<Real (Real)>& f,
                                      Real a, Real b) const {
 
         setNumberOfEvaluations(0);
@@ -99,37 +98,37 @@ namespace QuantLib {
     }
 
     inline Real GaussLobattoIntegral::calculateAbsTolerance(
-                                     const boost::function<Real (Real)>& f, 
+                                     const boost::function<Real (Real)>& f,
                                      Real a, Real b) const {
-        
+
 
         Real relTol = std::max(relAccuracy_, QL_EPSILON);
-        
-        const Real m = (a+b)/2; 
+
+        const Real m = (a+b)/2;
         const Real h = (b-a)/2;
         const Real y1 = f(a);
-        const Real y3 = f(m-alpha_*h);
-        const Real y5 = f(m-beta_*h);
+        const Real y3 = f(m-alpha_()*h);
+        const Real y5 = f(m-beta_()*h);
         const Real y7 = f(m);
-        const Real y9 = f(m+beta_*h);
-        const Real y11= f(m+alpha_*h);
+        const Real y9 = f(m+beta_()*h);
+        const Real y11= f(m+alpha_()*h);
         const Real y13= f(b);
 
-        const Real f1 = f(m-x1_*h);
-        const Real f2 = f(m+x1_*h);
-        const Real f3 = f(m-x2_*h);
-        const Real f4 = f(m+x2_*h);
-        const Real f5 = f(m-x3_*h);
-        const Real f6 = f(m+x3_*h);
+        const Real f1 = f(m-x1_()*h);
+        const Real f2 = f(m+x1_()*h);
+        const Real f3 = f(m-x2_()*h);
+        const Real f4 = f(m+x2_()*h);
+        const Real f5 = f(m-x3_()*h);
+        const Real f6 = f(m+x3_()*h);
 
         Real acc=h*(0.0158271919734801831*(y1+y13)
                   +0.0942738402188500455*(f1+f2)
                   +0.1550719873365853963*(y3+y11)
                   +0.1888215739601824544*(f3+f4)
-                  +0.1997734052268585268*(y5+y9) 
+                  +0.1997734052268585268*(y5+y9)
                   +0.2249264653333395270*(f5+f6)
-                  +0.2426110719014077338*y7);  
-        
+                  +0.2426110719014077338*y7);
+
         increaseNumberOfEvaluations(13);
         if (acc == 0.0 && (   f1 != 0.0 || f2 != 0.0 || f3 != 0.0
                            || f4 != 0.0 || f5 != 0.0 || f6 != 0.0)) {
@@ -142,8 +141,8 @@ namespace QuantLib {
             const Real integral2 = (h/6)*(y1+y13+5*(y5+y9));
             const Real integral1 = (h/1470)*(77*(y1+y13)+432*(y3+y11)+
                                              625*(y5+y9)+672*y7);
-        
-            if (std::fabs(integral2-acc) != 0.0) 
+
+            if (std::fabs(integral2-acc) != 0.0)
                 r = std::fabs(integral1-acc)/std::fabs(integral2-acc);
             if (r == 0.0 || r > 1.0)
                 r = 1.0;
@@ -155,33 +154,33 @@ namespace QuantLib {
             return absoluteAccuracy()/(r*QL_EPSILON);
         }
     }
-    
+
     inline Real GaussLobattoIntegral::adaptivGaussLobattoStep(
                                      const boost::function<Real (Real)>& f,
                                      Real a, Real b, Real fa, Real fb,
                                      Real acc) const {
         QL_REQUIRE(numberOfEvaluations() < maxEvaluations(),
                    "max number of iterations reached");
-        
-        const Real h=(b-a)/2; 
+
+        const Real h=(b-a)/2;
         const Real m=(a+b)/2;
-        
-        const Real mll=m-alpha_*h; 
-        const Real ml =m-beta_*h; 
-        const Real mr =m+beta_*h; 
-        const Real mrr=m+alpha_*h;
-        
+
+        const Real mll=m-alpha_()*h;
+        const Real ml =m-beta_()*h;
+        const Real mr =m+beta_()*h;
+        const Real mrr=m+alpha_()*h;
+
         const Real fmll= f(mll);
         const Real fml = f(ml);
         const Real fm  = f(m);
         const Real fmr = f(mr);
         const Real fmrr= f(mrr);
         increaseNumberOfEvaluations(5);
-        
+
         const Real integral2=(h/6)*(fa+fb+5*(fml+fmr));
         const Real integral1=(h/1470)*(77*(fa+fb)
                                        +432*(fmll+fmrr)+625*(fml+fmr)+672*fm);
-        
+
         // avoid 80 bit logic on x86 cpu
         volatile Real dist = acc + (integral1-integral2);
         if(Real(dist)==acc || mll<=a || b<=mrr) {
@@ -189,7 +188,7 @@ namespace QuantLib {
             return integral1;
         }
         else {
-            return  adaptivGaussLobattoStep(f,a,mll,fa,fmll,acc)  
+            return  adaptivGaussLobattoStep(f,a,mll,fa,fmll,acc)
                   + adaptivGaussLobattoStep(f,mll,ml,fmll,fml,acc)
                   + adaptivGaussLobattoStep(f,ml,m,fml,fm,acc)
                   + adaptivGaussLobattoStep(f,m,mr,fm,fmr,acc)

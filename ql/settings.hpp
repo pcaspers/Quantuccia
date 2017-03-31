@@ -179,7 +179,7 @@ namespace QuantLib {
     inline Settings::DateProxy::DateProxy()
     : ObservableValue<Date>(Date()) {}
 
-    std::ostream& operator<<(std::ostream& out,
+    inline std::ostream& operator<<(std::ostream& out,
                              const Settings::DateProxy& p) {
         return out << Date(p);
     }
@@ -188,7 +188,7 @@ namespace QuantLib {
     : includeReferenceDateEvents_(false),
       enforcesTodaysHistoricFixings_(false) {}
 
-    void Settings::anchorEvaluationDate() {
+    inline void Settings::anchorEvaluationDate() {
         // set to today's date if not already set.
         if (evaluationDate_.value() == Date())
             evaluationDate_ = Date::todaysDate();
