@@ -174,6 +174,54 @@ namespace QuantLib {
         return enforcesTodaysHistoricFixings_;
     }
 
+    // implementation
+
+    inline Settings::DateProxy::DateProxy()
+    : ObservableValue<Date>(Date()) {}
+
+    std::ostream& operator<<(std::ostream& out,
+                             const Settings::DateProxy& p) {
+        return out << Date(p);
+    }
+
+    inline Settings::Settings()
+    : includeReferenceDateEvents_(false),
+      enforcesTodaysHistoricFixings_(false) {}
+
+    void Settings::anchorEvaluationDate() {
+        // set to today's date if not already set.
+        if (evaluationDate_.value() == Date())
+            evaluationDate_ = Date::todaysDate();
+        // If set, no-op since the date is already anchored.
+    }
+
+    inline void Settings::resetEvaluationDate() {
+        evaluationDate_ = Date();
+    }
+
+    inline SavedSettings::SavedSettings()
+    : evaluationDate_(Settings::instance().evaluationDate()),
+      includeReferenceDateEvents_(
+                        Settings::instance().includeReferenceDateEvents()),
+      includeTodaysCashFlows_(Settings::instance().includeTodaysCashFlows()),
+      enforcesTodaysHistoricFixings_(
+                        Settings::instance().enforcesTodaysHistoricFixings()) {}
+
+    inline SavedSettings::~SavedSettings() {
+        try {
+            if (Settings::instance().evaluationDate() != evaluationDate_)
+                Settings::instance().evaluationDate() = evaluationDate_;
+            Settings::instance().includeReferenceDateEvents() =
+                includeReferenceDateEvents_;
+            Settings::instance().includeTodaysCashFlows() =
+                includeTodaysCashFlows_;
+            Settings::instance().enforcesTodaysHistoricFixings() =
+                enforcesTodaysHistoricFixings_;
+        } catch (...) {
+            // nothing we can do except bailing out.
+        }
+    }
+
 }
 
 #endif
