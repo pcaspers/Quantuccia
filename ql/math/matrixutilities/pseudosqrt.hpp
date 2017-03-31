@@ -132,7 +132,7 @@ namespace QuantLib {
         }
 
         //cost function for hypersphere and lower-diagonal algorithm
-        inline class HypersphereCostFunction : public CostFunction {
+        class HypersphereCostFunction : public CostFunction {
           private:
             Size size_;
             bool lowerDiagonal_;

@@ -224,7 +224,7 @@ namespace QuantLib {
     inline Constraint::Constraint(const boost::shared_ptr<Constraint::Impl>& impl)
     : impl_(impl) {}
 
-    inlien Real Constraint::update(Array& params,
+    inline Real Constraint::update(Array& params,
                             const Array& direction,
                             Real beta) {
 
