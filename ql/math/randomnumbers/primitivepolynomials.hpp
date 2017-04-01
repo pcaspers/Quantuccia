@@ -250,13 +250,13 @@
     #pragma warning(disable: 4049)
 #endif
 
-extern
+//extern
 
-#ifdef __cplusplus
+//#ifdef __cplusplus
 
-"C"
+//"C"
 
-#endif
+//#endif
 
 /*! You can access the following array as in PrimitivePolynomials[i][j]
     with i and j counting from 0 in C convention. PrimitivePolynomials[i][j]
@@ -264,7 +264,7 @@ extern
     i+1. Each one-dimensional array of primitive polynomials of a given
     degree is terminated with an entry of -1. Accessing beyond this entry
     will result in a memory violation and must be avoided.  */
-const long *const PrimitivePolynomials[N_MAX_DEGREE];
+//static const long *const PrimitivePolynomials[N_MAX_DEGREE];
 
 // implementation
 
@@ -21562,13 +21562,13 @@ static const long PrimitivePolynomialDegree18[]={
 #error too many polynomials requested. not provided by this file
 #endif
 
-#ifdef __cplusplus
+/* #ifdef __cplusplus */
 
-extern "C"
+/* extern "C" */
 
-#endif
+/* #endif */
 
-const long *const PrimitivePolynomials[N_MAX_DEGREE]={
+static const long *const PrimitivePolynomials[N_MAX_DEGREE]={
    PrimitivePolynomialDegree01
 #if PPMT_MAX_DIM > N_PRIMITIVES_UP_TO_DEGREE_01
  , PrimitivePolynomialDegree02
