@@ -59,7 +59,12 @@ namespace QuantLib {
         Real value(Real x) const;
         Real logValue(Real x) const;
       private:
-        static const Real c1_, c2_, c3_, c4_, c5_, c6_;
+          static Real c1_() { return 76.18009172947146; }
+          static Real c2_() { return -86.50532032941677; }
+          static Real c3_() { return 24.01409824083091; }
+          static Real c4_() { return -1.231739572450155; }
+          static Real c5_() { return 0.1208650973866179e-2; }
+          static Real c6_() { return -0.5395239384953e-5; }
     };
 
     // implementation
@@ -102,24 +107,17 @@ namespace QuantLib {
         QL_FAIL("too few iterations");
     }
 
-    const Real GammaFunction::c1_ = 76.18009172947146;
-    const Real GammaFunction::c2_ = -86.50532032941677;
-    const Real GammaFunction::c3_ = 24.01409824083091;
-    const Real GammaFunction::c4_ = -1.231739572450155;
-    const Real GammaFunction::c5_ = 0.1208650973866179e-2;
-    const Real GammaFunction::c6_ = -0.5395239384953e-5;
-
     inline Real GammaFunction::logValue(Real x) const {
         QL_REQUIRE(x>0.0, "positive argument required");
         Real temp = x + 5.5;
         temp -= (x + 0.5)*std::log(temp);
         Real ser=1.000000000190015;
-        ser += c1_/(x + 1.0);
-        ser += c2_/(x + 2.0);
-        ser += c3_/(x + 3.0);
-        ser += c4_/(x + 4.0);
-        ser += c5_/(x + 5.0);
-        ser += c6_/(x + 6.0);
+        ser += c1_()/(x + 1.0);
+        ser += c2_()/(x + 2.0);
+        ser += c3_()/(x + 3.0);
+        ser += c4_()/(x + 4.0);
+        ser += c5_()/(x + 5.0);
+        ser += c6_()/(x + 6.0);
 
         return -temp+std::log(2.5066282746310005*ser/x);
     }

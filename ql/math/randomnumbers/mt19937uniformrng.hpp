@@ -80,7 +80,12 @@ namespace QuantLib {
         void twist() const;
         mutable unsigned long mt[N];
         mutable Size mti;
-        static const unsigned long MATRIX_A, UPPER_MASK, LOWER_MASK;
+        // constant vector a
+        static const unsigned long MATRIX_A = 0x9908b0dfUL;
+        // most significant w-r bits
+        static const unsigned long UPPER_MASK=0x80000000UL;
+        // least significant r bits
+        static const unsigned long LOWER_MASK=0x7fffffffUL;
     };
 
     //! Random seed generator
@@ -146,14 +151,6 @@ namespace QuantLib {
    http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
    email: matumoto@math.keio.ac.jp
 */
-
-    // constant vector a
-    const unsigned long MersenneTwisterUniformRng::MATRIX_A = 0x9908b0dfUL;
-    // most significant w-r bits
-    const unsigned long MersenneTwisterUniformRng::UPPER_MASK=0x80000000UL;
-    // least significant r bits
-    const unsigned long MersenneTwisterUniformRng::LOWER_MASK=0x7fffffffUL;
-
 
     inline MersenneTwisterUniformRng::MersenneTwisterUniformRng(unsigned long seed) {
         seedInitialization(seed);
