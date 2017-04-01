@@ -156,6 +156,56 @@ namespace QuantLib {
 
     // implementation
 
+    namespace {
+
+        // a few rules used by multiple calendars
+
+        inline bool isWashingtonBirthday(Day d, Month m, Year y, Weekday w) {
+            if (y >= 1971) {
+                // third Monday in February
+                return (d >= 15 && d <= 21) && w == Monday && m == February;
+            } else {
+                // February 22nd, possily adjusted
+                return (d == 22 || (d == 23 && w == Monday)
+                        || (d == 21 && w == Friday)) && m == February;
+            }
+        }
+
+        inline bool isMemorialDay(Day d, Month m, Year y, Weekday w) {
+            if (y >= 1971) {
+                // last Monday in May
+                return d >= 25 && w == Monday && m == May;
+            } else {
+                // May 30th, possibly adjusted
+                return (d == 30 || (d == 31 && w == Monday)
+                        || (d == 29 && w == Friday)) && m == May;
+            }
+        }
+
+        inline bool isLaborDay(Day d, Month m, Year y, Weekday w) {
+            // first Monday in September
+            return d <= 7 && w == Monday && m == September;
+        }
+
+        inline bool isColumbusDay(Day d, Month m, Year y, Weekday w) {
+            // second Monday in October
+            return (d >= 8 && d <= 14) && w == Monday && m == October
+                && y >= 1971;
+        }
+
+        inline bool isVeteransDay(Day d, Month m, Year y, Weekday w) {
+            if (y <= 1970 || y >= 1978) {
+                // November 11th, adjusted
+                return (d == 11 || (d == 12 && w == Monday) ||
+                        (d == 10 && w == Friday)) && m == November;
+            } else {
+                // fourth Monday in October
+                return (d >= 22 && d <= 28) && w == Monday && m == October;
+            }
+        }
+
+    }
+
     inline UnitedStates::UnitedStates(UnitedStates::Market market) {
         // all calendar instances on the same market share the same
         // implementation instance
@@ -185,6 +235,7 @@ namespace QuantLib {
         }
     }
 
+
     inline bool UnitedStates::SettlementImpl::isBusinessDay(const Date& date) const {
         Weekday w = date.weekday();
         Day d = date.dayOfMonth();
@@ -199,19 +250,18 @@ namespace QuantLib {
             || ((d >= 15 && d <= 21) && w == Monday && m == January
                 && y >= 1983)
             // Washington's birthday (third Monday in February)
-            || ((d >= 15 && d <= 21) && w == Monday && m == February)
+            || isWashingtonBirthday(d, m, y, w)
             // Memorial Day (last Monday in May)
-            || (d >= 25 && w == Monday && m == May)
+            || isMemorialDay(d, m, y, w)
             // Independence Day (Monday if Sunday or Friday if Saturday)
             || ((d == 4 || (d == 5 && w == Monday) ||
                  (d == 3 && w == Friday)) && m == July)
             // Labor Day (first Monday in September)
-            || (d <= 7 && w == Monday && m == September)
+            || isLaborDay(d, m, y, w)
             // Columbus Day (second Monday in October)
-            || ((d >= 8 && d <= 14) && w == Monday && m == October)
+            || isColumbusDay(d, m, y, w)
             // Veteran's Day (Monday if Sunday or Friday if Saturday)
-            || ((d == 11 || (d == 12 && w == Monday) ||
-                 (d == 10 && w == Friday)) && m == November)
+            || isVeteransDay(d, m, y, w)
             // Thanksgiving Day (fourth Thursday in November)
             || ((d >= 22 && d <= 28) && w == Thursday && m == November)
             // Christmas (Monday if Sunday or Friday if Saturday)
@@ -232,16 +282,16 @@ namespace QuantLib {
             // New Year's Day (possibly moved to Monday if on Sunday)
             || ((d == 1 || (d == 2 && w == Monday)) && m == January)
             // Washington's birthday (third Monday in February)
-            || ((d >= 15 && d <= 21) && w == Monday && m == February)
+            || isWashingtonBirthday(d, m, y, w)
             // Good Friday
             || (dd == em-3)
             // Memorial Day (last Monday in May)
-            || (d >= 25 && w == Monday && m == May)
+            || isMemorialDay(d, m, y, w)
             // Independence Day (Monday if Sunday or Friday if Saturday)
             || ((d == 4 || (d == 5 && w == Monday) ||
                  (d == 3 && w == Friday)) && m == July)
             // Labor Day (first Monday in September)
-            || (d <= 7 && w == Monday && m == September)
+            || isLaborDay(d, m, y, w)
             // Thanksgiving Day (fourth Thursday in November)
             || ((d >= 22 && d <= 28) && w == Thursday && m == November)
             // Christmas (Monday if Sunday or Friday if Saturday)
@@ -319,21 +369,20 @@ namespace QuantLib {
             || ((d >= 15 && d <= 21) && w == Monday && m == January
                 && y >= 1983)
             // Washington's birthday (third Monday in February)
-            || ((d >= 15 && d <= 21) && w == Monday && m == February)
+            || isWashingtonBirthday(d, m, y, w)
             // Good Friday
             || (dd == em-3)
             // Memorial Day (last Monday in May)
-            || (d >= 25 && w == Monday && m == May)
+            || isMemorialDay(d, m, y, w)
             // Independence Day (Monday if Sunday or Friday if Saturday)
             || ((d == 4 || (d == 5 && w == Monday) ||
                  (d == 3 && w == Friday)) && m == July)
             // Labor Day (first Monday in September)
-            || (d <= 7 && w == Monday && m == September)
+            || isLaborDay(d, m, y, w)
             // Columbus Day (second Monday in October)
-            || ((d >= 8 && d <= 14) && w == Monday && m == October)
+            || isColumbusDay(d, m, y, w)
             // Veteran's Day (Monday if Sunday or Friday if Saturday)
-            || ((d == 11 || (d == 12 && w == Monday) ||
-                 (d == 10 && w == Friday)) && m == November)
+            || isVeteransDay(d, m, y, w)
             // Thanksgiving Day (fourth Thursday in November)
             || ((d >= 22 && d <= 28) && w == Thursday && m == November)
             // Christmas (Monday if Sunday or Friday if Saturday)
@@ -348,15 +397,16 @@ namespace QuantLib {
         Weekday w = date.weekday();
         Day d = date.dayOfMonth();
         Month m = date.month();
+        Year y = date.year();
         if (isWeekend(w)
             // New Year's Day (possibly moved to Monday if on Sunday)
             || ((d == 1 || (d == 2 && w == Monday)) && m == January)
             // Memorial Day (last Monday in May)
-            || (d >= 25 && w == Monday && m == May)
+            || isMemorialDay(d, m, y, w)
             // Independence Day (Monday if Sunday)
             || ((d == 4 || (d == 5 && w == Monday)) && m == July)
             // Labor Day (first Monday in September)
-            || (d <= 7 && w == Monday && m == September)
+            || isLaborDay(d, m, y, w)
             // Thanksgiving Day (fourth Thursday in November)
             || ((d >= 22 && d <= 28) && w == Thursday && m == November)
             // Christmas (Monday if Sunday)
@@ -364,8 +414,6 @@ namespace QuantLib {
             return false;
         return true;
     }
-
 }
-
 
 #endif

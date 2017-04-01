@@ -139,7 +139,7 @@ namespace QuantLib {
         /*! Calculates the number of business days between two given
             dates and returns the result.
         */
-        BigInteger businessDaysBetween(const Date& from,
+        Date::serial_type businessDaysBetween(const Date& from,
                                        const Date& to,
                                        bool includeFirst = true,
                                        bool includeLast = false) const;
@@ -347,7 +347,7 @@ namespace QuantLib {
         return advance(d, p.length(), p.units(), c, endOfMonth);
     }
 
-    inline BigInteger Calendar::businessDaysBetween(const Date& from,
+    inline Date::serial_type Calendar::businessDaysBetween(const Date& from,
                                              const Date& to,
                                              bool includeFirst,
                                              bool includeLast) const {
