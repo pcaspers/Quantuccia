@@ -1,0 +1,21 @@
+
+language: cpp
+
+sudo: required
+
+dist: trusty
+
+before_install:
+  # empty -- no other packages needed
+
+install:
+  # empty -- all headers
+
+script:
+  - cd test-suite && g++ -I.. -o quantlibtestsuite quantlibtestsuite.cpp && ./quantlibtestsuite --log-level=message
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+  
