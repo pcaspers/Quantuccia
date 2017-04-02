@@ -6,7 +6,7 @@ sudo: required
 dist: trusty
 
 before_install:
-  # empty -- no other packages needed
+  - sudo apt-get install libboost-all-dev
 
 install:
   # empty -- all headers
