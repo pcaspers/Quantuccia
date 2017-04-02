@@ -1,4 +1,6 @@
 
+[![Build Status](https://travis-ci.org/pcaspers/Quantuccia.svg?branch=master)](https://travis-ci.org/pcaspers/Quantuccia)
+
 Quantuccia: the header only essentials of QuantLib
 ===============================================================
 
