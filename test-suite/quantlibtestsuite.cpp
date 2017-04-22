@@ -68,7 +68,7 @@
 // #include "bonds.hpp"
 // #include "brownianbridge.hpp"
 // #include "businessdayconventions.hpp"
-// #include "calendars.hpp"
+#include "calendars.hpp"
 // #include "capfloor.hpp"
 // #include "capflooredcoupon.hpp"
 // #include "cashflows.hpp"
@@ -334,7 +334,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(BondTest::suite());
     // test->add(BrownianBridgeTest::suite());
     // test->add(BusinessDayConventionTest::suite());
-    // test->add(CalendarTest::suite());
+    test->add(CalendarTest::suite());
     // test->add(CapFloorTest::suite());
     // test->add(CapFlooredCouponTest::suite());
     // test->add(CashFlowsTest::suite());
