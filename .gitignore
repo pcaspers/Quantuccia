@@ -95,6 +95,7 @@ Examples/Replication/Replication
 Examples/Repo/Repo
 Examples/Swap/SwapValuation
 test-suite/quantlib-test-suite
+test-suite/quantlibtestsuite
 test-suite/quantlib-benchmark
 test-suite/bin/*.exp
 test-suite/bin/*.lib
