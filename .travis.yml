@@ -12,7 +12,9 @@ install:
   # empty -- all headers
 
 script:
-  - cd test-suite && g++ -I.. -o quantlibtestsuite quantlibtestsuite.cpp && ./quantlibtestsuite --log_level=message
+  - cd test-suite
+  - g++ -I.. -o quantlibtestsuite quantlibtestsuite.cpp
+  - ./quantlibtestsuite --log_level=message
 
 notifications:
   email:
