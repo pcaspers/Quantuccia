@@ -122,7 +122,7 @@
 // #include "instruments.hpp"
 // #include "integrals.hpp"
 // #include "interestrates.hpp"
-// #include "interpolations.hpp"
+ #include "interpolations.hpp"
 // #include "jumpdiffusion.hpp"
 // #include "lazyobject.hpp"
 // #include "libormarketmodel.hpp"
@@ -371,7 +371,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(InstrumentTest::suite());
     // test->add(IntegralTest::suite());
     // test->add(InterestRateTest::suite());
-    // test->add(InterpolationTest::suite());
+     test->add(InterpolationTest::suite());
     // test->add(JumpDiffusionTest::suite());
     // test->add(LazyObjectTest::suite());
     // test->add(LinearLeastSquaresRegressionTest::suite());

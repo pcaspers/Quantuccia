@@ -64,7 +64,24 @@ namespace QuantLib {
       public:
         typedef Array array_type;
         // constructors
-        explicit TridiagonalOperator(Size size = 0);
+        explicit TridiagonalOperator(Size size = 0){
+        if (size>=2) {
+            n_ = size;
+            diagonal_      = Array(size);
+            lowerDiagonal_ = Array(size-1);
+            upperDiagonal_ = Array(size-1);
+            temp_          = Array(size);
+        } else if (size==0) {
+            n_ = 0;
+            diagonal_      = Array(0);
+            lowerDiagonal_ = Array(0);
+            upperDiagonal_ = Array(0);
+            temp_          = Array(0);
+        } else {
+            QL_FAIL("invalid size (" << size << ") for tridiagonal operator "
+                    "(must be null or >= 2)");
+        }
+    };
         TridiagonalOperator(const Array& low,
                             const Array& mid,
                             const Array& high);
@@ -75,13 +92,40 @@ namespace QuantLib {
         //! apply operator to a given array
         Disposable<Array> applyTo(const Array& v) const;
         //! solve linear system for a given right-hand side
-        Disposable<Array> solveFor(const Array& rhs) const;
+        Disposable<Array> solveFor(const Array& rhs) const{	
+	        Array result(rhs.size());
+	        solveFor(rhs, result);
+	        return result;
+	    };
         /*! solve linear system for a given right-hand side
             without result Array allocation. The rhs and result parameters
             can be the same Array, in which case rhs will be changed
         */
         void solveFor(const Array& rhs,
-                      Array& result) const;
+                      Array& result) const{
+
+        QL_REQUIRE(n_!=0,
+                   "uninitialized TridiagonalOperator");
+        QL_REQUIRE(rhs.size()==n_,
+                   "rhs vector of size " << rhs.size() <<
+                   " instead of " << n_);
+
+        Real bet = diagonal_[0];
+        QL_REQUIRE(!close(bet, 0.0),
+                   "diagonal's first element (" << bet <<
+                   ") cannot be close to zero");
+        result[0] = rhs[0]/bet;
+        for (Size j=1; j<=n_-1; ++j) {
+            temp_[j] = upperDiagonal_[j-1]/bet;
+            bet = diagonal_[j]-lowerDiagonal_[j-1]*temp_[j];
+            QL_ENSURE(!close(bet, 0.0), "division by zero");
+            result[j] = (rhs[j] - lowerDiagonal_[j-1]*result[j-1])/bet;
+        }
+        // cannot be j>=0 with Size j
+        for (Size j=n_-2; j>0; --j)
+            result[j] -= temp_[j+1]*result[j+1];
+        result[0] -= temp_[1]*result[1];
+    };
         //! solve linear system with SOR approach
         Disposable<Array> SOR(const Array& rhs,
                               Real tol) const;
