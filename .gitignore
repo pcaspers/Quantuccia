@@ -103,3 +103,7 @@ test-suite/bin/*.pdb
 test-suite/.unit_test_profile.txt
 
 
+/.vs
+/CMakeBuild
+
+CMakeSettings\.json
