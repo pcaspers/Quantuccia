@@ -91,7 +91,7 @@
 // #include "defaultprobabilitycurves.hpp"
 // #include "digitalcoupon.hpp"
 // #include "digitaloption.hpp"
-// #include "distributions.hpp"
+ #include "distributions.hpp"
 // #include "dividendoption.hpp"
 // #include "doublebarrieroption.hpp"
 // #include "doublebinaryoption.hpp"
@@ -350,7 +350,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(DefaultProbabilityCurveTest::suite());
     // test->add(DigitalCouponTest::suite()); // might fail with QL_USE_INDEXED_COUPON
     // test->add(DigitalOptionTest::suite());
-    // test->add(DistributionTest::suite());
+    test->add(DistributionTest::suite(Slow));
     // test->add(DividendOptionTest::suite());
     // test->add(EuropeanOptionTest::suite());
     // test->add(ExchangeRateTest::suite());
