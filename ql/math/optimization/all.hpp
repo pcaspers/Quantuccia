@@ -6,6 +6,7 @@
 #include <ql/math/optimization/endcriteria.hpp>
 #include <ql/math/optimization/levenbergmarquardt.hpp>
 #include <ql/math/optimization/linesearch.hpp>
+#include <ql/math/optimization/bfgs.hpp>
 #include <ql/math/optimization/linesearchbasedmethod.hpp>
 #include <ql/math/optimization/lmdif.hpp>
 #include <ql/math/optimization/method.hpp>
