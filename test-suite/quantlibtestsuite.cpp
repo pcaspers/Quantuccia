@@ -170,7 +170,7 @@
  #include "solvers.hpp"
 // #include "spreadoption.hpp"
 // #include "swingoption.hpp"
-// #include "stats.hpp"
+ #include "stats.hpp"
 // #include "swap.hpp"
 // #include "swapforwardmappings.hpp"
 // #include "swaption.hpp"
@@ -408,7 +408,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(ScheduleTest::suite());
     // test->add(ShortRateModelTest::suite()); // fails with QL_USE_INDEXED_COUPON
      test->add(Solver1DTest::suite());
-    // test->add(StatisticsTest::suite());
+     test->add(StatisticsTest::suite());
     // test->add(SwapTest::suite());
     // test->add(SwapForwardMappingsTest::suite());
     // test->add(SwaptionTest::suite());

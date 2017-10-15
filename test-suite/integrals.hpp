@@ -92,14 +92,14 @@ using boost::unit_test_framework::test_suite;
 
 namespace {
 
-    Real tolerance = 1.0e-6;
+    Real tolerance1 = 1.0e-6;
 
     template <class T>
     void testSingle(const T& I, const std::string& tag,
                     const boost::function<Real (Real)>& f,
                     Real xMin, Real xMax, Real expected) {
         Real calculated = I(f,xMin,xMax);
-        if (std::fabs(calculated-expected) > tolerance) {
+        if (std::fabs(calculated-expected) > tolerance1) {
             BOOST_FAIL(std::setprecision(10)
                        << "integrating " << tag
                        << "    calculated: " << calculated
@@ -145,42 +145,42 @@ void IntegralTest::testSegment() {
 
 void IntegralTest::testTrapezoid() {
     BOOST_TEST_MESSAGE("Testing trapezoid integration...");
-    testSeveral(TrapezoidIntegral<Default>(tolerance, 10000));
-    testDegeneratedDomain(TrapezoidIntegral<Default>(tolerance, 10000));
+    testSeveral(TrapezoidIntegral<Default>(tolerance1, 10000));
+    testDegeneratedDomain(TrapezoidIntegral<Default>(tolerance1, 10000));
 }
 
 void IntegralTest::testMidPointTrapezoid() {
     BOOST_TEST_MESSAGE("Testing mid-point trapezoid integration...");
-    testSeveral(TrapezoidIntegral<MidPoint>(tolerance, 10000));
-    testDegeneratedDomain(TrapezoidIntegral<MidPoint>(tolerance, 10000));
+    testSeveral(TrapezoidIntegral<MidPoint>(tolerance1, 10000));
+    testDegeneratedDomain(TrapezoidIntegral<MidPoint>(tolerance1, 10000));
 }
 
 void IntegralTest::testSimpson() {
     BOOST_TEST_MESSAGE("Testing Simpson integration...");
-    testSeveral(SimpsonIntegral(tolerance, 10000));
-    testDegeneratedDomain(SimpsonIntegral(tolerance, 10000));
+    testSeveral(SimpsonIntegral(tolerance1, 10000));
+    testDegeneratedDomain(SimpsonIntegral(tolerance1, 10000));
 }
 
 void IntegralTest::testGaussKronrodAdaptive() {
     BOOST_TEST_MESSAGE("Testing adaptive Gauss-Kronrod integration...");
     Size maxEvaluations = 1000;
-    testSeveral(GaussKronrodAdaptive(tolerance, maxEvaluations));
-    testDegeneratedDomain(GaussKronrodAdaptive(tolerance, maxEvaluations));
+    testSeveral(GaussKronrodAdaptive(tolerance1, maxEvaluations));
+    testDegeneratedDomain(GaussKronrodAdaptive(tolerance1, maxEvaluations));
 }
 
 void IntegralTest::testGaussLobatto() {
     BOOST_TEST_MESSAGE("Testing adaptive Gauss-Lobatto integration...");
     Size maxEvaluations = 1000;
-    testSeveral(GaussLobattoIntegral(maxEvaluations, tolerance));
+    testSeveral(GaussLobattoIntegral(maxEvaluations, tolerance1));
     // on degenerated domain [1,1+macheps] an exception is thrown
     // which is also ok, but not tested here
 }
 
 void IntegralTest::testGaussKronrodNonAdaptive() {
     BOOST_TEST_MESSAGE("Testing non-adaptive Gauss-Kronrod integration...");
-    Real precision = tolerance;
+    Real precision = tolerance1;
     Size maxEvaluations = 100;
-    Real relativeAccuracy = tolerance;
+    Real relativeAccuracy = tolerance1;
     GaussKronrodNonAdaptive gaussKronrodNonAdaptive(precision, maxEvaluations,
                                                     relativeAccuracy);
     testSeveral(gaussKronrodNonAdaptive);
@@ -194,14 +194,14 @@ void IntegralTest::testTwoDimensionalIntegration() {
     const Size maxEvaluations = 1000;
     const Real calculated = TwoDimensionalIntegral(
         boost::shared_ptr<Integrator>(
-            new TrapezoidIntegral<Default>(tolerance, maxEvaluations)),
+            new TrapezoidIntegral<Default>(tolerance1, maxEvaluations)),
         boost::shared_ptr<Integrator>(
-            new TrapezoidIntegral<Default>(tolerance, maxEvaluations)))(
+            new TrapezoidIntegral<Default>(tolerance1, maxEvaluations)))(
         std::multiplies<Real>(),
         std::make_pair(0.0, 0.0), std::make_pair(1.0, 2.0));
 
     const Real expected = 1.0;
-    if (std::fabs(calculated-expected) > tolerance) {
+    if (std::fabs(calculated-expected) > tolerance1) {
         BOOST_FAIL(std::setprecision(10)
                    << "two dimensional integration: "
                    << "\n    calculated: " << calculated
