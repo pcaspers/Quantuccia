@@ -25,6 +25,7 @@
 #define quantlib_actualactual_day_counter_h
 
 #include <ql/time/daycounter.hpp>
+#include <ql/time/schedule.hpp>
 
 namespace QuantLib {
 
@@ -54,6 +55,9 @@ namespace QuantLib {
       private:
         class ISMA_Impl : public DayCounter::Impl {
           public:
+            explicit ISMA_Impl(const Schedule& schedule)
+            : schedule_(schedule) {}
+
             std::string name() const {
                 return std::string("Actual/Actual (ISMA)");
             }
@@ -61,6 +65,8 @@ namespace QuantLib {
                               const Date& d2,
                               const Date& refPeriodStart,
                               const Date& refPeriodEnd) const;
+          private:
+            Schedule schedule_;
         };
         class ISDA_Impl : public DayCounter::Impl {
           public:
@@ -83,20 +89,44 @@ namespace QuantLib {
                               const Date&) const;
         };
         static boost::shared_ptr<DayCounter::Impl> implementation(
-                                                               Convention c);
+                                                               Convention c, 
+                                                               const Schedule& schedule);
       public:
-        ActualActual(Convention c = ActualActual::ISDA)
-        : DayCounter(implementation(c)) {}
+        ActualActual(Convention c = ActualActual::ISDA, 
+                     const Schedule& schedule = Schedule())
+        : DayCounter(implementation(c, schedule)) {}
     };
 
-    // implementation
+}
 
-    inline boost::shared_ptr<DayCounter::Impl>
-    ActualActual::implementation(ActualActual::Convention c) {
+/* -*- mode: c++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
+
+/*
+ Copyright (C) 2000, 2001, 2002, 2003 RiskMap srl
+
+ This file is part of QuantLib, a free-software/open-source library
+ for financial quantitative analysts and developers - http://quantlib.org/
+
+ QuantLib is free software: you can redistribute it and/or modify it
+ under the terms of the QuantLib license.  You should have received a
+ copy of the license along with this program; if not, please email
+ <quantlib-dev@lists.sf.net>. The license is also available online at
+ <http://quantlib.org/license.shtml>.
+
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE.  See the license for more details.
+*/
+
+namespace QuantLib {
+
+    boost::shared_ptr<DayCounter::Impl>
+    ActualActual::implementation(ActualActual::Convention c, 
+                                 const Schedule& schedule) {
         switch (c) {
           case ISMA:
           case Bond:
-            return boost::shared_ptr<DayCounter::Impl>(new ISMA_Impl);
+            return boost::shared_ptr<DayCounter::Impl>(new ISMA_Impl(schedule));
           case ISDA:
           case Historical:
           case Actual365:
@@ -110,7 +140,7 @@ namespace QuantLib {
     }
 
 
-    inline Time ActualActual::ISMA_Impl::yearFraction(const Date& d1,
+    Time ActualActual::ISMA_Impl::yearFraction(const Date& d1,
                                                const Date& d2,
                                                const Date& d3,
                                                const Date& d4) const {
@@ -166,7 +196,16 @@ namespace QuantLib {
                 // this case is long first coupon
 
                 // the last notional payment date
-                Date previousRef = refPeriodStart - months*Months;
+                Date previousRef;
+                if (schedule_.empty()) {
+                    previousRef = refPeriodStart - months*Months;
+                } else {
+                    previousRef = schedule_.calendar().advance(refPeriodStart,
+                                                               -schedule_.tenor(),
+                                                               schedule_.businessDayConvention(),
+                                                               schedule_.endOfMonth());
+                }
+
                 if (d2 > refPeriodStart)
                     return yearFraction(d1, refPeriodStart, previousRef,
                                         refPeriodStart) +
@@ -207,7 +246,7 @@ namespace QuantLib {
         }
     }
 
-    inline Time ActualActual::ISDA_Impl::yearFraction(const Date& d1,
+    Time ActualActual::ISDA_Impl::yearFraction(const Date& d1,
                                                const Date& d2,
                                                const Date&,
                                                const Date&) const {
@@ -228,7 +267,7 @@ namespace QuantLib {
         return sum;
     }
 
-    inline Time ActualActual::AFB_Impl::yearFraction(const Date& d1,
+    Time ActualActual::AFB_Impl::yearFraction(const Date& d1,
                                               const Date& d2,
                                               const Date&,
                                               const Date&) const {

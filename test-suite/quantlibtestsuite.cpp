@@ -58,7 +58,7 @@
 // #include "array.hpp"
 // #include "asianoptions.hpp"
 // #include "assetswap.hpp"
-// #include "autocovariances.hpp"
+ #include "autocovariances.hpp"
 // #include "barrieroption.hpp"
 // #include "basketoption.hpp"
 // #include "batesmodel.hpp"
@@ -86,8 +86,8 @@
 // #include "creditdefaultswap.hpp"
 // #include "creditriskplus.hpp"
 // #include "curvestates.hpp"
-#include "dates.hpp"
-// #include "daycounters.hpp"
+ #include "dates.hpp"
+ #include "daycounters.hpp"
 // #include "defaultprobabilitycurves.hpp"
 // #include "digitalcoupon.hpp"
 // #include "digitaloption.hpp"
@@ -325,7 +325,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(ArrayTest::suite());
     // test->add(AsianOptionTest::suite());
     // test->add(AssetSwapTest::suite()); // fails with QL_USE_INDEXED_COUPON
-    // test->add(AutocovariancesTest::suite());
+     test->add(AutocovariancesTest::suite());
     // test->add(BarrierOptionTest::suite());
     // test->add(BasketOptionTest::suite());
     // test->add(BatesModelTest::suite());
@@ -346,7 +346,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(CreditDefaultSwapTest::suite());
     // test->add(CurveStatesTest::suite());
     test->add(DateTest::suite());
-    // test->add(DayCounterTest::suite());
+    test->add(DayCounterTest::suite());
     // test->add(DefaultProbabilityCurveTest::suite());
     // test->add(DigitalCouponTest::suite()); // might fail with QL_USE_INDEXED_COUPON
     // test->add(DigitalOptionTest::suite());

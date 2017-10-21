@@ -20,7 +20,7 @@
 #ifndef quantlib_test_utilities_hpp
 #define quantlib_test_utilities_hpp
 
-// #include <ql/instruments/payoffs.hpp>
+#include <ql/instruments/payoffs.hpp>
 // #include <ql/exercise.hpp>
 // #include <ql/termstructures/yieldtermstructure.hpp>
 // #include <ql/termstructures/volatility/equityfx/blackvoltermstructure.hpp>
@@ -36,7 +36,7 @@
 #include <numeric>
 #include <iomanip>
 
-// #include <ql/instruments/payoffs.hpp>
+#include <ql/instruments/payoffs.hpp>
 // #include <ql/indexes/indexmanager.hpp>
 // #include <ql/termstructures/yield/flatforward.hpp>
 // #include <ql/termstructures/volatility/equityfx/blackconstantvol.hpp>
