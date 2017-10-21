@@ -37,7 +37,7 @@ class DistributionTest {
     static void testInverseCumulativePoisson();
     static void testBivariateCumulativeStudent();
     static void testBivariateCumulativeStudentVsBivariate();
-    //static void testInvCDFviaStochasticCollocation();
+    static void testInvCDFviaStochasticCollocation();
     static boost::unit_test_framework::test_suite* suite(SpeedLevel);
 };
 
@@ -688,7 +688,7 @@ namespace {
     };
 }
 
-/*void DistributionTest::testInvCDFviaStochasticCollocation() {
+void DistributionTest::testInvCDFviaStochasticCollocation() {
     BOOST_TEST_MESSAGE(
         "Testing inverse CDF based on stochastic collocation...");
 
@@ -751,7 +751,7 @@ namespace {
                        "\n    tol     : " << tol);
         }
     }
-}*/
+}
 
 test_suite* DistributionTest::suite(SpeedLevel speed) {
     test_suite* suite = BOOST_TEST_SUITE("Distribution tests");
