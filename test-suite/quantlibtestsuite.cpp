@@ -130,7 +130,7 @@
 // #include "libormarketmodelprocess.hpp"
 // #include "linearleastsquaresregression.hpp"
 // #include "lookbackoptions.hpp"
-// #include "lowdiscrepancysequences.hpp"
+ #include "lowdiscrepancysequences.hpp"
 // #include "margrabeoption.hpp"
 // #include "marketmodel.hpp"
 // #include "marketmodel_smmcapletalphacalibration.hpp"
@@ -377,7 +377,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(LazyObjectTest::suite());
     // test->add(LinearLeastSquaresRegressionTest::suite());
     // test->add(LookbackOptionTest::suite());
-    // test->add(LowDiscrepancyTest::suite());
+     test->add(LowDiscrepancyTest::suite());
     // test->add(MarketModelTest::suite());
     // test->add(MarketModelCmsTest::suite());
     // test->add(MarketModelSmmTest::suite());
