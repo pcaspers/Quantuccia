@@ -162,7 +162,7 @@
 // #include "quotes.hpp"
 // #include "riskneutraldensitycalculator.hpp"
 // #include "riskstats.hpp"
-// #include "rngtraits.hpp"
+ #include "rngtraits.hpp"
 // #include "rounding.hpp"
 // #include "sampledcurve.hpp"
 // #include "schedule.hpp"
@@ -402,7 +402,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(QuantoOptionTest::suite());
     // test->add(QuoteTest::suite());
     // test->add(RiskStatisticsTest::suite());
-    // test->add(RngTraitsTest::suite());
+     test->add(RngTraitsTest::suite());
     // test->add(RoundingTest::suite());
     // test->add(SampledCurveTest::suite());
     // test->add(ScheduleTest::suite());

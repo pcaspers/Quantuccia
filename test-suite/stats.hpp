@@ -37,9 +37,6 @@ class StatisticsTest {
 };
 
 
-#endif
-
-
 /* -*- mode: c++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 
 /*
@@ -438,3 +435,6 @@ test_suite* StatisticsTest::suite() {
     suite->add(QUANTLIB_TEST_CASE(&StatisticsTest::testIncrementalStatistics));
     return suite;
 }
+
+
+#endif

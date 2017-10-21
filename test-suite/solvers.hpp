@@ -69,8 +69,6 @@ class Solver1DTest {
     static boost::unit_test_framework::test_suite* suite();
 };
 
-#endif
-
 
 
 
@@ -267,3 +265,6 @@ test_suite* Solver1DTest::suite() {
     suite->add(QUANTLIB_TEST_CASE(&Solver1DTest::testSecant));
     return suite;
 }
+
+
+#endif

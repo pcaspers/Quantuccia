@@ -43,8 +43,6 @@ class IntegralTest {
 };
 
 
-#endif
-
 
 /* -*- mode: c++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 
@@ -92,14 +90,14 @@ using boost::unit_test_framework::test_suite;
 
 namespace {
 
-    Real tolerance1 = 1.0e-6;
+    Real Tolerance = 1.0e-6;
 
     template <class T>
     void testSingle(const T& I, const std::string& tag,
                     const boost::function<Real (Real)>& f,
                     Real xMin, Real xMax, Real expected) {
         Real calculated = I(f,xMin,xMax);
-        if (std::fabs(calculated-expected) > tolerance1) {
+        if (std::fabs(calculated-expected) > Tolerance) {
             BOOST_FAIL(std::setprecision(10)
                        << "integrating " << tag
                        << "    calculated: " << calculated
@@ -145,42 +143,42 @@ void IntegralTest::testSegment() {
 
 void IntegralTest::testTrapezoid() {
     BOOST_TEST_MESSAGE("Testing trapezoid integration...");
-    testSeveral(TrapezoidIntegral<Default>(tolerance1, 10000));
-    testDegeneratedDomain(TrapezoidIntegral<Default>(tolerance1, 10000));
+    testSeveral(TrapezoidIntegral<Default>(Tolerance, 10000));
+    testDegeneratedDomain(TrapezoidIntegral<Default>(Tolerance, 10000));
 }
 
 void IntegralTest::testMidPointTrapezoid() {
     BOOST_TEST_MESSAGE("Testing mid-point trapezoid integration...");
-    testSeveral(TrapezoidIntegral<MidPoint>(tolerance1, 10000));
-    testDegeneratedDomain(TrapezoidIntegral<MidPoint>(tolerance1, 10000));
+    testSeveral(TrapezoidIntegral<MidPoint>(Tolerance, 10000));
+    testDegeneratedDomain(TrapezoidIntegral<MidPoint>(Tolerance, 10000));
 }
 
 void IntegralTest::testSimpson() {
     BOOST_TEST_MESSAGE("Testing Simpson integration...");
-    testSeveral(SimpsonIntegral(tolerance1, 10000));
-    testDegeneratedDomain(SimpsonIntegral(tolerance1, 10000));
+    testSeveral(SimpsonIntegral(Tolerance, 10000));
+    testDegeneratedDomain(SimpsonIntegral(Tolerance, 10000));
 }
 
 void IntegralTest::testGaussKronrodAdaptive() {
     BOOST_TEST_MESSAGE("Testing adaptive Gauss-Kronrod integration...");
     Size maxEvaluations = 1000;
-    testSeveral(GaussKronrodAdaptive(tolerance1, maxEvaluations));
-    testDegeneratedDomain(GaussKronrodAdaptive(tolerance1, maxEvaluations));
+    testSeveral(GaussKronrodAdaptive(Tolerance, maxEvaluations));
+    testDegeneratedDomain(GaussKronrodAdaptive(Tolerance, maxEvaluations));
 }
 
 void IntegralTest::testGaussLobatto() {
     BOOST_TEST_MESSAGE("Testing adaptive Gauss-Lobatto integration...");
     Size maxEvaluations = 1000;
-    testSeveral(GaussLobattoIntegral(maxEvaluations, tolerance1));
+    testSeveral(GaussLobattoIntegral(maxEvaluations, Tolerance));
     // on degenerated domain [1,1+macheps] an exception is thrown
     // which is also ok, but not tested here
 }
 
 void IntegralTest::testGaussKronrodNonAdaptive() {
     BOOST_TEST_MESSAGE("Testing non-adaptive Gauss-Kronrod integration...");
-    Real precision = tolerance1;
+    Real precision = Tolerance;
     Size maxEvaluations = 100;
-    Real relativeAccuracy = tolerance1;
+    Real relativeAccuracy = Tolerance;
     GaussKronrodNonAdaptive gaussKronrodNonAdaptive(precision, maxEvaluations,
                                                     relativeAccuracy);
     testSeveral(gaussKronrodNonAdaptive);
@@ -194,14 +192,14 @@ void IntegralTest::testTwoDimensionalIntegration() {
     const Size maxEvaluations = 1000;
     const Real calculated = TwoDimensionalIntegral(
         boost::shared_ptr<Integrator>(
-            new TrapezoidIntegral<Default>(tolerance1, maxEvaluations)),
+            new TrapezoidIntegral<Default>(Tolerance, maxEvaluations)),
         boost::shared_ptr<Integrator>(
-            new TrapezoidIntegral<Default>(tolerance1, maxEvaluations)))(
+            new TrapezoidIntegral<Default>(Tolerance, maxEvaluations)))(
         std::multiplies<Real>(),
         std::make_pair(0.0, 0.0), std::make_pair(1.0, 2.0));
 
     const Real expected = 1.0;
-    if (std::fabs(calculated-expected) > tolerance1) {
+    if (std::fabs(calculated-expected) > Tolerance) {
         BOOST_FAIL(std::setprecision(10)
                    << "two dimensional integration: "
                    << "\n    calculated: " << calculated
@@ -379,3 +377,5 @@ test_suite* IntegralTest::suite() {
     suite->add(QUANTLIB_TEST_CASE(&IntegralTest::testPiecewiseIntegral));
     return suite;
 }
+
+#endif
