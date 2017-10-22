@@ -120,7 +120,7 @@
 // #include "inflationcpicapfloor.hpp"
 // #include "inflationcpiswap.hpp"
 // #include "inflationvolatility.hpp"
-// #include "instruments.hpp"
+ #include "instruments.hpp"
  #include "integrals.hpp"
 // #include "interestrates.hpp"
  #include "interpolations.hpp"
@@ -369,7 +369,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(InflationCapFloorTest::suite());
     // test->add(InflationCapFlooredCouponTest::suite());
     // test->add(InflationCPIBondTest::suite());
-    // test->add(InstrumentTest::suite());
+     test->add(InstrumentTest::suite());
      test->add(IntegralTest::suite());
     // test->add(InterestRateTest::suite());
      test->add(InterpolationTest::suite());

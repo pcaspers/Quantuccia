@@ -23,9 +23,9 @@
 #include <ql/instruments/payoffs.hpp>
 #include <ql/math/matrix.hpp>
 // #include <ql/exercise.hpp>
-// #include <ql/termstructures/yieldtermstructure.hpp>
-// #include <ql/termstructures/volatility/equityfx/blackvoltermstructure.hpp>
-// #include <ql/quote.hpp>
+ #include <ql/termstructures/yieldtermstructure.hpp>
+ #include <ql/termstructures/volatility/equityfx/blackvoltermstructure.hpp>
+ #include <ql/quote.hpp>
 #include <ql/settings.hpp>
 #include <ql/patterns/observable.hpp>
 #include <ql/time/daycounters/actual365fixed.hpp>
@@ -39,9 +39,9 @@
 
 #include <ql/instruments/payoffs.hpp>
 // #include <ql/indexes/indexmanager.hpp>
-// #include <ql/termstructures/yield/flatforward.hpp>
-// #include <ql/termstructures/volatility/equityfx/blackconstantvol.hpp>
-// #include <ql/time/calendars/nullcalendar.hpp>
+ #include <ql/termstructures/yield/flatforward.hpp>
+ #include <ql/termstructures/volatility/equityfx/blackconstantvol.hpp>
+ #include <ql/time/calendars/nullcalendar.hpp>
 
 // This makes it easier to use array literals (alas, no std::vector literals)
 #define LENGTH(a) (sizeof(a)/sizeof(a[0]))
@@ -121,42 +121,42 @@ namespace QuantLib {
     // std::string exerciseTypeToString(const boost::shared_ptr<Exercise>&);
 
 
-    // boost::shared_ptr<YieldTermStructure>
-    // flatRate(const Date& today,
-    //          const boost::shared_ptr<Quote>& forward,
-    //          const DayCounter& dc);
+     boost::shared_ptr<YieldTermStructure>
+     flatRate(const Date& today,
+              const boost::shared_ptr<Quote>& forward,
+              const DayCounter& dc);
 
-    // boost::shared_ptr<YieldTermStructure>
-    // flatRate(const Date& today,
-    //          Rate forward,
-    //          const DayCounter& dc);
+     boost::shared_ptr<YieldTermStructure>
+     flatRate(const Date& today,
+              Rate forward,
+              const DayCounter& dc);
 
-    // boost::shared_ptr<YieldTermStructure>
-    // flatRate(const boost::shared_ptr<Quote>& forward,
-    //          const DayCounter& dc);
+     boost::shared_ptr<YieldTermStructure>
+     flatRate(const boost::shared_ptr<Quote>& forward,
+              const DayCounter& dc);
 
-    // boost::shared_ptr<YieldTermStructure>
-    // flatRate(Rate forward,
-    //          const DayCounter& dc);
+     boost::shared_ptr<YieldTermStructure>
+     flatRate(Rate forward,
+              const DayCounter& dc);
 
 
-    // boost::shared_ptr<BlackVolTermStructure>
-    // flatVol(const Date& today,
-    //         const boost::shared_ptr<Quote>& volatility,
-    //         const DayCounter& dc);
+     boost::shared_ptr<BlackVolTermStructure>
+     flatVol(const Date& today,
+             const boost::shared_ptr<Quote>& volatility,
+             const DayCounter& dc);
 
-    // boost::shared_ptr<BlackVolTermStructure>
-    // flatVol(const Date& today,
-    //         Volatility volatility,
-    //         const DayCounter& dc);
+     boost::shared_ptr<BlackVolTermStructure>
+     flatVol(const Date& today,
+             Volatility volatility,
+             const DayCounter& dc);
 
-    // boost::shared_ptr<BlackVolTermStructure>
-    // flatVol(const boost::shared_ptr<Quote>& volatility,
-    //         const DayCounter& dc);
+     boost::shared_ptr<BlackVolTermStructure>
+     flatVol(const boost::shared_ptr<Quote>& volatility,
+             const DayCounter& dc);
 
-    // boost::shared_ptr<BlackVolTermStructure>
-    // flatVol(Volatility volatility,
-    //         const DayCounter& dc);
+     boost::shared_ptr<BlackVolTermStructure>
+     flatVol(Volatility volatility,
+             const DayCounter& dc);
 
 
     Real relativeError(Real x1, Real x2, Real reference);
@@ -255,62 +255,62 @@ namespace QuantLib {
     // }
 
 
-    // boost::shared_ptr<YieldTermStructure>
-    // flatRate(const Date& today,
-    //          const boost::shared_ptr<Quote>& forward,
-    //          const DayCounter& dc) {
-    //     return boost::shared_ptr<YieldTermStructure>(
-    //                       new FlatForward(today, Handle<Quote>(forward), dc));
-    // }
+     boost::shared_ptr<YieldTermStructure>
+     flatRate(const Date& today,
+              const boost::shared_ptr<Quote>& forward,
+              const DayCounter& dc) {
+         return boost::shared_ptr<YieldTermStructure>(
+                           new FlatForward(today, Handle<Quote>(forward), dc));
+     }
 
-    // boost::shared_ptr<YieldTermStructure>
-    // flatRate(const Date& today, Rate forward, const DayCounter& dc) {
-    //     return flatRate(
-    //            today, boost::shared_ptr<Quote>(new SimpleQuote(forward)), dc);
-    // }
+     boost::shared_ptr<YieldTermStructure>
+     flatRate(const Date& today, Rate forward, const DayCounter& dc) {
+         return flatRate(
+                today, boost::shared_ptr<Quote>(new SimpleQuote(forward)), dc);
+     }
 
-    // boost::shared_ptr<YieldTermStructure>
-    // flatRate(const boost::shared_ptr<Quote>& forward,
-    //          const DayCounter& dc) {
-    //     return boost::shared_ptr<YieldTermStructure>(
-    //           new FlatForward(0, NullCalendar(), Handle<Quote>(forward), dc));
-    // }
+     boost::shared_ptr<YieldTermStructure>
+     flatRate(const boost::shared_ptr<Quote>& forward,
+              const DayCounter& dc) {
+         return boost::shared_ptr<YieldTermStructure>(
+               new FlatForward(0, NullCalendar(), Handle<Quote>(forward), dc));
+     }
 
-    // boost::shared_ptr<YieldTermStructure>
-    // flatRate(Rate forward, const DayCounter& dc) {
-    //     return flatRate(boost::shared_ptr<Quote>(new SimpleQuote(forward)),
-    //                     dc);
-    // }
+     boost::shared_ptr<YieldTermStructure>
+     flatRate(Rate forward, const DayCounter& dc) {
+         return flatRate(boost::shared_ptr<Quote>(new SimpleQuote(forward)),
+                         dc);
+     }
 
 
-    // boost::shared_ptr<BlackVolTermStructure>
-    // flatVol(const Date& today,
-    //         const boost::shared_ptr<Quote>& vol,
-    //         const DayCounter& dc) {
-    //     return boost::shared_ptr<BlackVolTermStructure>(new
-    //         BlackConstantVol(today, NullCalendar(), Handle<Quote>(vol), dc));
-    // }
+     boost::shared_ptr<BlackVolTermStructure>
+     flatVol(const Date& today,
+             const boost::shared_ptr<Quote>& vol,
+             const DayCounter& dc) {
+         return boost::shared_ptr<BlackVolTermStructure>(new
+             BlackConstantVol(today, NullCalendar(), Handle<Quote>(vol), dc));
+     }
 
-    // boost::shared_ptr<BlackVolTermStructure>
-    // flatVol(const Date& today, Volatility vol,
-    //         const DayCounter& dc) {
-    //     return flatVol(today,
-    //                    boost::shared_ptr<Quote>(new SimpleQuote(vol)),
-    //                    dc);
-    // }
+     boost::shared_ptr<BlackVolTermStructure>
+     flatVol(const Date& today, Volatility vol,
+             const DayCounter& dc) {
+         return flatVol(today,
+                        boost::shared_ptr<Quote>(new SimpleQuote(vol)),
+                        dc);
+     }
 
-    // boost::shared_ptr<BlackVolTermStructure>
-    // flatVol(const boost::shared_ptr<Quote>& vol,
-    //         const DayCounter& dc) {
-    //     return boost::shared_ptr<BlackVolTermStructure>(new
-    //         BlackConstantVol(0, NullCalendar(), Handle<Quote>(vol), dc));
-    // }
+     boost::shared_ptr<BlackVolTermStructure>
+     flatVol(const boost::shared_ptr<Quote>& vol,
+             const DayCounter& dc) {
+         return boost::shared_ptr<BlackVolTermStructure>(new
+             BlackConstantVol(0, NullCalendar(), Handle<Quote>(vol), dc));
+     }
 
-    // boost::shared_ptr<BlackVolTermStructure>
-    // flatVol(Volatility vol,
-    //         const DayCounter& dc) {
-    //     return flatVol(boost::shared_ptr<Quote>(new SimpleQuote(vol)), dc);
-    // }
+     boost::shared_ptr<BlackVolTermStructure>
+     flatVol(Volatility vol,
+             const DayCounter& dc) {
+         return flatVol(boost::shared_ptr<Quote>(new SimpleQuote(vol)), dc);
+     }
 
 
     Real relativeError(Real x1, Real x2, Real reference) {
