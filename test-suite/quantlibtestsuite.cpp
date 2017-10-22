@@ -55,7 +55,7 @@
 
 // #include "americanoption.hpp"
 // #include "amortizingbond.hpp"
-// #include "array.hpp"
+ #include "array.hpp"
 // #include "asianoptions.hpp"
 // #include "assetswap.hpp"
  #include "autocovariances.hpp"
@@ -322,7 +322,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     test->add(QUANTLIB_TEST_CASE(startTimer));
 
     // test->add(AmericanOptionTest::suite());
-    // test->add(ArrayTest::suite());
+     test->add(ArrayTest::suite());
     // test->add(AsianOptionTest::suite());
     // test->add(AssetSwapTest::suite()); // fails with QL_USE_INDEXED_COUPON
      test->add(AutocovariancesTest::suite());
