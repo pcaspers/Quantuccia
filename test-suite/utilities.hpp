@@ -21,6 +21,7 @@
 #define quantlib_test_utilities_hpp
 
 #include <ql/instruments/payoffs.hpp>
+#include <ql/math/matrix.hpp>
 // #include <ql/exercise.hpp>
 // #include <ql/termstructures/yieldtermstructure.hpp>
 // #include <ql/termstructures/volatility/equityfx/blackvoltermstructure.hpp>
@@ -74,6 +75,18 @@
 
 namespace QuantLib {
 
+	namespace {
+		
+	    Real norm(const Matrix& m) 
+		{
+			Real sum = 0.0;
+			for (Size i=0; i<m.rows(); i++)
+				for (Size j=0; j<m.columns(); j++)
+					sum += m[i][j]*m[i][j];
+			return std::sqrt(sum);
+		}
+	}
+	
     namespace detail {
 
         // used to avoid no-assertion messages in Boost 1.35

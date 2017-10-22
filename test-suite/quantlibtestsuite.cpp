@@ -82,7 +82,7 @@
 // #include "commodityunitofmeasure.hpp"
 // #include "compoundoption.hpp"
 // #include "convertiblebonds.hpp"
-// #include "covariance.hpp"
+ #include "covariance.hpp"
 // #include "creditdefaultswap.hpp"
 // #include "creditriskplus.hpp"
 // #include "curvestates.hpp"
@@ -104,7 +104,7 @@
 // #include "fdheston.hpp"
 // #include "fdmlinearop.hpp"
 // #include "forwardoption.hpp"
-// #include "functions.hpp"
+ #include "functions.hpp"
 // #include "gaussianquadratures.hpp"
 // #include "garch.hpp"
 // #include "gjrgarchmodel.hpp"
@@ -341,7 +341,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(CashFlowsTest::suite());
     // test->add(CliquetOptionTest::suite());
     // test->add(CmsTest::suite());
-    // test->add(CovarianceTest::suite());
+     test->add(CovarianceTest::suite());
     // test->add(CPISwapTest::suite());
     // test->add(CreditDefaultSwapTest::suite());
     // test->add(CurveStatesTest::suite());
@@ -358,7 +358,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(FdHestonTest::suite());
     // test->add(FdmLinearOpTest::suite());
     // test->add(ForwardOptionTest::suite());
-    // test->add(FunctionsTest::suite());
+     test->add(FunctionsTest::suite());
     // test->add(GARCHTest::suite());
     // test->add(GaussianQuadraturesTest::suite());
     // test->add(GJRGARCHModelTest::suite());

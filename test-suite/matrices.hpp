@@ -96,14 +96,6 @@ namespace {
         return std::sqrt(DotProduct(v,v));
     }
 
-    Real norm(const Matrix& m) {
-        Real sum = 0.0;
-        for (Size i=0; i<m.rows(); i++)
-            for (Size j=0; j<m.columns(); j++)
-                sum += m[i][j]*m[i][j];
-        return std::sqrt(sum);
-    }
-
     void setupMatrix() {
 
         N = 3;
