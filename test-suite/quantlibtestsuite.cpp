@@ -65,11 +65,11 @@
 // #include "bermudanswaption.hpp"
 // #include "binaryoption.hpp"
 // #include "blackdeltacalculator.hpp"
-// #include "blackformula.hpp"
+ #include "blackformula.hpp"
 // #include "bonds.hpp"
 // #include "brownianbridge.hpp"
-#include "businessdayconventions.hpp"
-#include "calendars.hpp"
+ #include "businessdayconventions.hpp"
+ #include "calendars.hpp"
 // #include "capfloor.hpp"
 // #include "capflooredcoupon.hpp"
 // #include "cashflows.hpp"
@@ -141,7 +141,7 @@
 // #include "markovfunctional.hpp"
  #include "matrices.hpp"
 // #include "mclongstaffschwartzengine.hpp"
-// #include "mersennetwister.hpp"
+ #include "mersennetwister.hpp"
 // #include "money.hpp"
 // #include "noarbsabr.hpp"
 // #include "nthtodefault.hpp"
@@ -331,11 +331,11 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(BatesModelTest::suite());
     // test->add(BermudanSwaptionTest::suite());
     // test->add(BinaryOptionTest::suite());
-    // test->add(BlackFormulaTest::suite());
+     test->add(BlackFormulaTest::suite());
     // test->add(BondTest::suite());
     // test->add(BrownianBridgeTest::suite());
-    test->add(BusinessDayConventionTest::suite());
-    test->add(CalendarTest::suite());
+     test->add(BusinessDayConventionTest::suite());
+     test->add(CalendarTest::suite());
     // test->add(CapFloorTest::suite());
     // test->add(CapFlooredCouponTest::suite());
     // test->add(CashFlowsTest::suite());
@@ -345,12 +345,12 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(CPISwapTest::suite());
     // test->add(CreditDefaultSwapTest::suite());
     // test->add(CurveStatesTest::suite());
-    test->add(DateTest::suite());
-    test->add(DayCounterTest::suite());
+     test->add(DateTest::suite());
+     test->add(DayCounterTest::suite());
     // test->add(DefaultProbabilityCurveTest::suite());
     // test->add(DigitalCouponTest::suite()); // might fail with QL_USE_INDEXED_COUPON
     // test->add(DigitalOptionTest::suite());
-    test->add(DistributionTest::suite(Slow));
+     test->add(DistributionTest::suite(Slow));
     // test->add(DividendOptionTest::suite());
     // test->add(EuropeanOptionTest::suite());
     // test->add(ExchangeRateTest::suite());
@@ -387,7 +387,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(MarkovFunctionalTest::suite());
      test->add(MatricesTest::suite());
     // test->add(MCLongstaffSchwartzEngineTest::suite());
-    // test->add(MersenneTwisterTest::suite());
+     test->add(MersenneTwisterTest::suite());
     // test->add(MoneyTest::suite());
     // test->add(ObservableTest::suite());
     // test->add(OdeTest::suite());
