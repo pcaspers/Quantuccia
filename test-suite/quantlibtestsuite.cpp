@@ -147,7 +147,7 @@
 // #include "nthtodefault.hpp"
 // #include "numericaldifferentiation.hpp"
 // #include "observable.hpp"
-// #include "ode.hpp"
+ #include "ode.hpp"
 // #include "operators.hpp"
  #include "optimizers.hpp"
 // #include "optionletstripper.hpp"
@@ -390,7 +390,7 @@ test_suite* init_unit_test_suite(int, char* []) {
      test->add(MersenneTwisterTest::suite());
     // test->add(MoneyTest::suite());
     // test->add(ObservableTest::suite());
-    // test->add(OdeTest::suite());
+     test->add(OdeTest::suite());
     // test->add(OperatorTest::suite());
      test->add(OptimizersTest::suite(Faster));
     // test->add(OptionletStripperTest::suite());
