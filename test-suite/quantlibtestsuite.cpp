@@ -139,7 +139,7 @@
 // #include "marketmodel_smm.hpp"
 // #include "marketmodel_cms.hpp"
 // #include "markovfunctional.hpp"
-// #include "matrices.hpp"
+ #include "matrices.hpp"
 // #include "mclongstaffschwartzengine.hpp"
 // #include "mersennetwister.hpp"
 // #include "money.hpp"
@@ -385,7 +385,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(MarketModelSmmCapletCalibrationTest::suite());
     // test->add(MarketModelSmmCapletHomoCalibrationTest::suite());
     // test->add(MarkovFunctionalTest::suite());
-    // test->add(MatricesTest::suite());
+     test->add(MatricesTest::suite());
     // test->add(MCLongstaffSchwartzEngineTest::suite());
     // test->add(MersenneTwisterTest::suite());
     // test->add(MoneyTest::suite());
