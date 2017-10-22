@@ -159,7 +159,7 @@
 // #include "piecewiseyieldcurve.hpp"
 // #include "piecewisezerospreadedtermstructure.hpp"
 // #include "quantooption.hpp"
-// #include "quotes.hpp"
+ #include "quotes.hpp"
 // #include "riskneutraldensitycalculator.hpp"
 // #include "riskstats.hpp"
  #include "rngtraits.hpp"
@@ -400,7 +400,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     // test->add(PiecewiseYieldCurveTest::suite());
     // test->add(PiecewiseZeroSpreadedTermStructureTest::suite());
     // test->add(QuantoOptionTest::suite());
-    // test->add(QuoteTest::suite());
+     test->add(QuoteTest::suite());
     // test->add(RiskStatisticsTest::suite());
      test->add(RngTraitsTest::suite());
     // test->add(RoundingTest::suite());

@@ -1,7 +1,8 @@
 /* -*- mode: c++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 
 /*
- Copyright (C) 2004, 2005, 2006, 2007 Ferdinando Ametrano
+ Copyright (C) 2007 Ferdinando Ametrano
+ Copyright (C) 2000, 2001, 2002, 2003 RiskMap srl
 
  This file is part of QuantLib, a free-software/open-source library
  for financial quantitative analysts and developers - http://quantlib.org/
@@ -17,23 +18,29 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-/*! \file compounding.hpp
-    \brief Compounding enumeration
+/*! \file quote.hpp
+    \brief purely virtual base class for market observables
 */
 
-#ifndef quantlib_compounding_hpp
-#define quantlib_compounding_hpp
+#ifndef quantlib_quote_hpp
+#define quantlib_quote_hpp
 
-#include <ql/qldefines.hpp>
+#include <ql/handle.hpp>
+#include <ql/errors.hpp>
+#include <ql/utilities/null.hpp>
 
 namespace QuantLib {
 
-    //! Interest rate coumpounding rule
-    enum Compounding { Simple = 0,          //!< \f$ 1+rt \f$
-                       Compounded = 1,      //!< \f$ (1+r)^t \f$
-                       Continuous = 2,      //!< \f$ e^{rt} \f$
-                       SimpleThenCompounded, //!< Simple up to the first period then Compounded
-                       CompoundedThenSimple //!< Compounded up to the first period then Simple
+    //! purely virtual base class for market observables
+    /*! \test the observability of class instances is tested.
+     */
+    class Quote : public virtual Observable {
+      public:
+        virtual ~Quote() {}
+        //! returns the current value
+        virtual Real value() const = 0;
+        //! returns true if the Quote holds a valid value
+        virtual bool isValid() const = 0;
     };
 
 }
