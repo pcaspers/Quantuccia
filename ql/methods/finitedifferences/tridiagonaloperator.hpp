@@ -125,7 +125,7 @@ namespace QuantLib {
     /* \relates TridiagonalOperator */
     void swap(TridiagonalOperator&, TridiagonalOperator&);
 
-        TridiagonalOperator::TridiagonalOperator(Size size) {
+    inline TridiagonalOperator::TridiagonalOperator(Size size) {
         if (size>=2) {
             n_ = size;
             diagonal_      = Array(size);

@@ -63,13 +63,13 @@ namespace QuantLib {
         SouthAfrica();
     };
 	
-	SouthAfrica::SouthAfrica() {
+	inline SouthAfrica::SouthAfrica() {
         // all calendar instances share the same implementation instance
         static boost::shared_ptr<Calendar::Impl> impl(new SouthAfrica::Impl);
         impl_ = impl;
     }
 
-    bool SouthAfrica::Impl::isBusinessDay(const Date& date) const {
+    inline bool SouthAfrica::Impl::isBusinessDay(const Date& date) const {
         Weekday w = date.weekday();
         Day d = date.dayOfMonth(), dd = date.dayOfYear();
         Month m = date.month();

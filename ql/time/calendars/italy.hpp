@@ -87,7 +87,7 @@ namespace QuantLib {
         Italy(Market market = Settlement);
     };
 	
-	Italy::Italy(Italy::Market market) {
+	inline Italy::Italy(Italy::Market market) {
         // all calendar instances on the same market share the same
         // implementation instance
         static boost::shared_ptr<Calendar::Impl> settlementImpl(
@@ -106,7 +106,7 @@ namespace QuantLib {
         }
     }
 
-	bool Italy::SettlementImpl::isBusinessDay(const Date& date) const {
+	inline bool Italy::SettlementImpl::isBusinessDay(const Date& date) const {
         Weekday w = date.weekday();
         Day d = date.dayOfMonth(), dd = date.dayOfYear();
         Month m = date.month();
@@ -141,7 +141,7 @@ namespace QuantLib {
         return true;
     }
 	
-	bool Italy::ExchangeImpl::isBusinessDay(const Date& date) const {
+	inline bool Italy::ExchangeImpl::isBusinessDay(const Date& date) const {
         Weekday w = date.weekday();
         Day d = date.dayOfMonth(), dd = date.dayOfYear();
         Month m = date.month();

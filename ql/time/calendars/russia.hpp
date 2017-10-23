@@ -73,7 +73,7 @@ namespace QuantLib {
         Russia(Market = Settlement);
     };
 	
-	Russia::Russia(Russia::Market market) {
+	inline Russia::Russia(Russia::Market market) {
         // all calendar instances share the same implementation instance
         static boost::shared_ptr<Calendar::Impl> settlementImpl(
                                                   new Russia::SettlementImpl);
@@ -92,7 +92,7 @@ namespace QuantLib {
         }
     }
 
-    bool Russia::SettlementImpl::isBusinessDay(const Date& date) const {
+    inline bool Russia::SettlementImpl::isBusinessDay(const Date& date) const {
         Weekday w = date.weekday();
         Day d = date.dayOfMonth();
         Month m = date.month();
@@ -186,7 +186,7 @@ namespace QuantLib {
 
     }
 
-    bool Russia::ExchangeImpl::isBusinessDay(const Date& date) const {
+    inline bool Russia::ExchangeImpl::isBusinessDay(const Date& date) const {
         Weekday w = date.weekday();
         Day d = date.dayOfMonth();
         Month m = date.month();

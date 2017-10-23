@@ -93,7 +93,7 @@ namespace QuantLib {
         SouthKorea(Market m = KRX);
     };
 	
-	SouthKorea::SouthKorea(Market market) {
+	inline SouthKorea::SouthKorea(Market market) {
         // all calendar instances share the same implementation instance
         static boost::shared_ptr<Calendar::Impl> settlementImpl(
                                               new SouthKorea::SettlementImpl);
@@ -111,11 +111,11 @@ namespace QuantLib {
         }
     }
 
-    bool SouthKorea::SettlementImpl::isWeekend(Weekday w) const {
+    inline bool SouthKorea::SettlementImpl::isWeekend(Weekday w) const {
         return w == Saturday || w == Sunday;
     }
 
-    bool SouthKorea::SettlementImpl::isBusinessDay(const Date& date) const {
+    inline bool SouthKorea::SettlementImpl::isBusinessDay(const Date& date) const {
         Weekday w = date.weekday();
         Day d = date.dayOfMonth();
         Month m = date.month();
@@ -259,7 +259,7 @@ namespace QuantLib {
         return true;
     }
 
-    bool SouthKorea::KrxImpl::isBusinessDay(const Date& date) const {
+    inline bool SouthKorea::KrxImpl::isBusinessDay(const Date& date) const {
         // public holidays
         if ( !SettlementImpl::isBusinessDay(date) )
             return false;
