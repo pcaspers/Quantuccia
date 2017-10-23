@@ -764,8 +764,8 @@ test_suite* DistributionTest::suite(SpeedLevel speed) {
                             &DistributionTest::testInverseCumulativePoisson));
     suite->add(QUANTLIB_TEST_CASE(
                           &DistributionTest::testBivariateCumulativeStudent));
-    /*suite->add(QUANTLIB_TEST_CASE(
-                   &DistributionTest::testInvCDFviaStochasticCollocation));*/
+    suite->add(QUANTLIB_TEST_CASE(
+                   &DistributionTest::testInvCDFviaStochasticCollocation));
 
     if (speed <= Fast) {
         suite->add(QUANTLIB_TEST_CASE(
