@@ -12,7 +12,9 @@ install:
   # empty -- all headers
 
 script:
-  - cd test-suite
+  - cd check
+  - g++ -I.. main.cpp checkduplicatesymbols1.cpp checkduplicatesymbols2.cpp -o main
+  - cd ../test-suite
   - g++ -I.. -o quantlibtestsuite quantlibtestsuite.cpp
   - ./quantlibtestsuite --log_level=message
 
