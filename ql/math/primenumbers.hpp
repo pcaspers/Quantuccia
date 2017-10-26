@@ -97,10 +97,10 @@ namespace QuantLib {
             5,  7, 11, 13, 17, 19, 23, 29,
             31, 37, 41, 43, 47 };
     }
-
-    std::vector<BigNatural> PrimeNumbers::primeNumbers_;
-
-    BigNatural PrimeNumbers::get(Size absoluteIndex) {
+	
+	//std::vector<BigNatural> PrimeNumbers::primeNumbers_;
+	
+    inline BigNatural PrimeNumbers::get(Size absoluteIndex) {
         if (primeNumbers_.empty()) {
             Size n = sizeof(firstPrimes)/sizeof(firstPrimes[0]);
             primeNumbers_.insert(primeNumbers_.end(),
@@ -111,7 +111,7 @@ namespace QuantLib {
         return primeNumbers_[absoluteIndex];
     }
 
-    BigNatural PrimeNumbers::nextPrimeNumber() {
+    inline BigNatural PrimeNumbers::nextPrimeNumber() {
         BigNatural p, n, m = primeNumbers_.back();
         do {
             // skip the even numbers

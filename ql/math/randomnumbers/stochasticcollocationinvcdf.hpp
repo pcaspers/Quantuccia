@@ -104,7 +104,7 @@ namespace QuantLib {
         }
     }
 
-    StochasticCollocationInvCDF::StochasticCollocationInvCDF(
+    inline StochasticCollocationInvCDF::StochasticCollocationInvCDF(
         const boost::function<Real(Real)>& invCDF,
         Size lagrangeOrder, Real pMax, Real pMin)
     : x_(M_SQRT2*GaussHermiteIntegration(lagrangeOrder).x()),
@@ -117,10 +117,10 @@ namespace QuantLib {
       interpl_(x_.begin(), x_.end(), y_.begin()) {
     }
 
-    Real StochasticCollocationInvCDF::value(Real x) const {
+    inline Real StochasticCollocationInvCDF::value(Real x) const {
         return interpl_(x*sigma_, true);
     }
-    Real StochasticCollocationInvCDF::operator()(Real u) const {
+    inline Real StochasticCollocationInvCDF::operator()(Real u) const {
         return value(InverseCumulativeNormal()(u));
     }
 }

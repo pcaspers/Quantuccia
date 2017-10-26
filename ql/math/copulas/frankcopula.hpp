@@ -63,13 +63,13 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    FrankCopula::FrankCopula(Real theta): theta_(theta)
+    inline FrankCopula::FrankCopula(Real theta): theta_(theta)
     {
         QL_REQUIRE(theta != 0.0,
                    "theta (" << theta << ") must be different from 0");
     }
     
-    Real FrankCopula::operator()(Real x, Real y) const 
+    inline Real FrankCopula::operator()(Real x, Real y) const 
     {
         QL_REQUIRE(x >= 0.0 && x <=1.0 ,
                    "1st argument (" << x << ") must be in [0,1]");

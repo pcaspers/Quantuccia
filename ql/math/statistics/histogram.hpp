@@ -162,27 +162,27 @@ namespace QuantLib
 	}
 
 
-	Size Histogram::bins() const
+	inline Size Histogram::bins() const
 	{
 		return bins_;
 	}
 
-	const std::vector<Real>& Histogram::breaks() const
+	inline const std::vector<Real>& Histogram::breaks() const
 	{
 		return breaks_;
 	}
 
-	Histogram::Algorithm Histogram::algorithm() const
+	inline Histogram::Algorithm Histogram::algorithm() const
 	{
 		return algorithm_;
 	}
 
-	bool Histogram::empty() const
+	inline bool Histogram::empty() const
 	{
 		return bins_ == 0;
 	}
 
-	Size Histogram::counts(Size i) const
+	inline Size Histogram::counts(Size i) const
 	{
 #if defined(QL_EXTRA_SAFETY_CHECKS)
 		return counts_.at(i);
@@ -191,7 +191,7 @@ namespace QuantLib
 #endif
 	}
 
-	Real Histogram::frequency(Size i) const
+	inline Real Histogram::frequency(Size i) const
 	{
 #if defined(QL_EXTRA_SAFETY_CHECKS)
 		return frequency_.at(i);
@@ -200,7 +200,7 @@ namespace QuantLib
 #endif
 	}
 
-	void Histogram::calculate()
+	inline void Histogram::calculate()
 	{
 		QL_REQUIRE(!data_.empty(), "no data given");
 

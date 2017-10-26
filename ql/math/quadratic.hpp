@@ -68,26 +68,26 @@ namespace QuantLib
 namespace QuantLib
 {
 
-    quadratic::quadratic(Real a, Real b, Real c) : a_(a), b_(b), c_(c) {}
+    inline quadratic::quadratic(Real a, Real b, Real c) : a_(a), b_(b), c_(c) {}
 
-    Real quadratic::turningPoint() const {
+    inline Real quadratic::turningPoint() const {
         return -b_/(2.0*a_);
     }
 
-    Real quadratic::valueAtTurningPoint() const {
+    inline Real quadratic::valueAtTurningPoint() const {
         return (*this)(turningPoint());
     }
 
-    Real quadratic::operator()(Real x) const {
+    inline Real quadratic::operator()(Real x) const {
         return x*(x*a_+b_)+c_;
     }
 
-    Real quadratic::discriminant() const {
+    inline Real quadratic::discriminant() const {
         return b_*b_-4*a_*c_;
     }
 
     // return false if roots not real, and give turning point instead
-    bool quadratic::roots(Real& x, Real& y) const {
+    inline bool quadratic::roots(Real& x, Real& y) const {
         Real d = discriminant();
         if (d<0) {
             x = y = turningPoint();

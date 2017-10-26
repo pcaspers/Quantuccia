@@ -105,7 +105,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    FaureRsg::FaureRsg(Size dimensionality)
+    inline FaureRsg::FaureRsg(Size dimensionality)
     : dimensionality_(dimensionality),
 //      sequenceCounter_(0),
       sequence_(std::vector<Real> (dimensionality), 1.0),
@@ -188,7 +188,7 @@ namespace QuantLib {
         // std::cout << std::endl;
   }
 
-    void FaureRsg::generateNextIntSequence() const {
+    inline void FaureRsg::generateNextIntSequence() const {
         // sequenceCounter_++;
 
         Size bit = 0;

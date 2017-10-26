@@ -144,7 +144,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Real DiscrepancyStatistics::discrepancy() const {
+    inline Real DiscrepancyStatistics::discrepancy() const {
         Size N = samples();
         /*
         Size i;

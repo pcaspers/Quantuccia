@@ -80,7 +80,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    SabrSmileSection::SabrSmileSection(Time timeToExpiry,
+    inline SabrSmileSection::SabrSmileSection(Time timeToExpiry,
                                        Rate forward,
                                        const std::vector<Real>& sabrParams,
                                        const Real shift)
@@ -101,7 +101,7 @@ namespace QuantLib {
         validateSabrParameters(alpha_, beta_, nu_, rho_);
     }
 
-    SabrSmileSection::SabrSmileSection(const Date& d,
+    inline SabrSmileSection::SabrSmileSection(const Date& d,
                                        Rate forward,
                                        const std::vector<Real>& sabrParams,
                                        const DayCounter& dc,
@@ -122,14 +122,14 @@ namespace QuantLib {
         validateSabrParameters(alpha_, beta_, nu_, rho_);
     }
 
-     Real SabrSmileSection::varianceImpl(Rate strike) const {
+    inline Real SabrSmileSection::varianceImpl(Rate strike) const {
         strike = std::max(0.00001 - shift(),strike);
         Volatility vol = unsafeShiftedSabrVolatility(
             strike, forward_, exerciseTime(), alpha_, beta_, nu_, rho_, shift_);
         return vol * vol * exerciseTime();
      }
 
-     Real SabrSmileSection::volatilityImpl(Rate strike) const {
+    inline Real SabrSmileSection::volatilityImpl(Rate strike) const {
         strike = std::max(0.00001 - shift(),strike);
         return unsafeShiftedSabrVolatility(strike, forward_, exerciseTime(),
                                            alpha_, beta_, nu_, rho_, shift_);

@@ -102,7 +102,7 @@ namespace QuantLib {
             mutable std::vector<Real> parameters_;
         };
 
-        ValueEstimate::ValueEstimate(
+        inline ValueEstimate::ValueEstimate(
                                  const std::vector<NodeData>& simulationData,
                                  const ParametricExercise& exercise,
                                  Size exerciseIndex)
@@ -116,7 +116,7 @@ namespace QuantLib {
             QL_FAIL("no valid paths");
         }
 
-        Real ValueEstimate::value(const Array& parameters) const {
+        inline Real ValueEstimate::value(const Array& parameters) const {
             std::copy(parameters.begin(), parameters.end(),
                       parameters_.begin());
             Real sum = 0.0;
@@ -139,7 +139,7 @@ namespace QuantLib {
 
 
 
-    Real genericEarlyExerciseOptimization(
+    inline Real genericEarlyExerciseOptimization(
                           std::vector<std::vector<NodeData> >& simulationData,
                           const ParametricExercise& exercise,
                           std::vector<std::vector<Real> >& parameters,

@@ -201,7 +201,7 @@ namespace QuantLib {
         ShortRateTree& tree_;
     };
 
-    OneFactorModel::ShortRateTree::ShortRateTree(
+    inline OneFactorModel::ShortRateTree::ShortRateTree(
             const boost::shared_ptr<TrinomialTree>& tree,
             const boost::shared_ptr<ShortRateDynamics>& dynamics,
             const boost::shared_ptr
@@ -226,17 +226,17 @@ namespace QuantLib {
         }
     }
 
-    OneFactorModel::ShortRateTree::ShortRateTree(
+    inline OneFactorModel::ShortRateTree::ShortRateTree(
                          const boost::shared_ptr<TrinomialTree>& tree,
                          const boost::shared_ptr<ShortRateDynamics>& dynamics,
                          const TimeGrid& timeGrid)
     : TreeLattice1D<OneFactorModel::ShortRateTree>(timeGrid, tree->size(1)),
       tree_(tree), dynamics_(dynamics) {}
 
-    OneFactorModel::OneFactorModel(Size nArguments)
+    inline OneFactorModel::OneFactorModel(Size nArguments)
     : ShortRateModel(nArguments) {}
 
-    boost::shared_ptr<Lattice>
+    inline boost::shared_ptr<Lattice>
     OneFactorModel::tree(const TimeGrid& grid) const {
         boost::shared_ptr<TrinomialTree> trinomial(
                               new TrinomialTree(dynamics()->process(), grid));
@@ -244,7 +244,7 @@ namespace QuantLib {
                               new ShortRateTree(trinomial, dynamics(), grid));
     }
 
-    DiscountFactor OneFactorAffineModel::discount(Time t) const {
+    inline DiscountFactor OneFactorAffineModel::discount(Time t) const {
         Real x0 = dynamics()->process()->x0();
         Rate r0 = dynamics()->shortRate(0.0, x0);
         return discountBond(0.0, t, r0);

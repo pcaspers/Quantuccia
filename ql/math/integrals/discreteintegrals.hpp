@@ -98,7 +98,7 @@ namespace QuantLib {
 using namespace boost::accumulators;
 
 namespace QuantLib {
-    Real DiscreteTrapezoidIntegral::operator()(
+    inline Real DiscreteTrapezoidIntegral::operator()(
         const Array& x, const Array& f)    const {
 
         const Size n = f.size();
@@ -113,7 +113,7 @@ namespace QuantLib {
         return 0.5*sum(acc);
     }
 
-    Real DiscreteSimpsonIntegral::operator()(
+    inline Real DiscreteSimpsonIntegral::operator()(
         const Array& x, const Array& f)    const {
 
         const Size n = f.size();
@@ -141,7 +141,7 @@ namespace QuantLib {
     }
 
 
-    Real DiscreteTrapezoidIntegrator::integrate(
+    inline Real DiscreteTrapezoidIntegrator::integrate(
         const boost::function<Real (Real)>& f, Real a, Real b) const {
             const Array x(maxEvaluations(), a, (b-a)/(maxEvaluations()-1));
             Array fv(x.size());
@@ -151,7 +151,7 @@ namespace QuantLib {
             return DiscreteTrapezoidIntegral()(x, fv);
     }
 
-    Real DiscreteSimpsonIntegrator::integrate(
+    inline Real DiscreteSimpsonIntegrator::integrate(
         const boost::function<Real (Real)>& f, Real a, Real b) const {
             const Array x(maxEvaluations(), a, (b-a)/(maxEvaluations()-1));
             Array fv(x.size());

@@ -120,7 +120,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Real StudentDistribution::operator()(Real x) const {
+    inline Real StudentDistribution::operator()(Real x) const {
         static GammaFunction G;
         Real g1 = std::exp (G.logValue(0.5 * (n_ + 1)));
         Real g2 = std::exp (G.logValue(0.5 * n_));
@@ -130,7 +130,7 @@ namespace QuantLib {
         return g1 / (g2 * power * std::sqrt (M_PI * n_));
     }
 
-    Real CumulativeStudentDistribution::operator()(Real x) const {
+    inline Real CumulativeStudentDistribution::operator()(Real x) const {
         Real xx = 1.0 * n_ / (x*x + n_);
         Real sig = (x > 0 ? 1.0 : - 1.0);
 
@@ -138,7 +138,7 @@ namespace QuantLib {
                                    -incompleteBetaFunction (0.5 * n_, 0.5, xx));
     }
 
-    Real InverseCumulativeStudent::operator()(Real y) const {
+    inline Real InverseCumulativeStudent::operator()(Real y) const {
         QL_REQUIRE (y >= 0 && y <= 1, "argument out of range [0, 1]");
 
         Real x = 0;

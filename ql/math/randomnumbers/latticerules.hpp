@@ -14501,7 +14501,7 @@ const Real latticeD[] =
 
 }
 
-void LatticeRule::getRule(type name, std::vector<Real>& Z, Integer N)
+inline void LatticeRule::getRule(type name, std::vector<Real>& Z, Integer N)
 {
 
     Size ruleLength = 3600;

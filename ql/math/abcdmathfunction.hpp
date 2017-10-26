@@ -151,7 +151,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    void AbcdMathFunction::validate(Real a,
+    inline void AbcdMathFunction::validate(Real a,
                                     Real b,
                                     Real c,
                                     Real d) {
@@ -176,7 +176,7 @@ namespace QuantLib {
 
     }
 
-    void AbcdMathFunction::initialize_() {
+    inline void AbcdMathFunction::initialize_() {
         validate(a_, b_, c_, d_);
         da_ = b_ - c_*a_;
         db_ = -c_*b_;
@@ -193,7 +193,7 @@ namespace QuantLib {
         diacplusbcc_ = a_/c_ + dibc_/c_;
     }
 
-    AbcdMathFunction::AbcdMathFunction(Real aa, Real bb, Real cc, Real dd)
+    inline AbcdMathFunction::AbcdMathFunction(Real aa, Real bb, Real cc, Real dd)
     : a_(aa), b_(bb), c_(cc), d_(dd), abcd_(4), dabcd_(4) {
         abcd_[0]=a_;
         abcd_[1]=b_;
@@ -202,7 +202,7 @@ namespace QuantLib {
         initialize_();
     }
 
-    AbcdMathFunction::AbcdMathFunction(const std::vector<Real>& abcd)
+    inline AbcdMathFunction::AbcdMathFunction(const std::vector<Real>& abcd)
     : abcd_(abcd), dabcd_(4) {
         a_=abcd_[0];
         b_=abcd_[1];
@@ -211,7 +211,7 @@ namespace QuantLib {
         initialize_();
     }
 
-    Time AbcdMathFunction::maximumLocation() const {
+    inline Time AbcdMathFunction::maximumLocation() const {
         if (b_==0.0) {
             if (a_>=0.0)
                 return 0.0;
@@ -226,12 +226,12 @@ namespace QuantLib {
         return (zeroFirstDerivative>0.0 ? zeroFirstDerivative : 0.0);
     }
 
-    Real AbcdMathFunction::definiteIntegral(Time t1,
+    inline Real AbcdMathFunction::definiteIntegral(Time t1,
                                             Time t2) const {
         return primitive(t2)-primitive(t1);
     }
 
-    std::vector<Real>
+    inline std::vector<Real>
     AbcdMathFunction::definiteIntegralCoefficients(Time t,
                                                    Time t2) const {
         Time dt = t2 - t;
@@ -244,7 +244,7 @@ namespace QuantLib {
         return result;
     }
 
-    std::vector<Real>
+    inline std::vector<Real>
     AbcdMathFunction::definiteDerivativeCoefficients(Time t,
                                                      Time t2) const {
         Time dt = t2 - t;

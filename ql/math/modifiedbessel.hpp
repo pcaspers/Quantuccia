@@ -148,47 +148,47 @@ namespace QuantLib {
         }
     }
 
-    Real modifiedBesselFunction_i(Real nu, Real x) {
+    inline Real modifiedBesselFunction_i(Real nu, Real x) {
         QL_REQUIRE(x >= 0.0, "negative argument requires complex version of "
                              "modifiedBesselFunction");
         return modifiedBesselFunction_i_impl<Real, Unweighted>(nu, x);
     }
 
-    std::complex<Real> modifiedBesselFunction_i(Real nu,
+    inline std::complex<Real> modifiedBesselFunction_i(Real nu,
                                                 const std::complex<Real> &z) {
         return modifiedBesselFunction_i_impl<
             std::complex<Real>, Unweighted>(nu, z);
     }
 
-    Real modifiedBesselFunction_k(Real nu, Real x) {
+    inline Real modifiedBesselFunction_k(Real nu, Real x) {
         return modifiedBesselFunction_k_impl<Real, Unweighted>(nu, x);
     }
 
-    std::complex<Real> modifiedBesselFunction_k(Real nu,
+    inline std::complex<Real> modifiedBesselFunction_k(Real nu,
                                                 const std::complex<Real> &z) {
         return modifiedBesselFunction_k_impl<
             std::complex<Real>, Unweighted>(nu, z);
     }
 
-    Real modifiedBesselFunction_i_exponentiallyWeighted(Real nu, Real x) {
+    inline Real modifiedBesselFunction_i_exponentiallyWeighted(Real nu, Real x) {
         QL_REQUIRE(x >= 0.0, "negative argument requires complex version of "
                              "modifiedBesselFunction");
         return modifiedBesselFunction_i_impl<Real, ExponentiallyWeighted>(
             nu, x);
     }
 
-    std::complex<Real> modifiedBesselFunction_i_exponentiallyWeighted(
+    inline std::complex<Real> modifiedBesselFunction_i_exponentiallyWeighted(
         Real nu, const std::complex<Real> &z) {
         return modifiedBesselFunction_i_impl<
             std::complex<Real>, ExponentiallyWeighted>(nu, z);
     }
 
-    Real modifiedBesselFunction_k_exponentiallyWeighted(Real nu, Real x) {
+    inline Real modifiedBesselFunction_k_exponentiallyWeighted(Real nu, Real x) {
         return modifiedBesselFunction_k_impl<Real, ExponentiallyWeighted>(
             nu, x);
     }
 
-    std::complex<Real> modifiedBesselFunction_k_exponentiallyWeighted(
+    inline std::complex<Real> modifiedBesselFunction_k_exponentiallyWeighted(
         Real nu, const std::complex<Real> &z) {
         return modifiedBesselFunction_k_impl<
             std::complex<Real>, ExponentiallyWeighted>(nu, z);

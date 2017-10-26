@@ -99,7 +99,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    BSpline::BSpline(Natural p,
+    inline BSpline::BSpline(Natural p,
                      Natural n,
                      const std::vector<Real>& knots)
     : p_(p), n_(n), knots_(knots) {
@@ -117,13 +117,13 @@ namespace QuantLib {
     }
 
 
-    Real BSpline::operator()(Natural i, Real x) const {
+    inline Real BSpline::operator()(Natural i, Real x) const {
         QL_REQUIRE(i <= n_, "i must not be greater than n");
         return N(i,p_,x);
     }
 
 
-    Real BSpline::N(Natural i, Natural p, Real x) const {
+    inline Real BSpline::N(Natural i, Natural p, Real x) const {
 
         if (p==0) {
             return (knots_[i] <= x && x < knots_[i+1]) ? 1.0 : 0.0;

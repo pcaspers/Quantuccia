@@ -76,7 +76,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Disposable<Array> BFGS::getUpdatedDirection(const Problem& P,
+    inline Disposable<Array> BFGS::getUpdatedDirection(const Problem& P,
                                                 Real,
                                                 const Array& oldGradient) {
         if (inverseHessian_.rows() == 0)

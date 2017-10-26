@@ -81,23 +81,23 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    ProjectedCostFunction::ProjectedCostFunction(
+    inline ProjectedCostFunction::ProjectedCostFunction(
                 const CostFunction& costFunction,
                 const Array& parameterValues,
                 const std::vector<bool>& fixParameters)
         : Projection(parameterValues, fixParameters), costFunction_(costFunction) {}
 
-    ProjectedCostFunction::ProjectedCostFunction(
+    inline ProjectedCostFunction::ProjectedCostFunction(
                 const CostFunction& costFunction,
                 const Projection& projection)
         : Projection(projection), costFunction_(costFunction) {}
 
-    Real ProjectedCostFunction::value(const Array& freeParameters) const {
+    inline Real ProjectedCostFunction::value(const Array& freeParameters) const {
         mapFreeParameters(freeParameters);
         return costFunction_.value(actualParameters_);
     }
 
-    Disposable<Array> ProjectedCostFunction::values(
+    inline Disposable<Array> ProjectedCostFunction::values(
                                         const Array& freeParameters) const{
         mapFreeParameters(freeParameters);
         return costFunction_.values(actualParameters_);

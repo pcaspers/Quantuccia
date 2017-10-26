@@ -213,12 +213,12 @@ namespace QuantLib {
     }
 
 
-    BivariateCumulativeStudentDistribution::
+    inline BivariateCumulativeStudentDistribution::
     BivariateCumulativeStudentDistribution(Natural n,
                                            Real rho)
     : n_(n), rho_(rho) {}
 
-    Real BivariateCumulativeStudentDistribution::operator()(Real x,
+    inline Real BivariateCumulativeStudentDistribution::operator()(Real x,
                                                             Real y) const {
         return P_n(x, y, n_, rho_);
     }

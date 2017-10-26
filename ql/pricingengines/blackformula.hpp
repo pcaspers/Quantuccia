@@ -399,7 +399,7 @@ namespace QuantLib {
 #include <boost/math/special_functions/sign.hpp>
 
 namespace {
-    void checkParameters(QuantLib::Real strike,
+    inline void checkParameters(QuantLib::Real strike,
                          QuantLib::Real forward,
                          QuantLib::Real displacement)
     {
@@ -418,7 +418,7 @@ namespace {
 
 namespace QuantLib {
 
-    Real blackFormula(Option::Type optionType,
+    inline Real blackFormula(Option::Type optionType,
                       Real strike,
                       Real forward,
                       Real stdDev,
@@ -457,7 +457,7 @@ namespace QuantLib {
         return result;
     }
 
-    Real blackFormula(const boost::shared_ptr<PlainVanillaPayoff>& payoff,
+    inline Real blackFormula(const boost::shared_ptr<PlainVanillaPayoff>& payoff,
                       Real forward,
                       Real stdDev,
                       Real discount,
@@ -466,7 +466,7 @@ namespace QuantLib {
             payoff->strike(), forward, stdDev, discount, displacement);
     }
 
-    Real blackFormulaImpliedStdDevApproximation(Option::Type optionType,
+    inline Real blackFormulaImpliedStdDevApproximation(Option::Type optionType,
                                                 Real strike,
                                                 Real forward,
                                                 Real blackPrice,
@@ -507,7 +507,7 @@ namespace QuantLib {
         return stdDev;
     }
 
-    Real blackFormulaImpliedStdDevApproximation(
+    inline Real blackFormulaImpliedStdDevApproximation(
                       const boost::shared_ptr<PlainVanillaPayoff>& payoff,
                       Real forward,
                       Real blackPrice,
@@ -517,7 +517,7 @@ namespace QuantLib {
             payoff->strike(), forward, blackPrice, discount, displacement);
     }
 
-    Real blackFormulaImpliedStdDevChambers(Option::Type optionType,
+    inline Real blackFormulaImpliedStdDevChambers(Option::Type optionType,
                                                 Real strike,
                                                 Real forward,
                                                 Real blackPrice,
@@ -568,7 +568,7 @@ namespace QuantLib {
         return stdDev;
     }
 
-    Real blackFormulaImpliedStdDevChambers(
+    inline Real blackFormulaImpliedStdDevChambers(
         const boost::shared_ptr<PlainVanillaPayoff> &payoff,
         Real forward,
         Real blackPrice,
@@ -581,13 +581,13 @@ namespace QuantLib {
     }
 
     namespace {
-        Real Af(Real x) {
+        inline Real Af(Real x) {
             return 0.5*(1.0+boost::math::sign(x)
                 *std::sqrt(1.0-std::exp(-M_2_PI*x*x)));
         }
     }
 
-    Real blackFormulaImpliedStdDevApproximationRS(
+    inline Real blackFormulaImpliedStdDevApproximationRS(
         Option::Type type, Real K, Real F,
         Real marketValue, Real df, Real displacement) {
 
@@ -638,7 +638,7 @@ namespace QuantLib {
         }
     }
 
-    Real blackFormulaImpliedStdDevApproximationRS(
+    inline Real blackFormulaImpliedStdDevApproximationRS(
         const boost::shared_ptr<PlainVanillaPayoff> &payoff,
         Real F, Real marketValue,
         Real df, Real displacement) {
@@ -698,7 +698,7 @@ namespace QuantLib {
     };
 
 
-    Real blackFormulaImpliedStdDev(Option::Type optionType,
+    inline Real blackFormulaImpliedStdDev(Option::Type optionType,
                                    Real strike,
                                    Real forward,
                                    Real blackPrice,
@@ -758,7 +758,7 @@ namespace QuantLib {
         return stdDev;
     }
 
-    Real blackFormulaImpliedStdDev(
+    inline Real blackFormulaImpliedStdDev(
                         const boost::shared_ptr<PlainVanillaPayoff>& payoff,
                         Real forward,
                         Real blackPrice,
@@ -773,21 +773,21 @@ namespace QuantLib {
 
 
     namespace {
-        Real Np(Real x, Real v) {
+        inline Real Np(Real x, Real v) {
             return CumulativeNormalDistribution()(x/v + 0.5*v);
         }
-        Real Nm(Real x, Real v) {
+        inline Real Nm(Real x, Real v) {
             return std::exp(-x)*CumulativeNormalDistribution()(x/v - 0.5*v);
         }
-        Real phi(Real x, Real v) {
+        inline Real phi(Real x, Real v) {
             const Real ax = 2*std::fabs(x);
             const Real v2 = v*v;
             return (v2-ax)/(v2+ax);
         }
-        Real F(Real v, Real x, Real cs, Real w) {
+        inline Real F(Real v, Real x, Real cs, Real w) {
             return cs+Nm(x,v)+w*Np(x,v);
         }
-        Real G(Real v, Real x, Real cs, Real w) {
+        inline Real G(Real v, Real x, Real cs, Real w) {
             const Real q = F(v,x,cs,w)/(1+w);
 
             // Acklam's inverse w/o Halley's refinement step
@@ -799,7 +799,7 @@ namespace QuantLib {
         }
     }
 
-    Real blackFormulaImpliedStdDevLiRS(
+    inline Real blackFormulaImpliedStdDevLiRS(
         Option::Type optionType,
         Real strike,
         Real forward,
@@ -861,7 +861,7 @@ namespace QuantLib {
         return vk;
     }
 
-    Real blackFormulaImpliedStdDevLiRS(
+    inline Real blackFormulaImpliedStdDevLiRS(
         const boost::shared_ptr<PlainVanillaPayoff>& payoff,
         Real forward,
         Real blackPrice,
@@ -879,7 +879,7 @@ namespace QuantLib {
     }
 
 
-    Real blackFormulaCashItmProbability(Option::Type optionType,
+    inline Real blackFormulaCashItmProbability(Option::Type optionType,
                                         Real strike,
                                         Real forward,
                                         Real stdDev,
@@ -897,7 +897,7 @@ namespace QuantLib {
         return phi(optionType*d2);
     }
 
-    Real blackFormulaCashItmProbability(
+    inline Real blackFormulaCashItmProbability(
                         const boost::shared_ptr<PlainVanillaPayoff>& payoff,
                         Real forward,
                         Real stdDev,
@@ -906,7 +906,7 @@ namespace QuantLib {
             payoff->strike(), forward, stdDev , displacement);
     }
 
-    Real blackFormulaVolDerivative(Rate strike,
+    inline Real blackFormulaVolDerivative(Rate strike,
                                       Rate forward,
                                       Real stdDev,
                                       Real expiry,
@@ -920,7 +920,7 @@ namespace QuantLib {
                                      displacement)*std::sqrt(expiry);
     }
 
-    Real blackFormulaStdDevDerivative(Rate strike,
+    inline Real blackFormulaStdDevDerivative(Rate strike,
                                       Rate forward,
                                       Real stdDev,
                                       Real discount,
@@ -943,7 +943,7 @@ namespace QuantLib {
             CumulativeNormalDistribution().derivative(d1);
     }
 
-    Real blackFormulaStdDevDerivative(
+    inline Real blackFormulaStdDevDerivative(
                         const boost::shared_ptr<PlainVanillaPayoff>& payoff,
                         Real forward,
                         Real stdDev,
@@ -953,7 +953,7 @@ namespace QuantLib {
                                      stdDev, discount, displacement);
     }
 
-    Real blackFormulaStdDevSecondDerivative(Rate strike,
+    inline Real blackFormulaStdDevSecondDerivative(Rate strike,
                                             Rate forward,
                                             Real stdDev,
                                             Real discount,
@@ -977,7 +977,7 @@ namespace QuantLib {
             NormalDistribution().derivative(d1) * d1p;
     }
 
-    Real blackFormulaStdDevSecondDerivative(
+    inline Real blackFormulaStdDevSecondDerivative(
                         const boost::shared_ptr<PlainVanillaPayoff>& payoff,
                         Real forward,
                         Real stdDev,
@@ -987,7 +987,7 @@ namespace QuantLib {
                                      stdDev, discount, displacement);
     }
 
-    Real bachelierBlackFormula(Option::Type optionType,
+    inline Real bachelierBlackFormula(Option::Type optionType,
                                Real strike,
                                Real forward,
                                Real stdDev,
@@ -1011,7 +1011,7 @@ namespace QuantLib {
         return result;
     }
 
-    Real bachelierBlackFormula(
+    inline Real bachelierBlackFormula(
                         const boost::shared_ptr<PlainVanillaPayoff>& payoff,
                         Real forward,
                         Real stdDev,
@@ -1055,7 +1055,7 @@ namespace QuantLib {
 
     }
 
-    Real bachelierBlackFormulaImpliedVol(Option::Type optionType,
+    inline Real bachelierBlackFormulaImpliedVol(Option::Type optionType,
                                    Real strike,
                                    Real forward,
                                    Real tte,
@@ -1095,7 +1095,7 @@ namespace QuantLib {
     }
 
 
-        Real bachelierBlackFormulaStdDevDerivative(Rate strike,
+        inline Real bachelierBlackFormulaStdDevDerivative(Rate strike,
                                       Rate forward,
                                       Real stdDev,
                                       Real discount)
@@ -1113,7 +1113,7 @@ namespace QuantLib {
             CumulativeNormalDistribution().derivative(d1);
     }
 
-    Real bachelierBlackFormulaStdDevDerivative(
+    inline Real bachelierBlackFormulaStdDevDerivative(
                         const boost::shared_ptr<PlainVanillaPayoff>& payoff,
                         Real forward,
                         Real stdDev,

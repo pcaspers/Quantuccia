@@ -161,13 +161,13 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    TermStructure::TermStructure(const DayCounter& dc)
+    inline TermStructure::TermStructure(const DayCounter& dc)
     : moving_(false),
       updated_(true),
       settlementDays_(Null<Natural>()),
       dayCounter_(dc) {}
 
-    TermStructure::TermStructure(const Date& referenceDate,
+    inline TermStructure::TermStructure(const Date& referenceDate,
                                  const Calendar& cal,
                                  const DayCounter& dc)
     : moving_(false), updated_(true), calendar_(cal),
@@ -175,7 +175,7 @@ namespace QuantLib {
       settlementDays_(Null<Natural>()),
       dayCounter_(dc) {}
 
-    TermStructure::TermStructure(Natural settlementDays,
+    inline TermStructure::TermStructure(Natural settlementDays,
                                  const Calendar& cal,
                                  const DayCounter& dc)
     : moving_(true), updated_(false), calendar_(cal),
@@ -184,7 +184,7 @@ namespace QuantLib {
         registerWith(Settings::instance().evaluationDate());
     }
 
-    const Date& TermStructure::referenceDate() const {
+    inline const Date& TermStructure::referenceDate() const {
         if (!updated_) {
             Date today = Settings::instance().evaluationDate();
             referenceDate_ = calendar().advance(today, settlementDays(), Days);
@@ -193,13 +193,13 @@ namespace QuantLib {
         return referenceDate_;
     }
 
-    void TermStructure::update() {
+    inline void TermStructure::update() {
         if (moving_)
             updated_ = false;
         notifyObservers();
     }
 
-    void TermStructure::checkRange(const Date& d,
+    inline void TermStructure::checkRange(const Date& d,
                                    bool extrapolate) const {
         QL_REQUIRE(d >= referenceDate(),
                    "date (" << d << ") before reference date (" <<
@@ -209,7 +209,7 @@ namespace QuantLib {
                             << maxDate() << ")");
     }
 
-    void TermStructure::checkRange(Time t,
+    inline void TermStructure::checkRange(Time t,
                                    bool extrapolate) const {
         QL_REQUIRE(t >= 0.0,
                    "negative time (" << t << ") given");

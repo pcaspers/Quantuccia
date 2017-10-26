@@ -64,13 +64,13 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    FarlieGumbelMorgensternCopula::FarlieGumbelMorgensternCopula(Real theta): theta_(theta)
+    inline FarlieGumbelMorgensternCopula::FarlieGumbelMorgensternCopula(Real theta): theta_(theta)
     {
         QL_REQUIRE(theta >= -1.0 && theta <= 1.00,
                    "theta (" << theta << ") must be in [-1,1]");
     }
     
-    Real FarlieGumbelMorgensternCopula::operator()(Real x, Real y) const 
+    inline Real FarlieGumbelMorgensternCopula::operator()(Real x, Real y) const 
     {
         QL_REQUIRE(x >= 0.0 && x <=1.0 ,
                    "1st argument (" << x << ") must be in [0,1]");

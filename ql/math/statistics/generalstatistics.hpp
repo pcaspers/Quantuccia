@@ -267,7 +267,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Real GeneralStatistics::weightSum() const {
+    inline Real GeneralStatistics::weightSum() const {
         Real result = 0.0;
         std::vector<std::pair<Real,Real> >::const_iterator it;
         for (it=samples_.begin(); it!=samples_.end(); ++it) {
@@ -276,7 +276,7 @@ namespace QuantLib {
         return result;
     }
 
-    Real GeneralStatistics::mean() const {
+    inline Real GeneralStatistics::mean() const {
         Size N = samples();
         QL_REQUIRE(N != 0, "empty sample set");
         // eat our own dog food
@@ -284,7 +284,7 @@ namespace QuantLib {
                                 everywhere()).first;
     }
 
-    Real GeneralStatistics::variance() const {
+    inline Real GeneralStatistics::variance() const {
         Size N = samples();
         QL_REQUIRE(N > 1,
                    "sample number <=1, unsufficient");
@@ -297,7 +297,7 @@ namespace QuantLib {
         return s2*N/(N-1.0);
     }
 
-    Real GeneralStatistics::skewness() const {
+    inline Real GeneralStatistics::skewness() const {
         Size N = samples();
         QL_REQUIRE(N > 2,
                    "sample number <=2, unsufficient");
@@ -311,7 +311,7 @@ namespace QuantLib {
         return (x/(sigma*sigma*sigma))*(N/(N-1.0))*(N/(N-2.0));
     }
 
-    Real GeneralStatistics::kurtosis() const {
+    inline Real GeneralStatistics::kurtosis() const {
         Size N = samples();
         QL_REQUIRE(N > 3,
                    "sample number <=3, unsufficient");
@@ -328,7 +328,7 @@ namespace QuantLib {
         return c1*(x/(sigma2*sigma2))-c2;
     }
 
-    Real GeneralStatistics::percentile(Real percent) const {
+    inline Real GeneralStatistics::percentile(Real percent) const {
 
         QL_REQUIRE(percent > 0.0 && percent <= 1.0,
                    "percentile (" << percent << ") must be in (0.0, 1.0]");
@@ -352,7 +352,7 @@ namespace QuantLib {
         return k->first;
     }
 
-    Real GeneralStatistics::topPercentile(Real percent) const {
+    inline Real GeneralStatistics::topPercentile(Real percent) const {
 
         QL_REQUIRE(percent > 0.0 && percent <= 1.0,
                    "percentile (" << percent << ") must be in (0.0, 1.0]");

@@ -125,7 +125,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    AmericanExercise::AmericanExercise(const Date& earliest,
+    inline AmericanExercise::AmericanExercise(const Date& earliest,
                                        const Date& latest,
                                        bool payoffAtExpiry)
     : EarlyExercise(American, payoffAtExpiry) {
@@ -136,7 +136,7 @@ namespace QuantLib {
         dates_[1] = latest;
     }
 
-    AmericanExercise::AmericanExercise(const Date& latest,
+    inline AmericanExercise::AmericanExercise(const Date& latest,
                                        bool payoffAtExpiry)
     : EarlyExercise(American, payoffAtExpiry) {
         dates_ = std::vector<Date>(2);
@@ -144,7 +144,7 @@ namespace QuantLib {
         dates_[1] = latest;
     }
 
-    BermudanExercise::BermudanExercise(const std::vector<Date>& dates,
+    inline BermudanExercise::BermudanExercise(const std::vector<Date>& dates,
                                        bool payoffAtExpiry)
     : EarlyExercise(Bermudan, payoffAtExpiry) {
         QL_REQUIRE(!dates.empty(), "no exercise date given");
@@ -152,7 +152,7 @@ namespace QuantLib {
         std::sort(dates_.begin(), dates_.end());
     }
 
-    EuropeanExercise::EuropeanExercise(const Date& date)
+    inline EuropeanExercise::EuropeanExercise(const Date& date)
     : Exercise(European) {
         dates_ = std::vector<Date>(1,date);
     }

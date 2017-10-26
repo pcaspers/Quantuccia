@@ -64,13 +64,13 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    GumbelCopula::GumbelCopula(Real theta) : theta_(theta)
+    inline GumbelCopula::GumbelCopula(Real theta) : theta_(theta)
     {
         QL_REQUIRE(theta >= 1.0,
                    "theta (" << theta << ") must be greater or equal to 1");
     }
     
-    Real GumbelCopula::operator()(Real x, Real y) const 
+    inline Real GumbelCopula::operator()(Real x, Real y) const 
     {
         QL_REQUIRE(x >= 0.0 && x <=1.0 ,
                    "1st argument (" << x << ") must be in [0,1]");

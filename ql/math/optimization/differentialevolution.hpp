@@ -226,7 +226,7 @@ namespace QuantLib {
 
     }
 
-    EndCriteria::Type DifferentialEvolution::minimize(Problem& p, const EndCriteria& endCriteria) {
+    inline EndCriteria::Type DifferentialEvolution::minimize(Problem& p, const EndCriteria& endCriteria) {
         EndCriteria::Type ecType;
 
         upperBound_ = p.constraint().upperBound(p.currentValue());
@@ -264,7 +264,7 @@ namespace QuantLib {
         return ecType;
     }
 
-    void DifferentialEvolution::calculateNextGeneration(
+    inline void DifferentialEvolution::calculateNextGeneration(
                                      std::vector<Candidate>& population,
                                      const CostFunction& costFunction) const {
 
@@ -415,7 +415,7 @@ namespace QuantLib {
                   costFunction);
     }
 
-    void DifferentialEvolution::crossover(
+    inline void DifferentialEvolution::crossover(
                                const std::vector<Candidate>& oldPopulation,
                                std::vector<Candidate>& population,
                                const std::vector<Candidate>& mutantPopulation,
@@ -461,7 +461,7 @@ namespace QuantLib {
         }
     }
 
-    void DifferentialEvolution::getCrossoverMask(
+    inline void DifferentialEvolution::getCrossoverMask(
                                   std::vector<Array> & crossoverMask,
                                   std::vector<Array> & invCrossoverMask,
                                   const Array & mutationProbabilities) const {
@@ -476,7 +476,7 @@ namespace QuantLib {
         }
     }
 
-    Array DifferentialEvolution::getMutationProbabilities(
+    inline Array DifferentialEvolution::getMutationProbabilities(
                             const std::vector<Candidate> & population) const {
         Array mutationProbabilities = currGenCrossover_;
         switch (configuration().crossoverType) {
@@ -504,12 +504,12 @@ namespace QuantLib {
         return mutationProbabilities;
     }
 
-    Array DifferentialEvolution::rotateArray(Array a) const {
+    inline Array DifferentialEvolution::rotateArray(Array a) const {
         std::random_shuffle(a.begin(), a.end());
         return a;
     }
 
-    void DifferentialEvolution::adaptSizeWeights() const {
+    inline void DifferentialEvolution::adaptSizeWeights() const {
         // [=Fl & =Fu] respectively see Brest, J. et al., 2006,
         // "Self-Adapting Control Parameters in Differential
         // Evolution"
@@ -523,7 +523,7 @@ namespace QuantLib {
         }
     }
 
-    void DifferentialEvolution::adaptCrossover() const {
+    inline void DifferentialEvolution::adaptCrossover() const {
         Real crossoverChangeProb = 0.1; // [=tau2]
         for (Size coIter = 0;coIter < currGenCrossover_.size(); coIter++){
             if (rng_.nextReal() < crossoverChangeProb)
@@ -531,7 +531,7 @@ namespace QuantLib {
         }
     }
 
-    void DifferentialEvolution::fillInitialPopulation(
+    inline void DifferentialEvolution::fillInitialPopulation(
                                           std::vector<Candidate> & population,
                                           const Problem& p) const {
 

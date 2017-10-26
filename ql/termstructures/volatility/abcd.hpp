@@ -107,8 +107,6 @@ namespace QuantLib {
     }
 }
 
-#endif
-
 
 /* -*- mode: c++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 
@@ -136,25 +134,25 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    AbcdFunction::AbcdFunction(Real a, Real b, Real c, Real d)
+    inline AbcdFunction::AbcdFunction(Real a, Real b, Real c, Real d)
     : AbcdMathFunction(a, b, c, d) {}
 
-    Real AbcdFunction::volatility(Time tMin, Time tMax, Time T) const {
+    inline Real AbcdFunction::volatility(Time tMin, Time tMax, Time T) const {
         if (tMax==tMin)
             return instantaneousVolatility(tMax, T);
         QL_REQUIRE(tMax>tMin, "tMax must be > tMin");
         return std::sqrt(variance(tMin, tMax, T)/(tMax-tMin));
     }
 
-    Real AbcdFunction::variance(Time tMin, Time tMax, Time T) const {
+    inline Real AbcdFunction::variance(Time tMin, Time tMax, Time T) const {
         return covariance(tMin, tMax, T, T);
     }
 
-    Real AbcdFunction::covariance(Time t, Time T, Time S) const {
+    inline Real AbcdFunction::covariance(Time t, Time T, Time S) const {
         return (*this)(T-t) * (*this)(S-t);
     }
 
-    Real AbcdFunction::covariance(Time t1, Time t2, Time T, Time S) const {
+    inline Real AbcdFunction::covariance(Time t1, Time t2, Time T, Time S) const {
         QL_REQUIRE(t1<=t2,
                    "integrations bounds (" << t1 <<
                    "," << t2 << ") are in reverse order");
@@ -168,19 +166,19 @@ namespace QuantLib {
     }
 
     // INSTANTANEOUS
-    Real AbcdFunction::instantaneousVolatility(Time u, Time T) const {
+   inline  Real AbcdFunction::instantaneousVolatility(Time u, Time T) const {
         return std::sqrt(instantaneousVariance(u, T));
     }
 
-    Real AbcdFunction::instantaneousVariance(Time u, Time T) const {
+    inline Real AbcdFunction::instantaneousVariance(Time u, Time T) const {
         return instantaneousCovariance(u, T, T);
     }
-    Real AbcdFunction::instantaneousCovariance(Time u, Time T, Time S) const {
+    inline Real AbcdFunction::instantaneousCovariance(Time u, Time T, Time S) const {
         return (*this)(T-u)*(*this)(S-u);
     }
 
     // PRIMITIVE
-    Real AbcdFunction::primitive(Time t, Time T, Time S) const {
+    inline Real AbcdFunction::primitive(Time t, Time T, Time S) const {
         if (T<t || S<t) return 0.0;
 
         if (close(c_,0.0)) {
@@ -206,11 +204,13 @@ namespace QuantLib {
 //                               AbcdSquared                                //
 //===========================================================================//
 
-    AbcdSquared::AbcdSquared(Real a, Real b, Real c, Real d, Time T, Time S)
+    inline AbcdSquared::AbcdSquared(Real a, Real b, Real c, Real d, Time T, Time S)
     : abcd_(new AbcdFunction(a,b,c,d)),
       T_(T), S_(S) {}
 
-    Real AbcdSquared::operator()(Time t) const {
+    inline Real AbcdSquared::operator()(Time t) const {
         return abcd_->covariance(t, T_, S_);
     }
 }
+
+#endif

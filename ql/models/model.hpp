@@ -264,7 +264,7 @@ using std::vector;
 
 namespace QuantLib {
 
-    CalibratedModel::CalibratedModel(Size nArguments)
+    inline CalibratedModel::CalibratedModel(Size nArguments)
     : arguments_(nArguments),
       constraint_(new PrivateConstraint(arguments_)),
       shortRateEndCriteria_(EndCriteria::None) {}
@@ -309,7 +309,7 @@ namespace QuantLib {
         const Projection projection_;
     };
 
-    void CalibratedModel::calibrate(
+    inline void CalibratedModel::calibrate(
                     const vector<boost::shared_ptr<CalibrationHelper> >& instruments,
                     OptimizationMethod& method,
                     const EndCriteria& endCriteria,
@@ -345,7 +345,7 @@ namespace QuantLib {
         notifyObservers();
     }
 
-    Real CalibratedModel::value(
+    inline Real CalibratedModel::value(
                 const Array& params,
                 const vector<boost::shared_ptr<CalibrationHelper> >& instruments) {
         vector<Real> w = vector<Real>(instruments.size(), 1.0);
@@ -354,7 +354,7 @@ namespace QuantLib {
         return f.value(params);
     }
 
-    Disposable<Array> CalibratedModel::params() const {
+    inline Disposable<Array> CalibratedModel::params() const {
         Size size = 0, i;
         for (i=0; i<arguments_.size(); i++)
             size += arguments_[i].size();
@@ -368,7 +368,7 @@ namespace QuantLib {
         return params;
     }
 
-    void CalibratedModel::setParams(const Array& params) {
+    inline void CalibratedModel::setParams(const Array& params) {
         Array::const_iterator p = params.begin();
         for (Size i=0; i<arguments_.size(); ++i) {
             for (Size j=0; j<arguments_[i].size(); ++j, ++p) {
@@ -381,7 +381,7 @@ namespace QuantLib {
         notifyObservers();
     }
 
-    ShortRateModel::ShortRateModel(Size nArguments)
+    inline ShortRateModel::ShortRateModel(Size nArguments)
     : CalibratedModel(nArguments) {}
 
 }

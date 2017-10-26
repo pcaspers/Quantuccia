@@ -89,7 +89,7 @@ namespace QuantLib {
 #include <cmath>
 
 namespace QuantLib {
-    FilonIntegral::FilonIntegral(Type type, Real t, Size intervals)
+    inline FilonIntegral::FilonIntegral(Type type, Real t, Size intervals)
     : Integrator(Null<Real>(), intervals+1),
       type_(type),
       t_(t),
@@ -98,7 +98,7 @@ namespace QuantLib {
         QL_REQUIRE( !(intervals_ & 1), "number of intervals must be even");
     }
 
-    Real FilonIntegral::integrate(const boost::function<Real (Real)>& f,
+    inline Real FilonIntegral::integrate(const boost::function<Real (Real)>& f,
                                   Real a, Real b) const {
         const Real h = (b-a)/(2*n_);
         Array x(2*n_+1, a, h);

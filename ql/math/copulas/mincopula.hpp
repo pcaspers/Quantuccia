@@ -60,7 +60,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Real MinCopula::operator()(Real x, Real y) const 
+    inline Real MinCopula::operator()(Real x, Real y) const 
     {
         QL_REQUIRE(x >= 0.0 && x <=1.0 ,
                    "1st argument (" << x << ") must be in [0,1]");

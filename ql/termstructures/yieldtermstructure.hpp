@@ -237,7 +237,7 @@ namespace QuantLib {
         const Time dt = 0.0001;
     }
 
-    YieldTermStructure::YieldTermStructure(
+    inline YieldTermStructure::YieldTermStructure(
                                     const DayCounter& dc,
                                     const std::vector<Handle<Quote> >& jumps,
                                     const std::vector<Date>& jumpDates)
@@ -249,7 +249,7 @@ namespace QuantLib {
             registerWith(jumps_[i]);
     }
 
-    YieldTermStructure::YieldTermStructure(
+    inline YieldTermStructure::YieldTermStructure(
                                     const Date& referenceDate,
                                     const Calendar& cal,
                                     const DayCounter& dc,
@@ -263,7 +263,7 @@ namespace QuantLib {
             registerWith(jumps_[i]);
     }
 
-    YieldTermStructure::YieldTermStructure(
+    inline YieldTermStructure::YieldTermStructure(
                                     Natural settlementDays,
                                     const Calendar& cal,
                                     const DayCounter& dc,
@@ -277,7 +277,7 @@ namespace QuantLib {
             registerWith(jumps_[i]);
     }
 
-    void YieldTermStructure::setJumps() {
+    inline void YieldTermStructure::setJumps() {
         if (jumpDates_.empty() && !jumps_.empty()) { // turn of year dates
             jumpDates_.resize(nJumps_);
             jumpTimes_.resize(nJumps_);
@@ -294,7 +294,7 @@ namespace QuantLib {
         latestReference_ = referenceDate();
     }
 
-    DiscountFactor YieldTermStructure::discount(Time t,
+    inline DiscountFactor YieldTermStructure::discount(Time t,
                                                 bool extrapolate) const {
         checkRange(t, extrapolate);
 
@@ -321,7 +321,7 @@ namespace QuantLib {
         return jumpEffect * discountImpl(t);
     }
 
-    InterestRate YieldTermStructure::zeroRate(const Date& d,
+    inline InterestRate YieldTermStructure::zeroRate(const Date& d,
                                               const DayCounter& dayCounter,
                                               Compounding comp,
                                               Frequency freq,
@@ -340,7 +340,7 @@ namespace QuantLib {
                                          referenceDate(), d);
     }
 
-    InterestRate YieldTermStructure::zeroRate(Time t,
+    inline InterestRate YieldTermStructure::zeroRate(Time t,
                                               Compounding comp,
                                               Frequency freq,
                                               bool extrapolate) const {
@@ -351,7 +351,7 @@ namespace QuantLib {
                                          t);
     }
 
-    InterestRate YieldTermStructure::forwardRate(const Date& d1,
+    inline InterestRate YieldTermStructure::forwardRate(const Date& d1,
                                                  const Date& d2,
                                                  const DayCounter& dayCounter,
                                                  Compounding comp,
@@ -376,7 +376,7 @@ namespace QuantLib {
                                          d1, d2);
     }
 
-    InterestRate YieldTermStructure::forwardRate(Time t1,
+    inline InterestRate YieldTermStructure::forwardRate(Time t1,
                                                  Time t2,
                                                  Compounding comp,
                                                  Frequency freq,
@@ -396,7 +396,7 @@ namespace QuantLib {
                                          t2-t1);
     }
 
-    void YieldTermStructure::update() {
+    inline void YieldTermStructure::update() {
         TermStructure::update();
         Date newReference = Date();
         try {

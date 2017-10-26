@@ -102,7 +102,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Real unsafeSabrVolatility(Rate strike,
+    inline Real unsafeSabrVolatility(Rate strike,
                               Rate forward,
                               Time expiryTime,
                               Real alpha,
@@ -142,7 +142,7 @@ namespace QuantLib {
         return (alpha/D)*multiplier*d;
     }
 
-    Real unsafeShiftedSabrVolatility(Rate strike,
+    inline Real unsafeShiftedSabrVolatility(Rate strike,
                               Rate forward,
                               Time expiryTime,
                               Real alpha,
@@ -156,7 +156,7 @@ namespace QuantLib {
 
     }
 
-    void validateSabrParameters(Real alpha,
+    inline void validateSabrParameters(Real alpha,
                                 Real beta,
                                 Real nu,
                                 Real rho) {
@@ -170,7 +170,7 @@ namespace QuantLib {
                                 << rho << " not allowed");
     }
 
-    Real sabrVolatility(Rate strike,
+    inline Real sabrVolatility(Rate strike,
                         Rate forward,
                         Time expiryTime,
                         Real alpha,
@@ -188,7 +188,7 @@ namespace QuantLib {
                                     alpha, beta, nu, rho);
     }
 
-    Real shiftedSabrVolatility(Rate strike,
+    inline Real shiftedSabrVolatility(Rate strike,
                                  Rate forward,
                                  Time expiryTime,
                                  Real alpha,

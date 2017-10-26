@@ -78,7 +78,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Projection::Projection(const Array &parameterValues,
+    inline Projection::Projection(const Array &parameterValues,
                            const std::vector<bool> &fixParameters)
         : numberOfFreeParameters_(0), fixedParameters_(parameterValues),
           actualParameters_(parameterValues),
@@ -97,7 +97,7 @@ namespace QuantLib {
 
     }
 
-    void Projection::mapFreeParameters(const Array &parameterValues) const {
+    inline void Projection::mapFreeParameters(const Array &parameterValues) const {
 
         QL_REQUIRE(parameterValues.size() == numberOfFreeParameters_,
                    "parameterValues.size()!=numberOfFreeParameters");
@@ -108,7 +108,7 @@ namespace QuantLib {
 
     }
 
-    Disposable<Array> Projection::project(const Array &parameters) const {
+    inline Disposable<Array> Projection::project(const Array &parameters) const {
 
         QL_REQUIRE(parameters.size() == fixParameters_.size(),
                    "parameters.size()!=parametersFreedoms_.size()");
@@ -121,7 +121,7 @@ namespace QuantLib {
 
     }
 
-    Disposable<Array>
+    inline Disposable<Array>
     Projection::include(const Array &projectedParameters) const {
 
         QL_REQUIRE(projectedParameters.size() == numberOfFreeParameters_,

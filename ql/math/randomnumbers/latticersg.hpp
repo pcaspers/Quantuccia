@@ -80,7 +80,7 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 namespace QuantLib 
 {
 
-    LatticeRsg::LatticeRsg(Size dimensionality,
+    inline LatticeRsg::LatticeRsg(Size dimensionality,
         const std::vector<Real>& z,
         Size N)             
         :
@@ -92,12 +92,12 @@ namespace QuantLib
     {
     }
     /*! skip to the n-th sample in the low-discrepancy sequence */
-    void LatticeRsg::skipTo(unsigned long n)
+    inline void LatticeRsg::skipTo(unsigned long n)
     {
         i_+=n;
     }
 
-    const LatticeRsg::sample_type& LatticeRsg::nextSequence()
+    inline const LatticeRsg::sample_type& LatticeRsg::nextSequence()
     {
         for (Size j=0; j < dimensionality_; ++j)
         {

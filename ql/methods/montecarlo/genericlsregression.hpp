@@ -66,7 +66,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Real genericLongstaffSchwartzRegression(
+    inline Real genericLongstaffSchwartzRegression(
                 std::vector<std::vector<NodeData> >& simulationData,
                 std::vector<std::vector<Real> >& basisCoefficients) {
 

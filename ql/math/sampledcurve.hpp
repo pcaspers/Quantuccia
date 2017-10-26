@@ -253,7 +253,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Real SampledCurve::valueAtCenter() const {
+    inline Real SampledCurve::valueAtCenter() const {
         QL_REQUIRE(!empty(), "empty sampled curve");
         Size jmid = size()/2;
         if (size() % 2 == 1)
@@ -262,7 +262,7 @@ namespace QuantLib {
             return (values_[jmid]+values_[jmid-1])/2.0;
     }
 
-    Real SampledCurve::firstDerivativeAtCenter() const {
+    inline Real SampledCurve::firstDerivativeAtCenter() const {
         QL_REQUIRE(size()>=3,
                    "the size of the curve must be at least 3");
         Size jmid = size()/2;
@@ -275,7 +275,7 @@ namespace QuantLib {
         }
     }
 
-    Real SampledCurve::secondDerivativeAtCenter() const {
+    inline Real SampledCurve::secondDerivativeAtCenter() const {
         QL_REQUIRE(size()>=4,
                    "the size of the curve must be at least 4");
         Size jmid = size()/2;
@@ -296,7 +296,7 @@ namespace QuantLib {
         }
     }
 
-    void SampledCurve::regrid(const Array &new_grid) {
+    inline void SampledCurve::regrid(const Array &new_grid) {
         CubicInterpolation priceSpline(grid_.begin(), grid_.end(),
                                        values_.begin(),
                                        CubicInterpolation::Spline, false,

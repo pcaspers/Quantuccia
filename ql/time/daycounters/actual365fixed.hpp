@@ -108,7 +108,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    boost::shared_ptr<DayCounter::Impl>
+    inline boost::shared_ptr<DayCounter::Impl>
     Actual365Fixed::implementation(Actual365Fixed::Convention c) {
         switch (c) {
           case Standard:
@@ -122,7 +122,7 @@ namespace QuantLib {
         }
     }
 
-    Time Actual365Fixed::CA_Impl::yearFraction(const Date& d1,
+    inline Time Actual365Fixed::CA_Impl::yearFraction(const Date& d1,
                                                const Date& d2,
                                                const Date& refPeriodStart,
                                                const Date& refPeriodEnd) const {
@@ -142,7 +142,7 @@ namespace QuantLib {
 
     }
 
-    Date::serial_type Actual365Fixed::NL_Impl::dayCount(const Date& d1,
+    inline Date::serial_type Actual365Fixed::NL_Impl::dayCount(const Date& d1,
                                                         const Date& d2) const {
 
         static const Integer MonthOffset[] = {
@@ -166,7 +166,7 @@ namespace QuantLib {
         return s2 - s1;
     }
 
-    Time Actual365Fixed::NL_Impl::yearFraction(const Date& d1,
+    inline Time Actual365Fixed::NL_Impl::yearFraction(const Date& d1,
                                                const Date& d2,
                                                const Date& d3,
                                                const Date& d4) const {

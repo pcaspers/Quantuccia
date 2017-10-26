@@ -88,15 +88,15 @@ namespace QuantLib {
         std::map<std::string, Cache> monthlyFigures_;
         std::map<std::string, OuterCache> yearlyFigures_;
 
-        bool sameYear(const Date& d1, const Date& d2) {
+        inline bool sameYear(const Date& d1, const Date& d2) {
             return d1.year() == d2.year();
         }
 
-        bool sameMonth(const Date& d1, const Date& d2) {
+        inline bool sameMonth(const Date& d1, const Date& d2) {
             return d1.year() == d2.year() && d1.month() == d2.month();
         }
 
-        Date::serial_type businessDays(Cache& cache,
+        inline Date::serial_type businessDays(Cache& cache,
                                        const Calendar& calendar,
                                        Month month, Year year) {
             if (cache[year][month] == 0) {
@@ -108,7 +108,7 @@ namespace QuantLib {
             return cache[year][month];
         }
 
-        Date::serial_type businessDays(OuterCache& outerCache,
+        inline Date::serial_type businessDays(OuterCache& outerCache,
                                        Cache& cache,
                                        const Calendar& calendar,
                                        Year year) {
@@ -126,13 +126,13 @@ namespace QuantLib {
 
     }
 
-    std::string Business252::Impl::name() const {
+    inline std::string Business252::Impl::name() const {
         std::ostringstream out;
         out << "Business/252(" << calendar_.name() << ")";
         return out.str();
     }
 
-    Date::serial_type Business252::Impl::dayCount(const Date& d1,
+    inline Date::serial_type Business252::Impl::dayCount(const Date& d1,
                                                   const Date& d2) const {
         if (sameMonth(d1,d2) || d1 >= d2) {
             // we treat the case of d1 > d2 here, since we'd need a
@@ -191,7 +191,7 @@ namespace QuantLib {
         }
     }
 
-    Time Business252::Impl::yearFraction(const Date& d1,
+    inline Time Business252::Impl::yearFraction(const Date& d1,
                                          const Date& d2,
                                          const Date&,
                                          const Date&) const {

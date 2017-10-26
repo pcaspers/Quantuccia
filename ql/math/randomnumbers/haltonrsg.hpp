@@ -97,7 +97,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    HaltonRsg::HaltonRsg(Size dimensionality, unsigned long seed,
+    inline HaltonRsg::HaltonRsg(Size dimensionality, unsigned long seed,
                          bool randomStart, bool randomShift)
     : dimensionality_(dimensionality), sequenceCounter_(0),
       sequence_(std::vector<Real> (dimensionality), 1.0),
@@ -118,7 +118,7 @@ namespace QuantLib {
 
     }
 
-    const HaltonRsg::sample_type& HaltonRsg::nextSequence() const {
+    inline const HaltonRsg::sample_type& HaltonRsg::nextSequence() const {
         ++sequenceCounter_;
         for (Size i=0; i<dimensionality_; ++i) {
             double h = 0.0;

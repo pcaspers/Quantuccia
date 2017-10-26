@@ -73,7 +73,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Real BernsteinPolynomial::get(Natural i,
+    inline Real BernsteinPolynomial::get(Natural i,
                                   Natural n,
                                   Real x) {
 

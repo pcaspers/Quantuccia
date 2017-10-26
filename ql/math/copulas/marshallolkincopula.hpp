@@ -63,7 +63,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    MarshallOlkinCopula::MarshallOlkinCopula(Real a1,Real a2)
+    inline MarshallOlkinCopula::MarshallOlkinCopula(Real a1,Real a2)
     : a1_(1.0-a1), a2_(1.0-a2)
     {
         QL_REQUIRE(a1 >= 0.0,
@@ -72,7 +72,7 @@ namespace QuantLib {
                    "2nd parameter (" << a2 << ") must be non-negative");
     }
     
-    Real MarshallOlkinCopula::operator()(Real x, Real y) const 
+    inline Real MarshallOlkinCopula::operator()(Real x, Real y) const 
     {
         QL_REQUIRE(x >= 0.0 && x <=1.0 ,
                    "1st argument (" << x << ") must be in [0,1]");

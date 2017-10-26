@@ -169,7 +169,7 @@ namespace QuantLib {
 
     // LsmBasisSystem static methods
 
-    VF_R LsmBasisSystem::pathBasisSystem(Size order, PolynomType polyType) {
+    inline VF_R LsmBasisSystem::pathBasisSystem(Size order, PolynomType polyType) {
         VF_R ret(order+1);
         for (Size i=0; i<=order; ++i) {
             switch (polyType) {
@@ -201,7 +201,7 @@ namespace QuantLib {
         return ret;
     }
 
-    VF_A LsmBasisSystem::multiPathBasisSystem(Size dim, Size order,
+    inline VF_A LsmBasisSystem::multiPathBasisSystem(Size dim, Size order,
                                               PolynomType polyType) {
         QL_REQUIRE(dim>0, "zero dimension");
         // get single factor basis

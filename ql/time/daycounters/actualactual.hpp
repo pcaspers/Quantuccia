@@ -120,7 +120,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    boost::shared_ptr<DayCounter::Impl>
+    inline boost::shared_ptr<DayCounter::Impl>
     ActualActual::implementation(ActualActual::Convention c, 
                                  const Schedule& schedule) {
         switch (c) {
@@ -140,7 +140,7 @@ namespace QuantLib {
     }
 
 
-    Time ActualActual::ISMA_Impl::yearFraction(const Date& d1,
+    inline Time ActualActual::ISMA_Impl::yearFraction(const Date& d1,
                                                const Date& d2,
                                                const Date& d3,
                                                const Date& d4) const {
@@ -246,7 +246,7 @@ namespace QuantLib {
         }
     }
 
-    Time ActualActual::ISDA_Impl::yearFraction(const Date& d1,
+    inline Time ActualActual::ISDA_Impl::yearFraction(const Date& d1,
                                                const Date& d2,
                                                const Date&,
                                                const Date&) const {
@@ -267,7 +267,7 @@ namespace QuantLib {
         return sum;
     }
 
-    Time ActualActual::AFB_Impl::yearFraction(const Date& d1,
+    inline Time ActualActual::AFB_Impl::yearFraction(const Date& d1,
                                               const Date& d2,
                                               const Date&,
                                               const Date&) const {

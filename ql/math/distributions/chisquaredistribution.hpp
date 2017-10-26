@@ -92,11 +92,11 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Real ChiSquareDistribution::operator()(Real x) const {
+    inline Real ChiSquareDistribution::operator()(Real x) const {
         return GammaDistribution(0.5*df_)(0.5*x);
     }
 
-    Real NonCentralChiSquareDistribution::operator()(Real x) const {
+    inline Real NonCentralChiSquareDistribution::operator()(Real x) const {
         if (x <= 0.0)
             return 0.0;
 
@@ -156,7 +156,7 @@ namespace QuantLib {
 
     }
 
-    InverseNonCentralChiSquareDistribution::
+    inline InverseNonCentralChiSquareDistribution::
       InverseNonCentralChiSquareDistribution(Real df, Real ncp, 
                                              Size maxEvaluations, 
                                              Real accuracy)
@@ -166,7 +166,7 @@ namespace QuantLib {
       accuracy_(accuracy) {
     }
 
-    Real InverseNonCentralChiSquareDistribution::operator()(Real x) const {
+    inline Real InverseNonCentralChiSquareDistribution::operator()(Real x) const {
 
         // first find the right side of the interval
         Real upper = guess_;

@@ -66,7 +66,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    PlackettCopula::PlackettCopula(Real theta) : theta_(theta)
+    inline PlackettCopula::PlackettCopula(Real theta) : theta_(theta)
     {
         QL_REQUIRE(theta >= 0.0,
                    "theta (" << theta << ") must be greater or equal to 0");
@@ -74,7 +74,7 @@ namespace QuantLib {
                    "theta (" << theta << ") must be different from 1");
     }
 
-    Real PlackettCopula::operator()(Real x, Real y) const
+    inline Real PlackettCopula::operator()(Real x, Real y) const
     {
         QL_REQUIRE(x >= 0.0 && x <=1.0 ,
                    "1st argument (" << x << ") must be in [0,1]");

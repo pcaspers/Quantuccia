@@ -280,19 +280,19 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    std::string NullPayoff::name() const {
+    inline std::string NullPayoff::name() const {
         return "Null";
     }
 
-    std::string NullPayoff::description() const {
+    inline std::string NullPayoff::description() const {
         return name();
     }
 
-    Real NullPayoff::operator()(Real) const {
+    inline Real NullPayoff::operator()(Real) const {
         QL_FAIL("dummy payoff given");
     }
 
-    void NullPayoff::accept(AcyclicVisitor& v) {
+    inline void NullPayoff::accept(AcyclicVisitor& v) {
         Visitor<NullPayoff>* v1 =
             dynamic_cast<Visitor<NullPayoff>*>(&v);
         if (v1 != 0)
@@ -303,7 +303,7 @@ namespace QuantLib {
 
 
 
-    std::string TypePayoff::description() const {
+    inline std::string TypePayoff::description() const {
         std::ostringstream result;
         result << name() << " " << optionType();
         return result.str();
@@ -315,18 +315,18 @@ namespace QuantLib {
     //    return result.str();
     //}
 
-    Real FloatingTypePayoff::operator()(Real) const {
+    inline Real FloatingTypePayoff::operator()(Real) const {
         QL_FAIL("floating payoff not handled");
     }
 
-    std::string StrikedTypePayoff::description() const {
+    inline std::string StrikedTypePayoff::description() const {
         std::ostringstream result;
         result << TypePayoff::description() << ", " <<
                   strike() << " strike";
         return result.str();
     }
 
-    void FloatingTypePayoff::accept(AcyclicVisitor& v) {
+    inline void FloatingTypePayoff::accept(AcyclicVisitor& v) {
         Visitor<FloatingTypePayoff>* v1 =
             dynamic_cast<Visitor<FloatingTypePayoff>*>(&v);
         if (v1 != 0)
@@ -335,7 +335,7 @@ namespace QuantLib {
             Payoff::accept(v);
     }
 
-    Real PlainVanillaPayoff::operator()(Real price) const {
+    inline Real PlainVanillaPayoff::operator()(Real price) const {
         switch (type_) {
           case Option::Call:
             return std::max<Real>(price-strike_,0.0);
@@ -346,7 +346,7 @@ namespace QuantLib {
         }
     }
 
-    void PlainVanillaPayoff::accept(AcyclicVisitor& v) {
+    inline void PlainVanillaPayoff::accept(AcyclicVisitor& v) {
         Visitor<PlainVanillaPayoff>* v1 =
             dynamic_cast<Visitor<PlainVanillaPayoff>*>(&v);
         if (v1 != 0)
@@ -355,7 +355,7 @@ namespace QuantLib {
             Payoff::accept(v);
     }
 
-    Real PercentageStrikePayoff::operator()(Real price) const {
+    inline Real PercentageStrikePayoff::operator()(Real price) const {
         switch (type_) {
           case Option::Call:
             return price*std::max<Real>(Real(1.0)-strike_,0.0);
@@ -366,7 +366,7 @@ namespace QuantLib {
         }
     }
 
-    void PercentageStrikePayoff::accept(AcyclicVisitor& v) {
+    inline void PercentageStrikePayoff::accept(AcyclicVisitor& v) {
         Visitor<PercentageStrikePayoff>* v1 =
             dynamic_cast<Visitor<PercentageStrikePayoff>*>(&v);
         if (v1 != 0)
@@ -375,7 +375,7 @@ namespace QuantLib {
             Payoff::accept(v);
     }
 
-    Real AssetOrNothingPayoff::operator()(Real price) const {
+    inline Real AssetOrNothingPayoff::operator()(Real price) const {
         switch (type_) {
           case Option::Call:
             return (price-strike_ > 0.0 ? price : 0.0);
@@ -386,7 +386,7 @@ namespace QuantLib {
         }
     }
 
-    void AssetOrNothingPayoff::accept(AcyclicVisitor& v) {
+    inline void AssetOrNothingPayoff::accept(AcyclicVisitor& v) {
         Visitor<AssetOrNothingPayoff>* v1 =
             dynamic_cast<Visitor<AssetOrNothingPayoff>*>(&v);
         if (v1 != 0)
@@ -395,13 +395,13 @@ namespace QuantLib {
             Payoff::accept(v);
     }
 
-    std::string CashOrNothingPayoff::description() const {
+    inline std::string CashOrNothingPayoff::description() const {
         std::ostringstream result;
         result << StrikedTypePayoff::description() << ", " << cashPayoff() << " cash payoff";
         return result.str();
     }
 
-    Real CashOrNothingPayoff::operator()(Real price) const {
+    inline Real CashOrNothingPayoff::operator()(Real price) const {
         switch (type_) {
           case Option::Call:
             return (price-strike_ > 0.0 ? cashPayoff_ : 0.0);
@@ -412,7 +412,7 @@ namespace QuantLib {
         }
     }
 
-    void CashOrNothingPayoff::accept(AcyclicVisitor& v) {
+    inline void CashOrNothingPayoff::accept(AcyclicVisitor& v) {
         Visitor<CashOrNothingPayoff>* v1 =
             dynamic_cast<Visitor<CashOrNothingPayoff>*>(&v);
         if (v1 != 0)
@@ -420,13 +420,13 @@ namespace QuantLib {
         else
             Payoff::accept(v);}
 
-    std::string GapPayoff::description() const {
+    inline std::string GapPayoff::description() const {
         std::ostringstream result;
         result << StrikedTypePayoff::description() << ", " << secondStrike() << " strike payoff";
         return result.str();
     }
 
-    Real GapPayoff::operator()(Real price) const {
+    inline Real GapPayoff::operator()(Real price) const {
         switch (type_) {
           case Option::Call:
             return (price-strike_ >= 0.0 ? price-secondStrike_ : 0.0);
@@ -437,7 +437,7 @@ namespace QuantLib {
         }
     }
 
-    void GapPayoff::accept(AcyclicVisitor& v) {
+    inline void GapPayoff::accept(AcyclicVisitor& v) {
         Visitor<GapPayoff>* v1 =
             dynamic_cast<Visitor<GapPayoff>*>(&v);
         if (v1 != 0)
@@ -446,11 +446,11 @@ namespace QuantLib {
             Payoff::accept(v);
     }
 
-    Real SuperFundPayoff::operator()(Real price) const {
+    inline Real SuperFundPayoff::operator()(Real price) const {
         return (price>=strike_ && price<secondStrike_) ? price/strike_ : 0.0;
     }
 
-    void SuperFundPayoff::accept(AcyclicVisitor& v) {
+    inline void SuperFundPayoff::accept(AcyclicVisitor& v) {
         Visitor<SuperFundPayoff>* v1 =
             dynamic_cast<Visitor<SuperFundPayoff>*>(&v);
         if (v1 != 0)
@@ -458,17 +458,17 @@ namespace QuantLib {
         else
             Payoff::accept(v);
     }
-    std::string SuperSharePayoff::description() const {
+    inline std::string SuperSharePayoff::description() const {
         std::ostringstream result;
         result << StrikedTypePayoff::description() << ", " << secondStrike() << " second strike"<< ", " << cashPayoff() << " amount";
         return result.str();
     }
 
-    Real SuperSharePayoff::operator()(Real price) const {
+    inline Real SuperSharePayoff::operator()(Real price) const {
         return (price>=strike_ && price<secondStrike_) ? cashPayoff_ : 0.0;
     }
 
-    void SuperSharePayoff::accept(AcyclicVisitor& v) {
+    inline void SuperSharePayoff::accept(AcyclicVisitor& v) {
         Visitor<SuperSharePayoff>* v1 =
             dynamic_cast<Visitor<SuperSharePayoff>*>(&v);
         if (v1 != 0)

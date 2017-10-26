@@ -114,7 +114,7 @@ namespace QuantLib {
 
     }
 
-    RichardsonExtrapolation::RichardsonExtrapolation(
+    inline RichardsonExtrapolation::RichardsonExtrapolation(
         const boost::function<Real (Real)>& f, Real delta_h, Real n)
     : delta_h_(delta_h),
       fdelta_h_(f(delta_h)),
@@ -123,7 +123,7 @@ namespace QuantLib {
     }
 
 
-    Real RichardsonExtrapolation::operator()(Real t) const {
+    inline Real RichardsonExtrapolation::operator()(Real t) const {
 
         QL_REQUIRE(t > 1, "scaling factor must be greater than 1");
         QL_REQUIRE(n_ != Null<Real>(), "order of convergence must be known");
@@ -133,7 +133,7 @@ namespace QuantLib {
         return (tk*f_(delta_h_/t)-fdelta_h_)/(tk-1.0);
     }
 
-    Real RichardsonExtrapolation::operator()(Real t, Real s)
+    inline Real RichardsonExtrapolation::operator()(Real t, Real s)
     const {
         QL_REQUIRE(t > 1 && s > 1, "scaling factors must be greater than 1");
         QL_REQUIRE(t > s, "t must be greater than s");

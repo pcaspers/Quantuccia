@@ -142,7 +142,7 @@ namespace QuantLib {
         Real value_;
     };
 
-    Volatility CalibrationHelper::impliedVolatility(Real targetValue,
+    inline Volatility CalibrationHelper::impliedVolatility(Real targetValue,
                                                     Real accuracy,
                                                     Size maxEvaluations,
                                                     Volatility minVol,
@@ -154,7 +154,7 @@ namespace QuantLib {
         return solver.solve(f,accuracy,volatility_->value(),minVol,maxVol);
     }
 
-    Real CalibrationHelper::calibrationError() {
+    inline Real CalibrationHelper::calibrationError() {
         Real error;
         
         switch (calibrationErrorType_) {

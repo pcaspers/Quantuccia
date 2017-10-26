@@ -83,7 +83,7 @@ namespace QuantLib {
       "Numerical Recipes in C", 2nd edition,
       Press, Teukolsky, Vetterling, Flannery, chapter 6
     */
-    Real betaContinuedFraction(Real a, Real  b, Real  x,
+    inline Real betaContinuedFraction(Real a, Real  b, Real  x,
                                Real accuracy, Integer maxIteration) {
 
         Real aa, del;
@@ -121,7 +121,7 @@ namespace QuantLib {
         QL_FAIL("a or b too big, or maxIteration too small in betacf");
     }
 
-    Real incompleteBetaFunction(Real a, Real b,
+    inline Real incompleteBetaFunction(Real a, Real b,
                                 Real x, Real accuracy,
                                 Integer maxIteration) {
 

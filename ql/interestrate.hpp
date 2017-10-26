@@ -221,10 +221,10 @@ namespace QuantLib {
 
     // constructors
 
-    InterestRate::InterestRate()
+    inline InterestRate::InterestRate()
     : r_(Null<Real>()) {}
 
-    InterestRate::InterestRate(Rate r,
+    inline InterestRate::InterestRate(Rate r,
                                const DayCounter& dc,
                                Compounding comp,
                                Frequency freq)
@@ -238,7 +238,7 @@ namespace QuantLib {
         }
     }
 
-    Real InterestRate::compoundFactor(Time t) const {
+    inline Real InterestRate::compoundFactor(Time t) const {
 
         QL_REQUIRE(t>=0.0, "negative time (" << t << ") not allowed");
         QL_REQUIRE(r_ != Null<Rate>(), "null interest rate");
@@ -264,7 +264,7 @@ namespace QuantLib {
         }
     }
 
-    InterestRate InterestRate::impliedRate(Real compound,
+    inline InterestRate InterestRate::impliedRate(Real compound,
                                            const DayCounter& resultDC,
                                            Compounding comp,
                                            Frequency freq,
@@ -309,7 +309,7 @@ namespace QuantLib {
     }
 
 
-    std::ostream& operator<<(std::ostream& out, const InterestRate& ir) {
+    inline std::ostream& operator<<(std::ostream& out, const InterestRate& ir) {
         if (ir.rate() == Null<Rate>())
             return out << "null interest rate";
 
