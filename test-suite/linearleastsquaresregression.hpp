@@ -84,7 +84,7 @@ void LinearLeastSquaresRegressionTest::testRegression() {
 
     std::vector<boost::function1<Real, Real> > v;
     v.push_back(constant<Real, Real>(1.0));
-    v.push_back(identity<Real>());
+    v.push_back(QuantLib::identity<Real>());
     v.push_back(square<Real>());
     v.push_back(std::ptr_fun<Real, Real>(std::sin));
 
@@ -239,7 +239,7 @@ void LinearLeastSquaresRegressionTest::test1dLinearRegression() {
 
     std::vector<boost::function1<Real, Real> > v;
     v.push_back(constant<Real, Real>(1.0));
-    v.push_back(identity<Real>());
+    v.push_back(QuantLib::identity<Real>());
 
     LinearRegression m(x, y);
 

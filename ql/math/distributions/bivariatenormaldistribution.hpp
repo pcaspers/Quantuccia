@@ -63,7 +63,6 @@ namespace QuantLib {
         Real operator()(Real a, Real b) const;
       private:
         Real rho_, rho2_;
-        static const Real x_[], y_[];
     };
 
 
@@ -134,23 +133,7 @@ namespace QuantLib {
 
     // Drezner 1978
 
-    const Real BivariateCumulativeNormalDistributionDr78::x_[] = {
-        0.24840615,
-        0.39233107,
-        0.21141819,
-        0.03324666,
-        0.00082485334
-    };
-
-    const Real BivariateCumulativeNormalDistributionDr78::y_[] = {
-        0.10024215,
-        0.48281397,
-        1.06094980,
-        1.77972940,
-        2.66976040000
-    };
-
-    BivariateCumulativeNormalDistributionDr78::
+    inline BivariateCumulativeNormalDistributionDr78::
     BivariateCumulativeNormalDistributionDr78(Real rho)
     : rho_(rho), rho2_(rho*rho) {
 
@@ -160,9 +143,15 @@ namespace QuantLib {
                    "rho must be <= 1.0 (" << rho << " not allowed)");
     }
 
-    Real BivariateCumulativeNormalDistributionDr78::operator()(Real a,
+//	 const Real BivariateCumulativeNormalDistributionDr78::x_[]={0.24840615,0.39233107,0.21141819,0.03324666,0.00082485334};
+//     const Real BivariateCumulativeNormalDistributionDr78::y_[]={0.10024215,0.48281397,1.06094980,1.77972940,2.66976040000};
+
+    inline Real BivariateCumulativeNormalDistributionDr78::operator()(Real a,
                                                                Real b) const {
 
+
+		const Real x_[]={0.24840615,0.39233107,0.21141819,0.03324666,0.00082485334};
+		const Real y_[]={0.10024215,0.48281397,1.06094980,1.77972940,2.66976040000};
         CumulativeNormalDistribution cumNormalDist;
         Real CumNormDistA = cumNormalDist(a);
         Real CumNormDistB = cumNormalDist(b);
@@ -260,7 +249,7 @@ namespace QuantLib {
 
     }
 
-    BivariateCumulativeNormalDistributionWe04DP::
+    inline BivariateCumulativeNormalDistributionWe04DP::
     BivariateCumulativeNormalDistributionWe04DP(Real rho)
     : correlation_(rho) {
 
@@ -271,7 +260,7 @@ namespace QuantLib {
     }
 
 
-    Real BivariateCumulativeNormalDistributionWe04DP::operator()(
+    inline Real BivariateCumulativeNormalDistributionWe04DP::operator()(
                                                        Real x, Real y) const {
 
         /* The implementation is described at section 2.4 "Hybrid

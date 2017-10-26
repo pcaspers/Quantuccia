@@ -50,17 +50,21 @@ namespace QuantLib {
         mutable long temp1, temp2;
         mutable long y;
         mutable std::vector<long> buffer;
-        static const long m1;
-        static const long a1;
-        static const long q1;
-        static const long r1;
-        static const long m2;
-        static const long a2;
-        static const long q2;
-        static const long r2;
-        static const int bufferSize;
-        static const long bufferNormalizer;
-        static const long double maxRandom;
+		
+		static const long m1 = 2147483563L;
+		static const long a1 = 40014L;
+		static const long q1 = 53668L;
+		static const long r1 = 12211L;
+		
+		static const long m2 = 2147483399L;
+		static const long a2 = 40692L;
+		static const long q2 = 52774L;
+		static const long r2 = 3791L;
+		
+		
+        static const int bufferSize=32;
+        static const long bufferNormalizer= 67108862L;
+        static const long double maxRandom();
     };
 
 }
@@ -90,24 +94,9 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    const long LecuyerUniformRng::m1 = 2147483563L;
-    const long LecuyerUniformRng::a1 = 40014L;
-    const long LecuyerUniformRng::q1 = 53668L;
-    const long LecuyerUniformRng::r1 = 12211L;
 
-    const long LecuyerUniformRng::m2 = 2147483399L;
-    const long LecuyerUniformRng::a2 = 40692L;
-    const long LecuyerUniformRng::q2 = 52774L;
-    const long LecuyerUniformRng::r2 = 3791L;
-
-    const int LecuyerUniformRng::bufferSize = 32;
-
-    // int(1+m1/bufferSize) = int(1+(m1-1)/bufferSize)
-    const long LecuyerUniformRng::bufferNormalizer = 67108862L;
-
-    const long double LecuyerUniformRng::maxRandom = 1.0-QL_EPSILON;
-
-    LecuyerUniformRng::LecuyerUniformRng(long seed)
+	inline const long double LecuyerUniformRng::maxRandom(){return 1.0-QL_EPSILON;}
+    inline LecuyerUniformRng::LecuyerUniformRng(long seed)
     : buffer(LecuyerUniformRng::bufferSize) {
         // Need to prevent seed=0, so use seed=0 to have a "random" seed
         temp2 = temp1 = (seed != 0 ? seed : SeedGenerator::instance().get());
@@ -123,7 +112,7 @@ namespace QuantLib {
         y = buffer[0];
     }
 
-    LecuyerUniformRng::sample_type LecuyerUniformRng::next() const {
+    inline LecuyerUniformRng::sample_type LecuyerUniformRng::next() const {
         long k = temp1/q1;
         // Compute temp1=(a1*temp1) % m1
         // without overflows (Schrage's method)
@@ -146,8 +135,8 @@ namespace QuantLib {
             y += m1-1;
         double result = y/double(m1);
         // users don't expect endpoint values
-        if (result > maxRandom)
-            result = (double) maxRandom;
+        if (result > maxRandom())
+            result = (double) maxRandom();
         return sample_type(result,1.0);
     }
 

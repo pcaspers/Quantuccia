@@ -311,7 +311,7 @@ void DistributionTest::testNormal() {
     MaddockInverseCumulativeNormal mInvCum(average, sigma);
     std::transform(x.begin(),x.end(), x.begin(), diff.begin(),
     			   compose3(std::minus<Real>(),
-    				  identity<Real>(), compose(mInvCum, cum)));
+    				  QuantLib::identity<Real>(), compose(mInvCum, cum)));
 
     e = norm(diff.begin(), diff.end(), h);
     if (e > 1.0e-7) {

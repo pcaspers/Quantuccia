@@ -51,7 +51,7 @@ namespace QuantLib {
           uniformly chosen from (0.0,1.0) */
         sample_type next() const;
       private:
-        static const int KK, LL, TT, QUALITY;
+        static const int KK=100, LL=37, TT=70, QUALITY=1009;
         mutable std::vector<double> ranf_arr_buf;
         mutable size_t ranf_arr_ptr, ranf_arr_sentinel;
         mutable std::vector<double> ran_u;
@@ -109,18 +109,13 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    const int KnuthUniformRng::KK = 100;
-    const int KnuthUniformRng::LL = 37;
-    const int KnuthUniformRng::TT = 70;
-    const int KnuthUniformRng::QUALITY = 1009;
-
-    KnuthUniformRng::KnuthUniformRng(long seed)
+    inline KnuthUniformRng::KnuthUniformRng(long seed)
     : ranf_arr_buf(QUALITY), ran_u(QUALITY) {
         ranf_arr_ptr = ranf_arr_sentinel = ranf_arr_buf.size();
         ranf_start(seed != 0 ? seed : SeedGenerator::instance().get());
     }
 
-    void KnuthUniformRng::ranf_start(long seed) {
+    inline void KnuthUniformRng::ranf_start(long seed) {
         int t,s,j;
         std::vector<double> u(KK+KK-1),ul(KK+KK-1);
         double ulp=(1.0/(1L<<30))/(1L<<22);                // 2 to the -52
@@ -153,7 +148,7 @@ namespace QuantLib {
         for (;j<KK;j++) ran_u[j-LL]=u[j];
     }
 
-    void KnuthUniformRng::ranf_array(std::vector<double>& aa,
+    inline void KnuthUniformRng::ranf_array(std::vector<double>& aa,
                                      int n) const {
         int i,j;
         for (j=0;j<KK;j++) aa[j]=ran_u[j];
@@ -162,7 +157,7 @@ namespace QuantLib {
         for (;i<KK;i++,j++) ran_u[i]=mod_sum(aa[j-KK],ran_u[i-LL]);
     }
 
-    double KnuthUniformRng::ranf_arr_cycle() const {
+    inline double KnuthUniformRng::ranf_arr_cycle() const {
         ranf_array(ranf_arr_buf,QUALITY);
         ranf_arr_ptr = 1;
         ranf_arr_sentinel = 100;

@@ -112,7 +112,7 @@ namespace {
         testSingle(I, "f(x) = 1",
                    constant<Real,Real>(1.0), 0.0, 1.0, 1.0);
         testSingle(I, "f(x) = x",
-                   identity<Real>(),           0.0, 1.0, 0.5);
+                   QuantLib::identity<Real>(),           0.0, 1.0, 0.5);
         testSingle(I, "f(x) = x^2",
                    square<Real>(),             0.0, 1.0, 1.0/3.0);
         testSingle(I, "f(x) = sin(x)",

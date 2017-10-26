@@ -67,9 +67,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    std::vector<std::vector<BigNatural> > PascalTriangle::coefficients_;
-
-    const std::vector<BigNatural>& PascalTriangle::get(Size order) {
+    inline const std::vector<BigNatural>& PascalTriangle::get(Size order) {
         if (coefficients_.empty()) {
             // order zero mandatory for bootstrap
             coefficients_.push_back(std::vector<BigNatural>(1, 1));
@@ -85,7 +83,7 @@ namespace QuantLib {
         return coefficients_[order];
     }
 
-    void PascalTriangle::nextOrder() {
+    inline void PascalTriangle::nextOrder() {
         Size order = coefficients_.size();
         coefficients_.push_back(std::vector<BigNatural>(order+1));
         coefficients_[order][0] = coefficients_[order][order] = 1;
