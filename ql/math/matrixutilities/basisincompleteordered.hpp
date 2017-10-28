@@ -108,10 +108,10 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 
 namespace QuantLib {
 
-    BasisIncompleteOrdered::BasisIncompleteOrdered(Size euclideanDimension)
+  inline BasisIncompleteOrdered::BasisIncompleteOrdered(Size euclideanDimension)
         : euclideanDimension_(euclideanDimension) {}
 
-    bool BasisIncompleteOrdered::addVector(const Array& newVector1) {
+  inline bool BasisIncompleteOrdered::addVector(const Array& newVector1) {
 
         QL_REQUIRE(newVector1.size() == euclideanDimension_,
             "missized vector passed to "
@@ -146,16 +146,16 @@ namespace QuantLib {
         return true;
     }
 
-    Size BasisIncompleteOrdered::basisSize() const {
+  inline Size BasisIncompleteOrdered::basisSize() const {
         return currentBasis_.size();
     }
 
-    Size BasisIncompleteOrdered::euclideanDimension() const {
+  inline Size BasisIncompleteOrdered::euclideanDimension() const {
         return euclideanDimension_;
     }
 
 
-    Matrix BasisIncompleteOrdered::getBasisAsRowsInMatrix() const {
+  inline Matrix BasisIncompleteOrdered::getBasisAsRowsInMatrix() const {
         Matrix basis(currentBasis_.size(), euclideanDimension_);
         for (Size i=0; i<basis.rows(); ++i)
             for (Size j=0; j<basis.columns(); ++j)
@@ -166,7 +166,7 @@ namespace QuantLib {
 
     namespace
     {
-        Real normSquared(const Matrix& v, Size row)
+        inline Real normSquared(const Matrix& v, Size row)
         {
             Real x=0.0;
             for (Size i=0; i < v.columns(); ++i)
@@ -176,12 +176,12 @@ namespace QuantLib {
         }
 
 
-        Real norm(const Matrix& v, Size row)
+        inline Real norm(const Matrix& v, Size row)
         {
             return std::sqrt(normSquared( v,  row));
         }
 
-        Real innerProduct(const Matrix& v, Size row1, const Matrix& w, Size row2)
+        inline Real innerProduct(const Matrix& v, Size row1, const Matrix& w, Size row2)
         {
 
             Real x=0.0;
@@ -195,7 +195,7 @@ namespace QuantLib {
 
 
 
-    OrthogonalProjections::OrthogonalProjections(const Matrix& originalVectors,
+  inline OrthogonalProjections::OrthogonalProjections(const Matrix& originalVectors,
                                                  Real multiplierCutoff,
                                                  Real tolerance)
     : originalVectors_(originalVectors),
@@ -292,19 +292,19 @@ namespace QuantLib {
 
     } // end of constructor
 
-    const std::valarray<bool>& OrthogonalProjections::validVectors() const
+  inline const std::valarray<bool>& OrthogonalProjections::validVectors() const
     {
         return validVectors_;
 
     }
 
-    const std::vector<Real>& OrthogonalProjections::GetVector(Size index) const
+  inline const std::vector<Real>& OrthogonalProjections::GetVector(Size index) const
     {
         return projectedVectors_[index];
     }
 
 
-  Size OrthogonalProjections::numberValidVectors() const
+  inline Size OrthogonalProjections::numberValidVectors() const
   {
         return numberValidVectors_;
   }

@@ -134,7 +134,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Disposable<Matrix> triangularAnglesParametrization(const Array& angles,
+    inline Disposable<Matrix> triangularAnglesParametrization(const Array& angles,
                                                        Size matrixSize,
                                                        Size rank) {
 
@@ -166,7 +166,7 @@ namespace QuantLib {
         return m;
     }
 
-    Disposable<Matrix> lmmTriangularAnglesParametrization(const Array& angles,
+    inline Disposable<Matrix> lmmTriangularAnglesParametrization(const Array& angles,
                                                           Size matrixSize,
                                                           Size) {
         Matrix m(matrixSize, matrixSize);
@@ -191,7 +191,7 @@ namespace QuantLib {
         return m;
     }
 
-    Disposable<Matrix> triangularAnglesParametrizationUnconstrained(
+    inline Disposable<Matrix> triangularAnglesParametrizationUnconstrained(
                                                             const Array& x,
                                                             Size matrixSize,
                                                             Size rank) {
@@ -202,7 +202,7 @@ namespace QuantLib {
         return triangularAnglesParametrization(angles, matrixSize, rank);
     }
 
-    Disposable<Matrix> lmmTriangularAnglesParametrizationUnconstrained(
+    inline Disposable<Matrix> lmmTriangularAnglesParametrizationUnconstrained(
                                                             const Array& x,
                                                             Size matrixSize,
                                                             Size rank) {
@@ -213,7 +213,7 @@ namespace QuantLib {
         return lmmTriangularAnglesParametrization(angles, matrixSize, rank);
     }
 
-    Disposable<Matrix> triangularAnglesParametrizationRankThree(
+    inline Disposable<Matrix> triangularAnglesParametrizationRankThree(
                                             Real alpha, Real t0,
                                             Real epsilon, Size matrixSize) {
         Matrix m(matrixSize, 3);
@@ -227,7 +227,7 @@ namespace QuantLib {
         return m;
     }
 
-    Disposable<Matrix> triangularAnglesParametrizationRankThreeVectorial(
+    inline Disposable<Matrix> triangularAnglesParametrizationRankThreeVectorial(
                                                     const Array& parameters,
                                                     Size nbRows) {
         QL_REQUIRE(parameters.size() == 3,
@@ -239,12 +239,12 @@ namespace QuantLib {
 
     }
 
-    Real FrobeniusCostFunction::value(const Array& x) const {
+  inline Real FrobeniusCostFunction::value(const Array& x) const {
         Array temp = values(x);
         return DotProduct(temp, temp);
     }
 
-    Disposable<Array> FrobeniusCostFunction::values(const Array& x) const {
+  inline Disposable<Array> FrobeniusCostFunction::values(const Array& x) const {
         Array result((target_.rows()*(target_.columns()-1))/2);
         Matrix pseudoRoot = f_(x, matrixSize_, rank_);
         Matrix differences = pseudoRoot * transpose(pseudoRoot) - target_;

@@ -1,8 +1,7 @@
 /* -*- mode: c++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 
 /*
- Copyright (C) 2001, 2002, 2003 Nicolas Di Césaré
- Copyright (C) 2009 Frédéric Degraeve
+  Copyright (C) 2007 Cristina Duminuco
 
  This file is part of QuantLib, a free-software/open-source library
  for financial quantitative analysts and developers - http://quantlib.org/
@@ -18,44 +17,47 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-/*! \file steepestdescent.hpp
-    \brief Steepest descent optimization method
+/*! \file replication.hpp
+    \brief Sub, Central, or Super replication
 */
 
-#ifndef quantlib_optimization_steepest_descent_h
-#define quantlib_optimization_steepest_descent_h
+#ifndef quantlib_replication_hpp
+#define quantlib_replication_hpp
 
-#include <ql/math/optimization/linesearchbasedmethod.hpp>
+#include <ql/types.hpp>
+#include <iosfwd>
 
 namespace QuantLib {
 
-    //! Multi-dimensional steepest-descent class
-    /*! User has to provide line-search method and optimization end criteria
-
-        search direction \f$ = - f'(x) \f$
+    //! Digital option replication strategy
+    /*! Specification of replication strategies used to price
+        the embedded digital option in a digital coupon.
     */
-    class SteepestDescent : public LineSearchBasedMethod {
-      public:
-        SteepestDescent(const boost::shared_ptr<LineSearch>& lineSearch =
-                                            boost::shared_ptr<LineSearch>())
-        : LineSearchBasedMethod(lineSearch) {}
-      private:
-        //! \name LineSearchBasedMethod interface
-        //@{
-        Disposable<Array> getUpdatedDirection(const Problem& P,
-                                              Real gold2,
-                                              const Array& oldGradient);
-        //@}
+    struct Replication {
+        enum Type { Sub, Central, Super };
+    };
+
+    /*! \relates Replication */
+    std::ostream& operator<<(std::ostream&,
+                             Replication::Type);
+
+    class DigitalReplication {
+    public:
+        DigitalReplication(Replication::Type t = Replication::Central,
+                           Real gap = 1e-4);
+        Replication::Type replicationType() const { return replicationType_;};
+        Real gap() const { return gap_;};
+    private:
+        Real gap_;
+        Replication::Type replicationType_;
     };
 
 }
 
-
 /* -*- mode: c++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 
 /*
- Copyright (C) 2001, 2002, 2003 Nicolas Di Césaré
- Copyright (C) 2009 Frédéric Degraeve
+ Copyright (C) 2007 Cristina Duminuco
 
  This file is part of QuantLib, a free-software/open-source library
  for financial quantitative analysts and developers - http://quantlib.org/
@@ -71,18 +73,29 @@ namespace QuantLib {
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-#include <ql/math/optimization/problem.hpp>
-#include <ql/math/optimization/linesearch.hpp>
+#include <ql/types.hpp>
+#include <ql/errors.hpp>
 
 namespace QuantLib {
 
-    inline Disposable<Array> SteepestDescent::getUpdatedDirection(const Problem&,
-                                                           Real,
-                                                           const Array&) {
-        return -lineSearch_->lastGradient();
+    inline std::ostream& operator<<(std::ostream& out, Replication::Type r) {
+        switch (r) {
+          case Replication::Sub :
+            return out << "Sub";
+          case Replication::Central :
+            return out << "Central";
+          case Replication::Super :
+            return out << "Super";
+          default:
+            QL_FAIL("unknown Replication Type (" << Integer(r) << ")");
+        }
     }
 
+    inline DigitalReplication::DigitalReplication(Replication::Type t, Real gap)
+    : gap_(gap), replicationType_(t) {}
+
 }
+
 
 
 #endif

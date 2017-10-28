@@ -83,14 +83,14 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    BiCGstab::BiCGstab(const BiCGstab::MatrixMult& A,
+  inline BiCGstab::BiCGstab(const BiCGstab::MatrixMult& A,
                        Size maxIter, Real relTol,
                        const BiCGstab::MatrixMult& preConditioner)
     : A_(A), M_(preConditioner),
       maxIter_(maxIter), relTol_(relTol) {
     }
 
-    BiCGStabResult BiCGstab::solve(const Array& b, const Array& x0) const {
+  inline BiCGStabResult BiCGstab::solve(const Array& b, const Array& x0) const {
         Real bnorm2 = Norm2(b);
         if (bnorm2 == 0.0) {
             BiCGStabResult result = { 0, 0.0, b};
@@ -148,7 +148,7 @@ namespace QuantLib {
         return result;
     }
 
-    Real BiCGstab::norm2(const Array& a) const {
+  inline Real BiCGstab::norm2(const Array& a) const {
         return Norm2(a);
     }
 

@@ -134,7 +134,7 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 
 namespace QuantLib {
 
-    CovarianceDecomposition::CovarianceDecomposition(const Matrix& cov,
+  inline CovarianceDecomposition::CovarianceDecomposition(const Matrix& cov,
                                                      Real tolerance)
     : variances_(cov.diagonal()), stdDevs_(Array(cov.rows())),
       correlationMatrix_(Matrix(cov.rows(), cov.rows()))

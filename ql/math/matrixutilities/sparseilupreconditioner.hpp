@@ -91,7 +91,7 @@ namespace QuantLib {
 
     using namespace boost::numeric::ublas;
 
-    SparseILUPreconditioner::SparseILUPreconditioner(const SparseMatrix& A,
+  inline SparseILUPreconditioner::SparseILUPreconditioner(const SparseMatrix& A,
                                                      Integer lfil)
     : L_(A.size1(),A.size2()),
       U_(A.size1(),A.size2()) {
@@ -211,19 +211,19 @@ namespace QuantLib {
         std::copy(uBandSet.begin(), uBandSet.end(), uBands_.begin());
     }
 
-    const SparseMatrix& SparseILUPreconditioner::L() const {
+  inline const SparseMatrix& SparseILUPreconditioner::L() const {
         return L_;
     }
 
-    const SparseMatrix& SparseILUPreconditioner::U() const {
+  inline const SparseMatrix& SparseILUPreconditioner::U() const {
         return U_;
     }
 
-    Disposable<Array> SparseILUPreconditioner::apply(const Array& b) const {
+  inline Disposable<Array> SparseILUPreconditioner::apply(const Array& b) const {
         return backwardSolve(forwardSolve(b));
     }
 
-    Disposable<Array> SparseILUPreconditioner::forwardSolve(
+  inline Disposable<Array> SparseILUPreconditioner::forwardSolve(
                                                        const Array& b) const {
         Integer n = b.size();
         Array y(n, 0.0);
@@ -240,7 +240,7 @@ namespace QuantLib {
         return y;
     }
 
-    Disposable<Array> SparseILUPreconditioner::backwardSolve(
+  inline Disposable<Array> SparseILUPreconditioner::backwardSolve(
                                                        const Array& y) const {
         Size n = y.size();
         Array x(n, 0.0);

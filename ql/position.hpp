@@ -1,8 +1,7 @@
 /* -*- mode: c++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 
 /*
- Copyright (C) 2001, 2002, 2003 Nicolas Di Césaré
- Copyright (C) 2009 Frédéric Degraeve
+ Copyright (C) 2006 StatPro Italia srl
 
  This file is part of QuantLib, a free-software/open-source library
  for financial quantitative analysts and developers - http://quantlib.org/
@@ -18,35 +17,25 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-/*! \file steepestdescent.hpp
-    \brief Steepest descent optimization method
+/*! \file position.hpp
+    \brief Short or long position
 */
 
-#ifndef quantlib_optimization_steepest_descent_h
-#define quantlib_optimization_steepest_descent_h
+#ifndef quantlib_position_hpp
+#define quantlib_position_hpp
 
-#include <ql/math/optimization/linesearchbasedmethod.hpp>
+#include <ql/qldefines.hpp>
+#include <iosfwd>
 
 namespace QuantLib {
 
-    //! Multi-dimensional steepest-descent class
-    /*! User has to provide line-search method and optimization end criteria
-
-        search direction \f$ = - f'(x) \f$
-    */
-    class SteepestDescent : public LineSearchBasedMethod {
-      public:
-        SteepestDescent(const boost::shared_ptr<LineSearch>& lineSearch =
-                                            boost::shared_ptr<LineSearch>())
-        : LineSearchBasedMethod(lineSearch) {}
-      private:
-        //! \name LineSearchBasedMethod interface
-        //@{
-        Disposable<Array> getUpdatedDirection(const Problem& P,
-                                              Real gold2,
-                                              const Array& oldGradient);
-        //@}
+    struct Position {
+        enum Type { Long, Short };
     };
+
+    /*! \relates Position */
+    std::ostream& operator<<(std::ostream&,
+                             Position::Type);
 
 }
 
@@ -54,8 +43,7 @@ namespace QuantLib {
 /* -*- mode: c++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 
 /*
- Copyright (C) 2001, 2002, 2003 Nicolas Di Césaré
- Copyright (C) 2009 Frédéric Degraeve
+ Copyright (C) 2007 Cristina Duminuco
 
  This file is part of QuantLib, a free-software/open-source library
  for financial quantitative analysts and developers - http://quantlib.org/
@@ -71,18 +59,24 @@ namespace QuantLib {
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-#include <ql/math/optimization/problem.hpp>
-#include <ql/math/optimization/linesearch.hpp>
+#include <ql/types.hpp>
+#include <ql/errors.hpp>
 
 namespace QuantLib {
 
-    inline Disposable<Array> SteepestDescent::getUpdatedDirection(const Problem&,
-                                                           Real,
-                                                           const Array&) {
-        return -lineSearch_->lastGradient();
+    inline std::ostream& operator<<(std::ostream& out, Position::Type p) {
+        switch (p) {
+          case Position::Long :
+            return out << "Long";
+          case Position::Short :
+            return out << "Short";
+          default:
+            QL_FAIL("unknown Position Type (" << Integer(p) << ")");
+        }
     }
 
 }
 
 
 #endif
+

@@ -175,7 +175,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Real LeastSquareFunction::value(const Array & x) const {
+  inline Real LeastSquareFunction::value(const Array & x) const {
         // size of target and function to fit vectors
         Array target(lsp_.size()), fct2fit(lsp_.size());
         // compute its values
@@ -186,7 +186,7 @@ namespace QuantLib {
         return DotProduct(diff, diff);
     }
 
-    Disposable<Array> LeastSquareFunction::values(const Array& x) const {
+  inline Disposable<Array> LeastSquareFunction::values(const Array& x) const {
         // size of target and function to fit vectors
         Array target(lsp_.size()), fct2fit(lsp_.size());
         // compute its values
@@ -196,7 +196,7 @@ namespace QuantLib {
         return diff*diff;
     }
 
-    void LeastSquareFunction::gradient(Array& grad_f,
+  inline void LeastSquareFunction::gradient(Array& grad_f,
                                        const Array& x) const {
         // size of target and function to fit vectors
         Array target (lsp_.size ()), fct2fit (lsp_.size ());
@@ -210,7 +210,7 @@ namespace QuantLib {
         grad_f = -2.0*(transpose(grad_fct2fit)*diff);
     }
 
-    Real LeastSquareFunction::valueAndGradient(Array& grad_f,
+  inline Real LeastSquareFunction::valueAndGradient(Array& grad_f,
                                                const Array& x) const {
         // size of target and function to fit vectors
         Array target(lsp_.size()), fct2fit(lsp_.size());
@@ -226,7 +226,7 @@ namespace QuantLib {
         return DotProduct(diff, diff);
     }
 
-    NonLinearLeastSquare::NonLinearLeastSquare(Constraint& c,
+  inline NonLinearLeastSquare::NonLinearLeastSquare(Constraint& c,
                                                Real accuracy,
                                                Size maxiter)
     : exitFlag_(-1), accuracy_ (accuracy), maxIterations_ (maxiter),
@@ -234,7 +234,7 @@ namespace QuantLib {
       c_(c)
     {}
 
-    NonLinearLeastSquare::NonLinearLeastSquare(
+  inline NonLinearLeastSquare::NonLinearLeastSquare(
                                      Constraint& c,
                                      Real accuracy,
                                      Size maxiter,
@@ -242,7 +242,7 @@ namespace QuantLib {
     : exitFlag_(-1), accuracy_ (accuracy), maxIterations_ (maxiter),
       om_ (om), c_(c) {}
 
-    Array& NonLinearLeastSquare::perform(LeastSquareProblem& lsProblem) {
+  inline Array& NonLinearLeastSquare::perform(LeastSquareProblem& lsProblem) {
         Real eps = accuracy_;
 
         // wrap the least square problem in an optimization function

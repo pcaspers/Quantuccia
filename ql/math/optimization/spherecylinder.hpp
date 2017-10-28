@@ -159,7 +159,7 @@ namespace QuantLib {
         }
     }
 
-    SphereCylinderOptimizer::SphereCylinderOptimizer(Real r,
+  inline SphereCylinderOptimizer::SphereCylinderOptimizer(Real r,
                                                      Real s,
                                                      Real alpha,
                                                      Real z1,
@@ -211,11 +211,11 @@ namespace QuantLib {
 
     }
 
-    bool SphereCylinderOptimizer::isIntersectionNonEmpty() const {
+  inline bool SphereCylinderOptimizer::isIntersectionNonEmpty() const {
         return nonEmpty_;
     }
 
-    void SphereCylinderOptimizer::findClosest(Size maxIterations,
+  inline void SphereCylinderOptimizer::findClosest(Size maxIterations,
                                               Real tolerance,
                                               Real& y1,
                                               Real& y2,
@@ -232,7 +232,7 @@ namespace QuantLib {
          y3= std::sqrt(r_*r_ - y1*y1-y2*y2);
     }
 
-    Real SphereCylinderOptimizer::objectiveFunction(Real x1) const
+  inline Real SphereCylinderOptimizer::objectiveFunction(Real x1) const
     {
    //     Real x1 = alpha_ - std::sqrt(s_*s_-x2*x2);
 
@@ -249,7 +249,7 @@ namespace QuantLib {
         return err;
     }
 
-    bool SphereCylinderOptimizer::findByProjection(Real& y1,
+  inline bool SphereCylinderOptimizer::findByProjection(Real& y1,
                                                    Real& y2,
                                                    Real& y3) const {
         Real z1moved = z1_-alpha_;
@@ -278,7 +278,7 @@ namespace QuantLib {
        return true;
     }
 
-    std::vector<Real> sphereCylinderOptimizerClosest(Real r,
+  inline std::vector<Real> sphereCylinderOptimizerClosest(Real r,
                                                      Real s,
                                                      Real alpha,
                                                      Real z1,

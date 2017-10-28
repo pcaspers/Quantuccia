@@ -104,7 +104,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    GMRES::GMRES(const GMRES::MatrixMult& A,
+  inline GMRES::GMRES(const GMRES::MatrixMult& A,
                  Size maxIter, Real relTol,
                  const GMRES::MatrixMult& preConditioner)
     : A_(A), M_(preConditioner),
@@ -113,7 +113,7 @@ namespace QuantLib {
         QL_REQUIRE(maxIter_ > 0, "maxIter must be greater then zero");
     }
 
-    GMRESResult GMRES::solve(const Array& b, const Array& x0) const {
+  inline GMRESResult GMRES::solve(const Array& b, const Array& x0) const {
         const GMRESResult result = solveImpl(b, x0);
 
         QL_REQUIRE(result.errors.back() < relTol_, "could not converge");
@@ -121,7 +121,7 @@ namespace QuantLib {
         return result;
     }
 
-    GMRESResult GMRES::solveWithRestart(
+  inline GMRESResult GMRES::solveWithRestart(
         Size restart, const Array& b, const Array& x0) const {
 
         GMRESResult result = solveImpl(b, x0);
@@ -140,7 +140,7 @@ namespace QuantLib {
         return result;
     }
 
-    GMRESResult GMRES::solveImpl(const Array& b, const Array& x0) const {
+  inline GMRESResult GMRES::solveImpl(const Array& b, const Array& x0) const {
         const Real bn = Norm2(b);
         if (bn == 0.0) {
             GMRESResult result = { std::list<Real>(1, 0.0), b };

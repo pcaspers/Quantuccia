@@ -68,7 +68,7 @@ namespace QuantLib {
 			return primeNumbers_[absoluteIndex];
 		};
       private:
-        PrimeNumbers() {}
+        PrimeNumbers() {primeNumbers_=std::vector<BigNatural>();}
         static std::vector<BigNatural> primeNumbers_;
 		static BigNatural nextPrimeNumber()
 		{

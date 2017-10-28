@@ -73,7 +73,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Real GoldsteinLineSearch::operator()(Problem& P, 
+  inline Real GoldsteinLineSearch::operator()(Problem& P, 
                                          EndCriteria::Type& ecType, 
                                          const EndCriteria& endCriteria, 
                                          const Real t_ini) 
