@@ -77,22 +77,22 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    LastFixingQuote::LastFixingQuote(const boost::shared_ptr<Index>& index)
+    inline LastFixingQuote::LastFixingQuote(const boost::shared_ptr<Index>& index)
     : index_(index) {
         registerWith(index_);
     }
 
-    Real LastFixingQuote::value() const {
+    inline Real LastFixingQuote::value() const {
         QL_ENSURE(isValid(),
                   index_->name() << " has no fixing");
         return index_->fixing(referenceDate());
     }
 
-    bool LastFixingQuote::isValid() const {
+    inline bool LastFixingQuote::isValid() const {
         return !index_->timeSeries().empty();
     }
 
-    Date LastFixingQuote::referenceDate() const {
+    inline Date LastFixingQuote::referenceDate() const {
         return std::min<Date>(index_->timeSeries().lastDate(),
                               Settings::instance().evaluationDate());
     }

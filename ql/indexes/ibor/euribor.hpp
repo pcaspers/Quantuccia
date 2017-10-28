@@ -358,7 +358,7 @@ namespace QuantLib {
 
     }
 
-    Euribor::Euribor(const Period& tenor,
+    inline Euribor::Euribor(const Period& tenor,
                      const Handle<YieldTermStructure>& h)
     : IborIndex("Euribor", tenor,
                 2, // settlement days
@@ -370,7 +370,7 @@ namespace QuantLib {
                    ") dedicated DailyTenor constructor must be used");
     }
 
-    Euribor365::Euribor365(const Period& tenor,
+    inline Euribor365::Euribor365(const Period& tenor,
                            const Handle<YieldTermStructure>& h)
     : IborIndex("Euribor365", tenor,
                 2, // settlement days

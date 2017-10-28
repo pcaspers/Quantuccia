@@ -6,4 +6,3 @@
 #include <ql/math/solvers1d/newtonsafe.hpp>
 #include <ql/math/solvers1d/ridder.hpp>
 #include <ql/math/solvers1d/secant.hpp>
-

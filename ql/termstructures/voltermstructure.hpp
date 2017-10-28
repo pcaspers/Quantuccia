@@ -111,23 +111,23 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    VolatilityTermStructure::VolatilityTermStructure(BusinessDayConvention bdc,
+    inline VolatilityTermStructure::VolatilityTermStructure(BusinessDayConvention bdc,
                                                      const DayCounter& dc)
     : TermStructure(dc), bdc_(bdc) {}
 
-    VolatilityTermStructure::VolatilityTermStructure(const Date& referenceDate,
+    inline VolatilityTermStructure::VolatilityTermStructure(const Date& referenceDate,
                                                      const Calendar& cal,
                                                      BusinessDayConvention bdc,
                                                      const DayCounter& dc)
     : TermStructure(referenceDate, cal, dc), bdc_(bdc) {}
 
-    VolatilityTermStructure::VolatilityTermStructure(Natural settlementDays,
+    inline VolatilityTermStructure::VolatilityTermStructure(Natural settlementDays,
                                                      const Calendar& cal,
                                                      BusinessDayConvention bdc,
                                                      const DayCounter& dc)
     : TermStructure(settlementDays, cal, dc), bdc_(bdc) {}
 
-    void VolatilityTermStructure::checkStrike(Rate k,
+    inline void VolatilityTermStructure::checkStrike(Rate k,
                                               bool extrapolate) const {
         QL_REQUIRE(extrapolate || allowsExtrapolation() ||
                    (k >= minStrike() && k <= maxStrike()),

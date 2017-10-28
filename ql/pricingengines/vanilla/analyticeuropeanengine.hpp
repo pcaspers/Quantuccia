@@ -109,13 +109,13 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    AnalyticEuropeanEngine::AnalyticEuropeanEngine(
+    inline AnalyticEuropeanEngine::AnalyticEuropeanEngine(
              const boost::shared_ptr<GeneralizedBlackScholesProcess>& process)
     : process_(process) {
         registerWith(process_);
     }
 
-    AnalyticEuropeanEngine::AnalyticEuropeanEngine(
+    inline AnalyticEuropeanEngine::AnalyticEuropeanEngine(
              const boost::shared_ptr<GeneralizedBlackScholesProcess>& process,
              const Handle<YieldTermStructure>& discountCurve)
     : process_(process), discountCurve_(discountCurve) {
@@ -123,7 +123,7 @@ namespace QuantLib {
         registerWith(discountCurve_);
     }
 
-    void AnalyticEuropeanEngine::calculate() const {
+    inline void AnalyticEuropeanEngine::calculate() const {
 
         // if the discount curve is not specified, we default to the
         // risk free rate curve embedded within the GBM process

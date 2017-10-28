@@ -73,23 +73,23 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    ForwardValueQuote::ForwardValueQuote(
+    inline ForwardValueQuote::ForwardValueQuote(
                             const boost::shared_ptr<Index>& index,
                             const Date& fixingDate)
     : index_(index), fixingDate_(fixingDate) {
         registerWith(index_);
     }
 
-    Real ForwardValueQuote::value() const {
+    inline Real ForwardValueQuote::value() const {
         return index_->fixing(fixingDate_);
     }
 
-    bool ForwardValueQuote::isValid() const {
+    inline bool ForwardValueQuote::isValid() const {
         // not sure this is the best approach...
         return true;
     }
 
-    void ForwardValueQuote::update() {
+    inline void ForwardValueQuote::update() {
         notifyObservers();
     }
 

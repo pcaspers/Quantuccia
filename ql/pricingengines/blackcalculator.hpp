@@ -182,7 +182,7 @@ namespace QuantLib {
     };
 
 
-    BlackCalculator::BlackCalculator(const boost::shared_ptr<StrikedTypePayoff>& p,
+    inline BlackCalculator::BlackCalculator(const boost::shared_ptr<StrikedTypePayoff>& p,
                                      Real forward,
                                      Real stdDev,
                                      Real discount)
@@ -191,7 +191,7 @@ namespace QuantLib {
         initialize(p);
     }
 
-    BlackCalculator::BlackCalculator(Option::Type optionType,
+    inline BlackCalculator::BlackCalculator(Option::Type optionType,
                                      Real strike,
                                      Real forward,
                                      Real stdDev,
@@ -202,7 +202,7 @@ namespace QuantLib {
             PlainVanillaPayoff(optionType, strike)));
     }
 
-    void BlackCalculator::initialize(const boost::shared_ptr<StrikedTypePayoff>& p) {
+    inline void BlackCalculator::initialize(const boost::shared_ptr<StrikedTypePayoff>& p) {
         QL_REQUIRE(strike_>=0.0,
                    "strike (" << strike_ << ") must be non-negative");
         QL_REQUIRE(forward_>0.0,
@@ -289,13 +289,13 @@ namespace QuantLib {
         p->accept(calc);
     }
 
-    void BlackCalculator::Calculator::visit(Payoff& p) {
+    inline void BlackCalculator::Calculator::visit(Payoff& p) {
         QL_FAIL("unsupported payoff type: " << p.name());
     }
 
-    void BlackCalculator::Calculator::visit(PlainVanillaPayoff&) {}
+    inline void BlackCalculator::Calculator::visit(PlainVanillaPayoff&) {}
 
-    void BlackCalculator::Calculator::visit(CashOrNothingPayoff& payoff) {
+    inline void BlackCalculator::Calculator::visit(CashOrNothingPayoff& payoff) {
         black_.alpha_ = black_.DalphaDd1_ = 0.0;
         black_.x_ = payoff.cashPayoff();
         black_.DxDstrike_ = 0.0;
@@ -313,7 +313,7 @@ namespace QuantLib {
         }
     }
 
-    void BlackCalculator::Calculator::visit(AssetOrNothingPayoff& payoff) {
+    inline void BlackCalculator::Calculator::visit(AssetOrNothingPayoff& payoff) {
         black_.beta_ = black_.DbetaDd2_ = 0.0;
         switch (payoff.optionType()) {
           case Option::Call:
@@ -329,17 +329,17 @@ namespace QuantLib {
         }
     }
 
-    void BlackCalculator::Calculator::visit(GapPayoff& payoff) {
+    inline void BlackCalculator::Calculator::visit(GapPayoff& payoff) {
         black_.x_ = payoff.secondStrike();
         black_.DxDstrike_ = 0.0;
     }
 
-    Real BlackCalculator::value() const {
+    inline Real BlackCalculator::value() const {
         Real result = discount_ * (forward_ * alpha_ + x_ * beta_);
         return result;
     }
 
-    Real BlackCalculator::delta(Real spot) const {
+    inline Real BlackCalculator::delta(Real spot) const {
 
         QL_REQUIRE(spot > 0.0, "positive spot value required: " <<
                    spot << " not allowed");
@@ -355,7 +355,7 @@ namespace QuantLib {
         return discount_ * temp2;
     }
 
-    Real BlackCalculator::deltaForward() const {
+    inline Real BlackCalculator::deltaForward() const {
 
         Real temp = stdDev_*forward_;
         Real DalphaDforward = DalphaDd1_/temp;
@@ -366,7 +366,7 @@ namespace QuantLib {
         return discount_ * temp2;
     }
 
-    Real BlackCalculator::elasticity(Real spot) const {
+    inline Real BlackCalculator::elasticity(Real spot) const {
         Real val = value();
         Real del = delta(spot);
         if (val>QL_EPSILON)
@@ -379,7 +379,7 @@ namespace QuantLib {
             return QL_MIN_REAL;
     }
 
-    Real BlackCalculator::elasticityForward() const {
+    inline Real BlackCalculator::elasticityForward() const {
         Real val = value();
         Real del = deltaForward();
         if (val>QL_EPSILON)
@@ -392,7 +392,7 @@ namespace QuantLib {
             return QL_MIN_REAL;
     }
 
-    Real BlackCalculator::gamma(Real spot) const {
+    inline Real BlackCalculator::gamma(Real spot) const {
 
         QL_REQUIRE(spot > 0.0, "positive spot value required: " <<
                    spot << " not allowed");
@@ -412,7 +412,7 @@ namespace QuantLib {
         return  discount_ * temp2;
     }
 
-    Real BlackCalculator::gammaForward() const {
+    inline Real BlackCalculator::gammaForward() const {
 
         Real temp = stdDev_*forward_;
         Real DalphaDforward = DalphaDd1_/temp;
@@ -427,7 +427,7 @@ namespace QuantLib {
         return discount_ * temp2;
     }
 
-    Real BlackCalculator::theta(Real spot,
+    inline Real BlackCalculator::theta(Real spot,
                                 Time maturity) const {
 
         QL_REQUIRE(maturity>=0.0,
@@ -438,7 +438,7 @@ namespace QuantLib {
                  +0.5*variance_ * spot  * spot * gamma(spot))/maturity;
     }
 
-    Real BlackCalculator::vega(Time maturity) const {
+    inline Real BlackCalculator::vega(Time maturity) const {
         QL_REQUIRE(maturity>=0.0,
                    "negative maturity not allowed");
 
@@ -453,7 +453,7 @@ namespace QuantLib {
 
     }
 
-    Real BlackCalculator::rho(Time maturity) const {
+    inline Real BlackCalculator::rho(Time maturity) const {
         QL_REQUIRE(maturity>=0.0,
                    "negative maturity not allowed");
 
@@ -465,7 +465,7 @@ namespace QuantLib {
         return maturity * (discount_ * temp - value());
     }
 
-    Real BlackCalculator::dividendRho(Time maturity) const {
+    inline Real BlackCalculator::dividendRho(Time maturity) const {
         QL_REQUIRE(maturity>=0.0,
                    "negative maturity not allowed");
 
@@ -478,7 +478,7 @@ namespace QuantLib {
         return maturity * discount_ * temp;
     }
 
-    Real BlackCalculator::strikeSensitivity() const {
+    inline Real BlackCalculator::strikeSensitivity() const {
 
         Real temp = stdDev_*strike_;
         Real DalphaDstrike = -DalphaDd1_/temp;

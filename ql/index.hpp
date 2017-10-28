@@ -162,7 +162,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    void Index::addFixing(const Date& fixingDate,
+    inline void Index::addFixing(const Date& fixingDate,
                           Real fixing,
                           bool forceOverwrite) {
         checkNativeFixingsAllowed();
@@ -171,7 +171,7 @@ namespace QuantLib {
                    forceOverwrite);
     }
 
-    void Index::addFixings(const TimeSeries<Real>& t,
+    inline void Index::addFixings(const TimeSeries<Real>& t,
                            bool forceOverwrite) {
         checkNativeFixingsAllowed();
         // is there a way of iterating over dates and values
@@ -183,12 +183,12 @@ namespace QuantLib {
                    forceOverwrite);
     }
 
-    void Index::clearFixings() {
+    inline void Index::clearFixings() {
         checkNativeFixingsAllowed();
         IndexManager::instance().clearHistory(name());
     }
 
-    void Index::checkNativeFixingsAllowed() {
+    inline void Index::checkNativeFixingsAllowed() {
         QL_REQUIRE(allowsNativeFixings(),
                    "native fixings not allowed for " << name()
                    << "; refer to underlying indices instead");

@@ -105,7 +105,7 @@ namespace QuantLib {
             const Instrument::results* results_;
         };
 
-        PriceError::PriceError(const PricingEngine& engine,
+        inline PriceError::PriceError(const PricingEngine& engine,
                                SimpleQuote& vol,
                                Real targetValue)
         : engine_(engine), vol_(vol), targetValue_(targetValue) {
@@ -115,7 +115,7 @@ namespace QuantLib {
                        "pricing engine does not supply needed results");
         }
 
-        Real PriceError::operator()(Volatility x) const {
+        inline Real PriceError::operator()(Volatility x) const {
             vol_.setValue(x);
             engine_.calculate();
             return results_->value-targetValue_;
@@ -126,7 +126,7 @@ namespace QuantLib {
 
     namespace detail {
 
-        Volatility ImpliedVolatilityHelper::calculate(
+        inline Volatility ImpliedVolatilityHelper::calculate(
                                                  const Instrument& instrument,
                                                  const PricingEngine& engine,
                                                  SimpleQuote& volQuote,
@@ -148,7 +148,7 @@ namespace QuantLib {
             return result;
         }
 
-        boost::shared_ptr<GeneralizedBlackScholesProcess>
+        inline boost::shared_ptr<GeneralizedBlackScholesProcess>
         ImpliedVolatilityHelper::clone(
              const boost::shared_ptr<GeneralizedBlackScholesProcess>& process,
              const boost::shared_ptr<SimpleQuote>& volQuote) {

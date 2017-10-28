@@ -149,7 +149,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    IborIndex::IborIndex(const std::string& familyName,
+    inline IborIndex::IborIndex(const std::string& familyName,
                          const Period& tenor,
                          Natural settlementDays,
                          const Currency& currency,
@@ -164,7 +164,7 @@ namespace QuantLib {
         registerWith(termStructure_);
       }
 
-    Rate IborIndex::forecastFixing(const Date& fixingDate) const {
+    inline Rate IborIndex::forecastFixing(const Date& fixingDate) const {
         Date d1 = valueDate(fixingDate);
         Date d2 = maturityDate(d1);
         Time t = dayCounter_.yearFraction(d1, d2);
@@ -176,14 +176,14 @@ namespace QuantLib {
         return forecastFixing(d1, d2, t);
     }
 
-    Date IborIndex::maturityDate(const Date& valueDate) const {
+    inline Date IborIndex::maturityDate(const Date& valueDate) const {
         return fixingCalendar().advance(valueDate,
                                         tenor_,
                                         convention_,
                                         endOfMonth_);
     }
 
-    boost::shared_ptr<IborIndex> IborIndex::clone(
+    inline boost::shared_ptr<IborIndex> IborIndex::clone(
                                const Handle<YieldTermStructure>& h) const {
         return boost::shared_ptr<IborIndex>(
                                         new IborIndex(familyName(),
@@ -198,7 +198,7 @@ namespace QuantLib {
     }
 
 
-    OvernightIndex::OvernightIndex(const std::string& familyName,
+    inline OvernightIndex::OvernightIndex(const std::string& familyName,
                                    Natural settlementDays,
                                    const Currency& curr,
                                    const Calendar& fixCal,
@@ -207,7 +207,7 @@ namespace QuantLib {
    : IborIndex(familyName, 1*Days, settlementDays, curr,
                fixCal, Following, false, dc, h) {}
 
-    boost::shared_ptr<IborIndex> OvernightIndex::clone(
+    inline boost::shared_ptr<IborIndex> OvernightIndex::clone(
                                const Handle<YieldTermStructure>& h) const {
         return boost::shared_ptr<IborIndex>(
                                         new OvernightIndex(familyName(),

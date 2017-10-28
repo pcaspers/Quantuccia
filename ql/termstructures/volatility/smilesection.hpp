@@ -147,14 +147,14 @@ using std::sqrt;
 
 namespace QuantLib {
 
-    void SmileSection::update() {
+    inline void SmileSection::update() {
         if (isFloating_) {
             referenceDate_ = Settings::instance().evaluationDate();
             initializeExerciseTime();
         }
     }
 
-    void SmileSection::initializeExerciseTime() const {
+    inline void SmileSection::initializeExerciseTime() const {
         QL_REQUIRE(exerciseDate_>=referenceDate_,
                    "expiry date (" << exerciseDate_ <<
                    ") must be greater than reference date (" <<
@@ -162,7 +162,7 @@ namespace QuantLib {
         exerciseTime_ = dc_.yearFraction(referenceDate_, exerciseDate_);
     }
 
-    SmileSection::SmileSection(const Date& d,
+    inline SmileSection::SmileSection(const Date& d,
                                const DayCounter& dc,
                                const Date& referenceDate,
                                const VolatilityType type,
@@ -177,7 +177,7 @@ namespace QuantLib {
         initializeExerciseTime();
     }
 
-    SmileSection::SmileSection(Time exerciseTime,
+    inline SmileSection::SmileSection(Time exerciseTime,
                                const DayCounter& dc,
                                const VolatilityType type,
                                const Rate shift)
@@ -188,7 +188,7 @@ namespace QuantLib {
                    exerciseTime_ << " not allowed");
     }
 
-    Real SmileSection::optionPrice(Rate strike,
+    inline Real SmileSection::optionPrice(Rate strike,
                                    Option::Type type,
                                    Real discount) const {
         Real atm = atmLevel();
@@ -204,7 +204,7 @@ namespace QuantLib {
             return bachelierBlackFormula(type,strike,atm,sqrt(variance(strike)),discount);
     }
 
-    Real SmileSection::digitalOptionPrice(Rate strike,
+    inline Real SmileSection::digitalOptionPrice(Rate strike,
                                           Option::Type type,
                                           Real discount,
                                           Real gap) const {
@@ -215,7 +215,7 @@ namespace QuantLib {
             (optionPrice(kl,type,discount)-optionPrice(kr,type,discount)) / gap;
     }
 
-    Real SmileSection::density(Rate strike, Real discount, Real gap) const {
+    inline Real SmileSection::density(Rate strike, Real discount, Real gap) const {
         Real m = volatilityType() == ShiftedLognormal ? -shift() : -QL_MAX_REAL;
         Real kl = std::max(strike-gap/2.0,m);
         Real kr = kl+gap;
@@ -223,7 +223,7 @@ namespace QuantLib {
                 digitalOptionPrice(kr,Option::Call,discount,gap)) / gap;
     }
 
-    Real SmileSection::vega(Rate strike, Real discount) const {
+    inline Real SmileSection::vega(Rate strike, Real discount) const {
         Real atm = atmLevel();
         QL_REQUIRE(atm != Null<Real>(),
                    "smile section must provide atm level to compute option vega");
@@ -235,7 +235,7 @@ namespace QuantLib {
             QL_FAIL("vega for normal smilesection not yet implemented");
     }
 
-    Real SmileSection::volatility(Rate strike, VolatilityType volatilityType,
+    inline Real SmileSection::volatility(Rate strike, VolatilityType volatilityType,
                                   Real shift) const {
         if(volatilityType == volatilityType_ && close(shift,this->shift()))
             return volatility(strike);

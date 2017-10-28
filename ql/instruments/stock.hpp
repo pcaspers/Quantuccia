@@ -66,12 +66,12 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Stock::Stock(const Handle<Quote>& quote)
+    inline Stock::Stock(const Handle<Quote>& quote)
     : quote_(quote) {
         registerWith(quote_);
     }
 
-    void Stock::performCalculations() const {
+    inline void Stock::performCalculations() const {
         QL_REQUIRE(!quote_.empty(), "null quote set");
         NPV_ = quote_->value();
     }

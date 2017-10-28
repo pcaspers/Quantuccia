@@ -159,7 +159,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    InterestRateIndex::InterestRateIndex(const std::string& familyName,
+    inline InterestRateIndex::InterestRateIndex(const std::string& familyName,
                                          const Period& tenor,
                                          Natural fixingDays,
                                          const Currency& currency,
@@ -191,7 +191,7 @@ namespace QuantLib {
         registerWith(IndexManager::instance().notifier(name()));
     }
 
-    Rate InterestRateIndex::fixing(const Date& fixingDate,
+    inline Rate InterestRateIndex::fixing(const Date& fixingDate,
                                    bool forecastTodaysFixing) const {
 
         QL_REQUIRE(isValidFixingDate(fixingDate),

@@ -99,7 +99,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    FuturesConvAdjustmentQuote::FuturesConvAdjustmentQuote(
+    inline FuturesConvAdjustmentQuote::FuturesConvAdjustmentQuote(
                                const boost::shared_ptr<IborIndex>& index,
                                const Date& futuresDate,
                                const Handle<Quote>& futuresQuote,
@@ -116,7 +116,7 @@ namespace QuantLib {
         registerWith(meanReversion_);
     }
 
-    FuturesConvAdjustmentQuote::FuturesConvAdjustmentQuote(
+    inline FuturesConvAdjustmentQuote::FuturesConvAdjustmentQuote(
                                const boost::shared_ptr<IborIndex>& index,
                                const std::string& immCode,
                                const Handle<Quote>& futuresQuote,
@@ -133,7 +133,7 @@ namespace QuantLib {
         registerWith(meanReversion_);
     }
 
-    Real FuturesConvAdjustmentQuote::value() const {
+    inline Real FuturesConvAdjustmentQuote::value() const {
 
         Date settlementDate = Settings::instance().evaluationDate();
         Time startTime = dc_.yearFraction(settlementDate, futuresDate_);
@@ -146,7 +146,7 @@ namespace QuantLib {
                                         meanReversion_->value());
     }
 
-    bool FuturesConvAdjustmentQuote::isValid() const {
+    inline bool FuturesConvAdjustmentQuote::isValid() const {
         return !futuresQuote_.empty() && !volatility_.empty() &&
                !meanReversion_.empty() && futuresQuote_->isValid() &&
                volatility_->isValid() && meanReversion_->isValid();

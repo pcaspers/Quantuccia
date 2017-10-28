@@ -84,7 +84,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    ImpliedStdDevQuote::ImpliedStdDevQuote(Option::Type optionType,
+    inline ImpliedStdDevQuote::ImpliedStdDevQuote(Option::Type optionType,
                                            const Handle<Quote>& forward,
                                            const Handle<Quote>& price,
                                            Real strike,
@@ -98,17 +98,17 @@ namespace QuantLib {
         registerWith(price_);
     }
 
-    Real ImpliedStdDevQuote::value() const {
+    inline Real ImpliedStdDevQuote::value() const {
         calculate();
         return impliedStdev_;
     }
 
-    bool ImpliedStdDevQuote::isValid() const {
+    inline bool ImpliedStdDevQuote::isValid() const {
         return !price_.empty()    && !forward_.empty() &&
                 price_->isValid() &&  forward_->isValid();
     }
 
-    void ImpliedStdDevQuote::performCalculations() const {
+    inline void ImpliedStdDevQuote::performCalculations() const {
         static const Real discount = 1.0;
         static const Real displacement = 0.0;
         Real blackPrice = price_->value();

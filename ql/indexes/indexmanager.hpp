@@ -93,26 +93,26 @@ using std::string;
 
 namespace QuantLib {
 
-    bool IndexManager::hasHistory(const string& name) const {
+    inline bool IndexManager::hasHistory(const string& name) const {
         return data_.find(to_upper_copy(name)) != data_.end();
     }
 
-    const TimeSeries<Real>&
+    inline const TimeSeries<Real>&
     IndexManager::getHistory(const string& name) const {
         return data_[to_upper_copy(name)].value();
     }
 
-    void IndexManager::setHistory(const string& name,
+    inline void IndexManager::setHistory(const string& name,
                                   const TimeSeries<Real>& history) {
         data_[to_upper_copy(name)] = history;
     }
 
-    boost::shared_ptr<Observable>
+    inline boost::shared_ptr<Observable>
     IndexManager::notifier(const string& name) const {
         return data_[to_upper_copy(name)];
     }
 
-    std::vector<string> IndexManager::histories() const {
+    inline std::vector<string> IndexManager::histories() const {
         std::vector<string> temp;
         temp.reserve(data_.size());
         for (history_map::const_iterator i=data_.begin();
@@ -121,11 +121,11 @@ namespace QuantLib {
         return temp;
     }
 
-    void IndexManager::clearHistory(const string& name) {
+    inline void IndexManager::clearHistory(const string& name) {
         data_.erase(to_upper_copy(name));
     }
 
-    void IndexManager::clearHistories() {
+    inline void IndexManager::clearHistories() {
         data_.clear();
     }
 

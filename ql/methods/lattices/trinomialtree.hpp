@@ -168,7 +168,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    TrinomialTree::TrinomialTree(
+    inline TrinomialTree::TrinomialTree(
                         const boost::shared_ptr<StochasticProcess1D>& process,
                         const TimeGrid& timeGrid,
                         bool isPositive)

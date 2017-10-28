@@ -103,27 +103,27 @@ namespace QuantLib {
 namespace QuantLib {
 
 
-    const Date& LocalVolSurface::referenceDate() const {
+    inline const Date& LocalVolSurface::referenceDate() const {
         return blackTS_->referenceDate();
     }
 
-    DayCounter LocalVolSurface::dayCounter() const {
+    inline DayCounter LocalVolSurface::dayCounter() const {
         return blackTS_->dayCounter();
     }
 
-    Date LocalVolSurface::maxDate() const {
+    inline Date LocalVolSurface::maxDate() const {
         return blackTS_->maxDate();
     }
 
-    Real LocalVolSurface::minStrike() const {
+    inline Real LocalVolSurface::minStrike() const {
         return blackTS_->minStrike();
     }
 
-    Real LocalVolSurface::maxStrike() const {
+    inline Real LocalVolSurface::maxStrike() const {
         return blackTS_->maxStrike();
     }
 
-    LocalVolSurface::LocalVolSurface(
+    inline LocalVolSurface::LocalVolSurface(
                                  const Handle<BlackVolTermStructure>& blackTS,
                                  const Handle<YieldTermStructure>& riskFreeTS,
                                  const Handle<YieldTermStructure>& dividendTS,
@@ -138,7 +138,7 @@ namespace QuantLib {
         registerWith(underlying_);
     }
 
-    LocalVolSurface::LocalVolSurface(
+    inline LocalVolSurface::LocalVolSurface(
                                  const Handle<BlackVolTermStructure>& blackTS,
                                  const Handle<YieldTermStructure>& riskFreeTS,
                                  const Handle<YieldTermStructure>& dividendTS,
@@ -152,7 +152,7 @@ namespace QuantLib {
         registerWith(dividendTS_);
     }
 
-    void LocalVolSurface::accept(AcyclicVisitor& v) {
+    inline void LocalVolSurface::accept(AcyclicVisitor& v) {
         Visitor<LocalVolSurface>* v1 =
             dynamic_cast<Visitor<LocalVolSurface>*>(&v);
         if (v1 != 0)
@@ -161,7 +161,7 @@ namespace QuantLib {
             LocalVolTermStructure::accept(v);
     }
 
-    Volatility LocalVolSurface::localVolImpl(Time t, Real underlyingLevel)
+    inline Volatility LocalVolSurface::localVolImpl(Time t, Real underlyingLevel)
                                                                      const {
 
         DiscountFactor dr = riskFreeTS_->discount(t, true);

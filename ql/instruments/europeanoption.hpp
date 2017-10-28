@@ -62,7 +62,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    EuropeanOption::EuropeanOption(
+    inline EuropeanOption::EuropeanOption(
         const boost::shared_ptr<StrikedTypePayoff>& payoff,
         const boost::shared_ptr<Exercise>& exercise)
     : VanillaOption(payoff, exercise) {}

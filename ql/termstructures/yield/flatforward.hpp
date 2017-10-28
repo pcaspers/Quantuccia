@@ -135,7 +135,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    FlatForward::FlatForward(const Date& referenceDate,
+    inline FlatForward::FlatForward(const Date& referenceDate,
                              const Handle<Quote>& forward,
                              const DayCounter& dayCounter,
                              Compounding compounding,
@@ -145,7 +145,7 @@ namespace QuantLib {
         registerWith(forward_);
     }
 
-    FlatForward::FlatForward(const Date& referenceDate,
+    inline FlatForward::FlatForward(const Date& referenceDate,
                              Rate forward,
                              const DayCounter& dayCounter,
                              Compounding compounding,
@@ -154,7 +154,7 @@ namespace QuantLib {
       forward_(boost::shared_ptr<Quote>(new SimpleQuote(forward))),
       compounding_(compounding), frequency_(frequency) {}
 
-    FlatForward::FlatForward(Natural settlementDays,
+    inline FlatForward::FlatForward(Natural settlementDays,
                              const Calendar& calendar,
                              const Handle<Quote>& forward,
                              const DayCounter& dayCounter,
@@ -165,7 +165,7 @@ namespace QuantLib {
         registerWith(forward_);
     }
 
-    FlatForward::FlatForward(Natural settlementDays,
+    inline FlatForward::FlatForward(Natural settlementDays,
                              const Calendar& calendar,
                              Rate forward,
                              const DayCounter& dayCounter,

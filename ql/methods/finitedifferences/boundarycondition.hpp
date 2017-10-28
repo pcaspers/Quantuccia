@@ -130,10 +130,10 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    NeumannBC::NeumannBC(Real value, NeumannBC::Side side)
+    inline NeumannBC::NeumannBC(Real value, NeumannBC::Side side)
     : value_(value), side_(side) {}
 
-    void NeumannBC::applyBeforeApplying(TridiagonalOperator& L) const {
+    inline void NeumannBC::applyBeforeApplying(TridiagonalOperator& L) const {
         switch (side_) {
           case Lower:
             L.setFirstRow(-1.0,1.0);
@@ -146,7 +146,7 @@ namespace QuantLib {
         }
     }
 
-    void NeumannBC::applyAfterApplying(Array& u) const {
+    inline void NeumannBC::applyAfterApplying(Array& u) const {
         switch (side_) {
           case Lower:
             u[0] = u[1] - value_;
@@ -159,7 +159,7 @@ namespace QuantLib {
         }
     }
 
-    void NeumannBC::applyBeforeSolving(TridiagonalOperator& L,
+    inline void NeumannBC::applyBeforeSolving(TridiagonalOperator& L,
                                        Array& rhs) const {
         switch (side_) {
           case Lower:
@@ -175,14 +175,14 @@ namespace QuantLib {
         }
     }
 
-    void NeumannBC::applyAfterSolving(Array&) const {}
+    inline void NeumannBC::applyAfterSolving(Array&) const {}
 
 
 
-    DirichletBC::DirichletBC(Real value, DirichletBC::Side side)
+    inline DirichletBC::DirichletBC(Real value, DirichletBC::Side side)
     : value_(value), side_(side) {}
 
-    void DirichletBC::applyBeforeApplying(TridiagonalOperator& L) const {
+    inline void DirichletBC::applyBeforeApplying(TridiagonalOperator& L) const {
         switch (side_) {
           case Lower:
             L.setFirstRow(1.0,0.0);
@@ -195,7 +195,7 @@ namespace QuantLib {
         }
     }
 
-    void DirichletBC::applyAfterApplying(Array& u) const {
+    inline void DirichletBC::applyAfterApplying(Array& u) const {
         switch (side_) {
           case Lower:
             u[0] = value_;
@@ -208,7 +208,7 @@ namespace QuantLib {
         }
     }
 
-    void DirichletBC::applyBeforeSolving(TridiagonalOperator& L,
+    inline void DirichletBC::applyBeforeSolving(TridiagonalOperator& L,
                                          Array& rhs) const {
         switch (side_) {
           case Lower:
@@ -224,7 +224,7 @@ namespace QuantLib {
         }
     }
 
-    void DirichletBC::applyAfterSolving(Array&) const {}
+    inline void DirichletBC::applyAfterSolving(Array&) const {}
 
 }
 

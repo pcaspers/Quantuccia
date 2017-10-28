@@ -109,92 +109,92 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    OneAssetOption::OneAssetOption(
+    inline OneAssetOption::OneAssetOption(
         const boost::shared_ptr<Payoff>& payoff,
         const boost::shared_ptr<Exercise>& exercise)
     : Option(payoff, exercise) {}
 
-    bool OneAssetOption::isExpired() const {
+    inline bool OneAssetOption::isExpired() const {
         return detail::simple_event(exercise_->lastDate()).hasOccurred();
     }
 
-    Real OneAssetOption::delta() const {
+    inline Real OneAssetOption::delta() const {
         calculate();
         QL_REQUIRE(delta_ != Null<Real>(), "delta not provided");
         return delta_;
     }
 
-    Real OneAssetOption::deltaForward() const {
+    inline Real OneAssetOption::deltaForward() const {
         calculate();
         QL_REQUIRE(deltaForward_ != Null<Real>(),
                    "forward delta not provided");
         return deltaForward_;
     }
 
-    Real OneAssetOption::elasticity() const {
+    inline Real OneAssetOption::elasticity() const {
         calculate();
         QL_REQUIRE(elasticity_ != Null<Real>(), "elasticity not provided");
         return elasticity_;
     }
 
-    Real OneAssetOption::gamma() const {
+    inline Real OneAssetOption::gamma() const {
         calculate();
         QL_REQUIRE(gamma_ != Null<Real>(), "gamma not provided");
         return gamma_;
     }
 
-    Real OneAssetOption::theta() const {
+    inline Real OneAssetOption::theta() const {
         calculate();
         QL_REQUIRE(theta_ != Null<Real>(), "theta not provided");
         return theta_;
     }
 
-    Real OneAssetOption::thetaPerDay() const {
+    inline Real OneAssetOption::thetaPerDay() const {
         calculate();
         QL_REQUIRE(thetaPerDay_ != Null<Real>(), "theta per-day not provided");
         return thetaPerDay_;
     }
 
-    Real OneAssetOption::vega() const {
+    inline Real OneAssetOption::vega() const {
         calculate();
         QL_REQUIRE(vega_ != Null<Real>(), "vega not provided");
         return vega_;
     }
 
-    Real OneAssetOption::rho() const {
+    inline Real OneAssetOption::rho() const {
         calculate();
         QL_REQUIRE(rho_ != Null<Real>(), "rho not provided");
         return rho_;
     }
 
-    Real OneAssetOption::dividendRho() const {
+    inline Real OneAssetOption::dividendRho() const {
         calculate();
         QL_REQUIRE(dividendRho_ != Null<Real>(), "dividend rho not provided");
         return dividendRho_;
     }
 
-    Real OneAssetOption::strikeSensitivity() const {
+    inline Real OneAssetOption::strikeSensitivity() const {
         calculate();
         QL_REQUIRE(strikeSensitivity_ != Null<Real>(),
                    "strike sensitivity not provided");
         return strikeSensitivity_;
     }
 
-    Real OneAssetOption::itmCashProbability() const {
+    inline Real OneAssetOption::itmCashProbability() const {
         calculate();
         QL_REQUIRE(itmCashProbability_ != Null<Real>(),
                    "in-the-money cash probability not provided");
         return itmCashProbability_;
     }
 
-    void OneAssetOption::setupExpired() const {
+    inline void OneAssetOption::setupExpired() const {
         Option::setupExpired();
         delta_ = deltaForward_ = elasticity_ = gamma_ = theta_ =
             thetaPerDay_ = vega_ = rho_ = dividendRho_ =
             strikeSensitivity_ = itmCashProbability_ = 0.0;
     }
 
-    void OneAssetOption::fetchResults(const PricingEngine::results* r) const {
+    inline void OneAssetOption::fetchResults(const PricingEngine::results* r) const {
         Option::fetchResults(r);
         const Greeks* results = dynamic_cast<const Greeks*>(r);
         QL_ENSURE(results != 0,

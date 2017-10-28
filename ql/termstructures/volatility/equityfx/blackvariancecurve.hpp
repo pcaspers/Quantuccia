@@ -135,7 +135,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    BlackVarianceCurve::BlackVarianceCurve(
+    inline BlackVarianceCurve::BlackVarianceCurve(
                                  const Date& referenceDate,
                                  const std::vector<Date>& dates,
                                  const std::vector<Volatility>& blackVolCurve,
@@ -173,7 +173,7 @@ namespace QuantLib {
         setInterpolation<Linear>();
     }
 
-    Real BlackVarianceCurve::blackVarianceImpl(Time t, Real) const {
+    inline Real BlackVarianceCurve::blackVarianceImpl(Time t, Real) const {
         if (t<=times_.back()) {
             return varianceCurve_(t, true);
         } else {

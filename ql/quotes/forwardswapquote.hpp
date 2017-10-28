@@ -90,7 +90,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    ForwardSwapQuote::ForwardSwapQuote(
+    inline ForwardSwapQuote::ForwardSwapQuote(
                     const boost::shared_ptr<SwapIndex>& swapIndex,
                     const Handle<Quote>& spread,
                     const Period& fwdStart)
@@ -102,7 +102,7 @@ namespace QuantLib {
         initializeDates();
     }
 
-    void ForwardSwapQuote::initializeDates() {
+    inline void ForwardSwapQuote::initializeDates() {
         valueDate_ = swapIndex_->fixingCalendar().advance(
                                                 evaluationDate_,
                                                 swapIndex_->fixingDays()*Days,
@@ -114,7 +114,7 @@ namespace QuantLib {
         swap_ = swapIndex_->underlyingSwap(fixingDate_);
     }
 
-    void ForwardSwapQuote::update() {
+    inline void ForwardSwapQuote::update() {
         if (evaluationDate_ != Settings::instance().evaluationDate()) {
             evaluationDate_ = Settings::instance().evaluationDate();
             initializeDates();
@@ -122,27 +122,27 @@ namespace QuantLib {
         LazyObject::update();
     }
 
-    const Date& ForwardSwapQuote::valueDate() const {
+    inline const Date& ForwardSwapQuote::valueDate() const {
         calculate();
         return valueDate_;
     }
 
-    const Date& ForwardSwapQuote::startDate() const {
+    inline const Date& ForwardSwapQuote::startDate() const {
         calculate();
         return startDate_;
     }
 
-    const Date& ForwardSwapQuote::fixingDate() const {
+    inline const Date& ForwardSwapQuote::fixingDate() const {
         calculate();
         return fixingDate_;
     }
 
-    Real ForwardSwapQuote::value() const {
+    inline Real ForwardSwapQuote::value() const {
         calculate();
         return result_;
     }
 
-    bool ForwardSwapQuote::isValid() const {
+    inline bool ForwardSwapQuote::isValid() const {
         bool swapIndexIsValid = true;
         try {
             swap_->recalculate();
@@ -153,7 +153,7 @@ namespace QuantLib {
         return swapIndexIsValid && spreadIsValid;
     }
 
-    void ForwardSwapQuote::performCalculations() const {
+    inline void ForwardSwapQuote::performCalculations() const {
         // we didn't register as observers - force calculation
         swap_->recalculate();
         // weak implementation... to be improved

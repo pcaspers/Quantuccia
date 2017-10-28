@@ -12,4 +12,3 @@
 #include <ql/math/optimization/method.hpp>
 #include <ql/math/optimization/problem.hpp>
 #include <ql/math/optimization/simplex.hpp>
-

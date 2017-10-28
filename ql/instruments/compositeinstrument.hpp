@@ -91,7 +91,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    void CompositeInstrument::add(
+    inline void CompositeInstrument::add(
            const boost::shared_ptr<Instrument>& instrument, Real multiplier) {
         components_.push_back(std::make_pair(instrument,multiplier));
         registerWith(instrument);
@@ -107,12 +107,12 @@ namespace QuantLib {
         instrument->alwaysForwardNotifications();
     }
 
-    void CompositeInstrument::subtract(
+    inline void CompositeInstrument::subtract(
            const boost::shared_ptr<Instrument>& instrument, Real multiplier) {
         add(instrument, -multiplier);
     }
 
-    bool CompositeInstrument::isExpired() const {
+    inline bool CompositeInstrument::isExpired() const {
         for (const_iterator i=components_.begin(); i!=components_.end(); ++i) {
             if (!i->first->isExpired())
                 return false;
@@ -120,7 +120,7 @@ namespace QuantLib {
         return true;
     }
 
-    void CompositeInstrument::performCalculations() const {
+    inline void CompositeInstrument::performCalculations() const {
         NPV_ = 0.0;
         for (const_iterator i=components_.begin(); i!=components_.end(); ++i) {
             NPV_ += i->second * i->first->NPV();

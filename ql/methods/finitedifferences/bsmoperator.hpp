@@ -69,9 +69,9 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    BSMOperator::BSMOperator() {}
+    inline BSMOperator::BSMOperator() {}
 
-    BSMOperator::BSMOperator(Size size, Real dx, Rate r,
+    inline BSMOperator::BSMOperator(Size size, Real dx, Rate r,
                              Rate q, Volatility sigma)
     : TridiagonalOperator(size) {
         Real sigma2 = sigma*sigma;
@@ -82,7 +82,7 @@ namespace QuantLib {
         setMidRows(pd,pm,pu);
     }
 
-    BSMOperator::BSMOperator(
+    inline BSMOperator::BSMOperator(
              const Array& grid,
              const boost::shared_ptr<GeneralizedBlackScholesProcess>& process,
              Time residualTime)

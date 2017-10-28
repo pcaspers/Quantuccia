@@ -103,7 +103,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    bool Event::hasOccurred(const Date& d, // refDate
+    inline bool Event::hasOccurred(const Date& d, // refDate
                             boost::optional<bool> includeRefDate) const {
         Date refDate =
             d != Date() ? d : Settings::instance().evaluationDate();
@@ -116,7 +116,7 @@ namespace QuantLib {
             return date() <= refDate;
     }
 
-    void Event::accept(AcyclicVisitor& v) {
+    inline void Event::accept(AcyclicVisitor& v) {
         Visitor<Event>* v1 = dynamic_cast<Visitor<Event>*>(&v);
         if (v1 != 0)
             v1->visit(*this);

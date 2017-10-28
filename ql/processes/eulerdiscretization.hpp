@@ -93,31 +93,31 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    Disposable<Array> EulerDiscretization::drift(
+    inline Disposable<Array> EulerDiscretization::drift(
                                       const StochasticProcess& process,
                                       Time t0, const Array& x0,
                                       Time dt) const {
         return process.drift(t0, x0)*dt;
     }
 
-    Real EulerDiscretization::drift(const StochasticProcess1D& process,
+    inline Real EulerDiscretization::drift(const StochasticProcess1D& process,
                                     Time t0, Real x0, Time dt) const {
         return process.drift(t0, x0)*dt;
     }
 
-    Disposable<Matrix> EulerDiscretization::diffusion(
+    inline Disposable<Matrix> EulerDiscretization::diffusion(
                                       const StochasticProcess& process,
                                       Time t0, const Array& x0,
                                       Time dt) const {
         return process.diffusion(t0, x0) * std::sqrt(dt);
     }
 
-    Real EulerDiscretization::diffusion(const StochasticProcess1D& process,
+    inline Real EulerDiscretization::diffusion(const StochasticProcess1D& process,
                                         Time t0, Real x0, Time dt) const {
         return process.diffusion(t0, x0) * std::sqrt(dt);
     }
 
-    Disposable<Matrix> EulerDiscretization::covariance(
+    inline Disposable<Matrix> EulerDiscretization::covariance(
                                       const StochasticProcess& process,
                                       Time t0, const Array& x0,
                                       Time dt) const {
@@ -126,7 +126,7 @@ namespace QuantLib {
         return result;
     }
 
-    Real EulerDiscretization::variance(const StochasticProcess1D& process,
+    inline Real EulerDiscretization::variance(const StochasticProcess1D& process,
                                        Time t0, Real x0, Time dt) const {
         Real sigma = process.diffusion(t0, x0);
         return sigma*sigma*dt;

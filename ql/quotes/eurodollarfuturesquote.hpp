@@ -84,7 +84,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    EurodollarFuturesImpliedStdDevQuote::EurodollarFuturesImpliedStdDevQuote(
+    inline EurodollarFuturesImpliedStdDevQuote::EurodollarFuturesImpliedStdDevQuote(
                                 const Handle<Quote>& forward,
                                 const Handle<Quote>& callPrice,
                                 const Handle<Quote>& putPrice,
@@ -100,12 +100,12 @@ namespace QuantLib {
         registerWith(putPrice_);
     }
 
-    Real EurodollarFuturesImpliedStdDevQuote::value() const {
+    inline Real EurodollarFuturesImpliedStdDevQuote::value() const {
         calculate();
         return impliedStdev_;
     }
 
-    bool EurodollarFuturesImpliedStdDevQuote::isValid() const {
+    inline bool EurodollarFuturesImpliedStdDevQuote::isValid() const {
         if (forward_.empty() || !forward_->isValid())
             return false;
         Real forwardValue = 100.0-forward_->value();
@@ -115,7 +115,7 @@ namespace QuantLib {
             return !callPrice_.empty() && callPrice_->isValid();
     }
 
-    void EurodollarFuturesImpliedStdDevQuote::performCalculations() const {
+    inline void EurodollarFuturesImpliedStdDevQuote::performCalculations() const {
         static const Real discount = 1.0;
         static const Real displacement = 0.0;
         Real forwardValue = 100.0-forward_->value();

@@ -229,7 +229,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    GeneralizedBlackScholesProcess::GeneralizedBlackScholesProcess(
+    inline GeneralizedBlackScholesProcess::GeneralizedBlackScholesProcess(
              const Handle<Quote>& x0,
              const Handle<YieldTermStructure>& dividendTS,
              const Handle<YieldTermStructure>& riskFreeTS,
@@ -245,11 +245,11 @@ namespace QuantLib {
         registerWith(blackVolatility_);
     }
 
-    Real GeneralizedBlackScholesProcess::x0() const {
+    inline Real GeneralizedBlackScholesProcess::x0() const {
         return x0_->value();
     }
 
-    Real GeneralizedBlackScholesProcess::drift(Time t, Real x) const {
+    inline Real GeneralizedBlackScholesProcess::drift(Time t, Real x) const {
         Real sigma = diffusion(t,x);
         // we could be more anticipatory if we know the right dt
         // for which the drift will be used
@@ -259,15 +259,15 @@ namespace QuantLib {
              - 0.5 * sigma * sigma;
     }
 
-    Real GeneralizedBlackScholesProcess::diffusion(Time t, Real x) const {
+    inline Real GeneralizedBlackScholesProcess::diffusion(Time t, Real x) const {
         return localVolatility()->localVol(t, x, true);
     }
 
-    Real GeneralizedBlackScholesProcess::apply(Real x0, Real dx) const {
+    inline Real GeneralizedBlackScholesProcess::apply(Real x0, Real dx) const {
         return x0 * std::exp(dx);
     }
 
-    Real GeneralizedBlackScholesProcess::expectation(Time t0,
+    inline Real GeneralizedBlackScholesProcess::expectation(Time t0,
                                                      Real x0,
                                                      Time dt) const {
         localVolatility(); // trigger update
@@ -283,7 +283,7 @@ namespace QuantLib {
         }
     }
 
-    Real GeneralizedBlackScholesProcess::stdDeviation(Time t0, Real x0, Time dt) const {
+    inline Real GeneralizedBlackScholesProcess::stdDeviation(Time t0, Real x0, Time dt) const {
         localVolatility(); // trigger update
         if(isStrikeIndependent_ && !forceDiscretization_) {
             // exact value for curves
@@ -294,7 +294,7 @@ namespace QuantLib {
         }
     }
 
-    Real GeneralizedBlackScholesProcess::variance(Time t0, Real x0, Time dt) const {
+    inline Real GeneralizedBlackScholesProcess::variance(Time t0, Real x0, Time dt) const {
         localVolatility(); // trigger update
         if(isStrikeIndependent_ && !forceDiscretization_) {
             // exact value for curves
@@ -306,7 +306,7 @@ namespace QuantLib {
         }
     }
 
-    Real GeneralizedBlackScholesProcess::evolve(Time t0, Real x0,
+    inline Real GeneralizedBlackScholesProcess::evolve(Time t0, Real x0,
                                                 Time dt, Real dw) const {
         localVolatility(); // trigger update
         if (isStrikeIndependent_ && !forceDiscretization_) {
@@ -324,37 +324,37 @@ namespace QuantLib {
                                  stdDeviation(t0, x0, dt) * dw);
     }
 
-    Time GeneralizedBlackScholesProcess::time(const Date& d) const {
+    inline Time GeneralizedBlackScholesProcess::time(const Date& d) const {
         return riskFreeRate_->dayCounter().yearFraction(
                                            riskFreeRate_->referenceDate(), d);
     }
 
-    void GeneralizedBlackScholesProcess::update() {
+    inline void GeneralizedBlackScholesProcess::update() {
         updated_ = false;
         StochasticProcess1D::update();
     }
 
-    const Handle<Quote>&
+    inline const Handle<Quote>&
     GeneralizedBlackScholesProcess::stateVariable() const {
         return x0_;
     }
 
-    const Handle<YieldTermStructure>&
+    inline const Handle<YieldTermStructure>&
     GeneralizedBlackScholesProcess::dividendYield() const {
         return dividendYield_;
     }
 
-    const Handle<YieldTermStructure>&
+    inline const Handle<YieldTermStructure>&
     GeneralizedBlackScholesProcess::riskFreeRate() const {
         return riskFreeRate_;
     }
 
-    const Handle<BlackVolTermStructure>&
+    inline const Handle<BlackVolTermStructure>&
     GeneralizedBlackScholesProcess::blackVolatility() const {
         return blackVolatility_;
     }
 
-    const Handle<LocalVolTermStructure>&
+    inline const Handle<LocalVolTermStructure>&
     GeneralizedBlackScholesProcess::localVolatility() const {
         if (!updated_) {
             isStrikeIndependent_=true;
@@ -401,7 +401,7 @@ namespace QuantLib {
 
     // specific models
 
-    BlackScholesProcess::BlackScholesProcess(
+    inline BlackScholesProcess::BlackScholesProcess(
                               const Handle<Quote>& x0,
                               const Handle<YieldTermStructure>& riskFreeTS,
                               const Handle<BlackVolTermStructure>& blackVolTS,
@@ -417,7 +417,7 @@ namespace QuantLib {
              d,forceDiscretization) {}
 
 
-    BlackScholesMertonProcess::BlackScholesMertonProcess(
+    inline BlackScholesMertonProcess::BlackScholesMertonProcess(
                               const Handle<Quote>& x0,
                               const Handle<YieldTermStructure>& dividendTS,
                               const Handle<YieldTermStructure>& riskFreeTS,
@@ -428,7 +428,7 @@ namespace QuantLib {
                                      forceDiscretization) {}
 
 
-    BlackProcess::BlackProcess(const Handle<Quote>& x0,
+    inline BlackProcess::BlackProcess(const Handle<Quote>& x0,
                                const Handle<YieldTermStructure>& riskFreeTS,
                                const Handle<BlackVolTermStructure>& blackVolTS,
                                const boost::shared_ptr<discretization>& d,
@@ -437,7 +437,7 @@ namespace QuantLib {
                                      forceDiscretization) {}
 
 
-    GarmanKohlagenProcess::GarmanKohlagenProcess(
+    inline GarmanKohlagenProcess::GarmanKohlagenProcess(
                           const Handle<Quote>& x0,
                           const Handle<YieldTermStructure>& foreignRiskFreeTS,
                           const Handle<YieldTermStructure>& domesticRiskFreeTS,

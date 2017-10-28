@@ -236,7 +236,7 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    JarrowRudd::JarrowRudd(
+    inline JarrowRudd::JarrowRudd(
                         const boost::shared_ptr<StochasticProcess1D>& process,
                         Time end, Size steps, Real)
     : EqualProbabilitiesBinomialTree<JarrowRudd>(process, end, steps) {
@@ -245,7 +245,7 @@ namespace QuantLib {
     }
 
 
-    CoxRossRubinstein::CoxRossRubinstein(
+    inline CoxRossRubinstein::CoxRossRubinstein(
                         const boost::shared_ptr<StochasticProcess1D>& process,
                         Time end, Size steps, Real)
     : EqualJumpsBinomialTree<CoxRossRubinstein>(process, end, steps) {
@@ -259,7 +259,7 @@ namespace QuantLib {
     }
 
 
-    AdditiveEQPBinomialTree::AdditiveEQPBinomialTree(
+    inline AdditiveEQPBinomialTree::AdditiveEQPBinomialTree(
                         const boost::shared_ptr<StochasticProcess1D>& process,
                         Time end, Size steps, Real)
     : EqualProbabilitiesBinomialTree<AdditiveEQPBinomialTree>(process,
@@ -270,7 +270,7 @@ namespace QuantLib {
     }
 
 
-    Trigeorgis::Trigeorgis(
+    inline Trigeorgis::Trigeorgis(
                         const boost::shared_ptr<StochasticProcess1D>& process,
                         Time end, Size steps, Real)
     : EqualJumpsBinomialTree<Trigeorgis>(process, end, steps) {
@@ -285,7 +285,7 @@ namespace QuantLib {
     }
 
 
-    Tian::Tian(const boost::shared_ptr<StochasticProcess1D>& process,
+    inline Tian::Tian(const boost::shared_ptr<StochasticProcess1D>& process,
                Time end, Size steps, Real)
     : BinomialTree<Tian>(process, end, steps) {
 
@@ -307,7 +307,7 @@ namespace QuantLib {
     }
 
 
-    LeisenReimer::LeisenReimer(
+    inline LeisenReimer::LeisenReimer(
                         const boost::shared_ptr<StochasticProcess1D>& process,
                         Time end, Size steps, Real strike)
     : BinomialTree<LeisenReimer>(process, end,
@@ -328,7 +328,7 @@ namespace QuantLib {
 
     }
 
-    Real Joshi4::computeUpProb(Real k, Real dj) const {
+    inline Real Joshi4::computeUpProb(Real k, Real dj) const {
         Real alpha = dj/(std::sqrt(8.0));
         Real alpha2 = alpha*alpha;
         Real alpha3 = alpha*alpha2;
@@ -349,7 +349,7 @@ namespace QuantLib {
         return p;
     }
 
-    Joshi4::Joshi4(const boost::shared_ptr<StochasticProcess1D>& process,
+    inline Joshi4::Joshi4(const boost::shared_ptr<StochasticProcess1D>& process,
                    Time end, Size steps, Real strike)
     : BinomialTree<Joshi4>(process, end, (steps%2) ? steps : (steps+1)) {
 

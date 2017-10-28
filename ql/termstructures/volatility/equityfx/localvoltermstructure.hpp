@@ -112,23 +112,23 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    LocalVolTermStructure::LocalVolTermStructure(BusinessDayConvention bdc,
+    inline LocalVolTermStructure::LocalVolTermStructure(BusinessDayConvention bdc,
                                                  const DayCounter& dc)
     : VolatilityTermStructure(bdc, dc) {}
 
-    LocalVolTermStructure::LocalVolTermStructure(const Date& referenceDate,
+    inline LocalVolTermStructure::LocalVolTermStructure(const Date& referenceDate,
                                                  const Calendar& cal,
                                                  BusinessDayConvention bdc,
                                                  const DayCounter& dc)
     : VolatilityTermStructure(referenceDate, cal, bdc, dc) {}
 
-    LocalVolTermStructure::LocalVolTermStructure(Natural settlementDays,
+    inline LocalVolTermStructure::LocalVolTermStructure(Natural settlementDays,
                                                  const Calendar& cal,
                                                  BusinessDayConvention bdc,
                                                  const DayCounter& dc)
     : VolatilityTermStructure(settlementDays, cal, bdc, dc) {}
 
-    Volatility LocalVolTermStructure::localVol(const Date& d,
+    inline Volatility LocalVolTermStructure::localVol(const Date& d,
                                                Real underlyingLevel,
                                                bool extrapolate) const {
         checkRange(d, extrapolate);
@@ -137,7 +137,7 @@ namespace QuantLib {
         return localVolImpl(t, underlyingLevel);
     }
 
-    Volatility LocalVolTermStructure::localVol(Time t,
+    inline Volatility LocalVolTermStructure::localVol(Time t,
                                                Real underlyingLevel,
                                                bool extrapolate) const {
         checkRange(t, extrapolate);
@@ -145,7 +145,7 @@ namespace QuantLib {
         return localVolImpl(t, underlyingLevel);
     }
 
-    void LocalVolTermStructure::accept(AcyclicVisitor& v) {
+    inline void LocalVolTermStructure::accept(AcyclicVisitor& v) {
         Visitor<LocalVolTermStructure>* v1 =
             dynamic_cast<Visitor<LocalVolTermStructure>*>(&v);
         if (v1 != 0)

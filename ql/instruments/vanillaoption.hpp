@@ -99,13 +99,13 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    VanillaOption::VanillaOption(
+    inline VanillaOption::VanillaOption(
         const boost::shared_ptr<StrikedTypePayoff>& payoff,
         const boost::shared_ptr<Exercise>& exercise)
     : OneAssetOption(payoff, exercise) {}
 
 
-    Volatility VanillaOption::impliedVolatility(
+    inline Volatility VanillaOption::impliedVolatility(
              Real targetValue,
              const boost::shared_ptr<GeneralizedBlackScholesProcess>& process,
              Real accuracy,

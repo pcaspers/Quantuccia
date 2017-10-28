@@ -81,7 +81,7 @@ namespace QuantLib {
       private:
         Size safeGridPoints(Size gridPoints,
                             Time residualTime) const;
-        static const Real safetyZoneFactor_;
+        const Real safetyZoneFactor_ = 1.1;;
     };
 
     template <typename base, typename engine>
@@ -133,15 +133,13 @@ namespace QuantLib {
 
 namespace QuantLib {
 
-    const Real FDVanillaEngine::safetyZoneFactor_ = 1.1;
-
-    void FDVanillaEngine::setGridLimits() const {
+    inline void FDVanillaEngine::setGridLimits() const {
         setGridLimits(process_->stateVariable()->value(),
                       getResidualTime());
         ensureStrikeInGrid();
     }
 
-    void FDVanillaEngine::setupArguments(
+    inline void FDVanillaEngine::setupArguments(
                                     const PricingEngine::arguments* a) const {
         const OneAssetOption::arguments * args =
             dynamic_cast<const OneAssetOption::arguments *>(a);
@@ -150,7 +148,7 @@ namespace QuantLib {
         payoff_ = args->payoff;
     }
 
-    void FDVanillaEngine::setGridLimits(Real center, Time t) const {
+    inline void FDVanillaEngine::setGridLimits(Real center, Time t) const {
         QL_REQUIRE(center > 0.0, "negative or null underlying given");
         QL_REQUIRE(t > 0.0, "negative or zero residual time");
         center_ = center;
@@ -169,7 +167,7 @@ namespace QuantLib {
         sMax_ = center_*minMaxFactor;  // underlying grid max value
     }
 
-    void FDVanillaEngine::ensureStrikeInGrid() const {
+    inline void FDVanillaEngine::ensureStrikeInGrid() const {
         // ensure strike is included in the grid
         boost::shared_ptr<StrikedTypePayoff> striked_payoff =
             boost::dynamic_pointer_cast<StrikedTypePayoff>(payoff_);
@@ -189,12 +187,12 @@ namespace QuantLib {
         }
     }
 
-    void FDVanillaEngine::initializeInitialCondition() const {
+    inline void FDVanillaEngine::initializeInitialCondition() const {
         intrinsicValues_.setLogGrid(sMin_, sMax_);
         intrinsicValues_.sample(*payoff_);
     }
 
-    void FDVanillaEngine::initializeOperator() const {
+    inline void FDVanillaEngine::initializeOperator() const {
         finiteDifferenceOperator_ =
             OperatorFactory::getOperator(process_,
                                          intrinsicValues_.grid(),
@@ -202,7 +200,7 @@ namespace QuantLib {
                                          timeDependent_);
     }
 
-    void FDVanillaEngine::initializeBoundaryConditions() const {
+    inline void FDVanillaEngine::initializeBoundaryConditions() const {
         BCs_[0] = boost::shared_ptr<bc_type>(new NeumannBC(
                                       intrinsicValues_.value(1)-
                                       intrinsicValues_.value(0),
@@ -213,12 +211,12 @@ namespace QuantLib {
                        NeumannBC::Upper));
     }
 
-    Time FDVanillaEngine::getResidualTime() const {
+    inline Time FDVanillaEngine::getResidualTime() const {
         return process_->time(exerciseDate_);
     }
 
     // safety check to be sure we have enough grid points.
-    Size FDVanillaEngine::safeGridPoints(Size gridPoints,
+    inline Size FDVanillaEngine::safeGridPoints(Size gridPoints,
                                          Time residualTime) const {
         static const Size minGridPoints = 10;
         static const Size minGridPointsPerYear = 2;
