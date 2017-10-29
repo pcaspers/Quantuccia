@@ -4,14 +4,14 @@
 //#include <ql/termstructures/volatility/atmsmilesection.hpp>
 //#include <ql/termstructures/volatility/flatsmilesection.hpp>
 //#include <ql/termstructures/volatility/gaussian1dsmilesection.hpp>
-//#include <ql/termstructures/volatility/interpolatedsmilesection.hpp>
+#include <ql/termstructures/volatility/interpolatedsmilesection.hpp>
 //#include <ql/termstructures/volatility/kahalesmilesection.hpp>
 #include <ql/termstructures/volatility/sabr.hpp>
 //#include <ql/termstructures/volatility/sabrinterpolatedsmilesection.hpp>
 #include <ql/termstructures/volatility/sabrsmilesection.hpp>
 #include <ql/termstructures/volatility/smilesection.hpp>
 //#include <ql/termstructures/volatility/smilesectionutils.hpp>
-//#include <ql/termstructures/volatility/spreadedsmilesection.hpp>
+#include <ql/termstructures/volatility/spreadedsmilesection.hpp>
 #include <ql/termstructures/volatility/volatilitytype.hpp>
 
 #include <ql/termstructures/volatility/equityfx/all.hpp>

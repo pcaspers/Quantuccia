@@ -3,11 +3,11 @@
 #include <ql/pricingengines/blackcalculator.hpp>
 #include <ql/pricingengines/blackformula.hpp>
 //#include <ql/pricingengines/blackscholescalculator.hpp>
-//#include <ql/pricingengines/genericmodelengine.hpp>
+#include <ql/pricingengines/genericmodelengine.hpp>
 //#include <ql/pricingengines/greeks.hpp>
-//#include <ql/pricingengines/latticeshortratemodelengine.hpp>
-//#include <ql/pricingengines/mclongstaffschwartzengine.hpp>
-//#include <ql/pricingengines/mcsimulation.hpp>
+#include <ql/pricingengines/latticeshortratemodelengine.hpp>
+#include <ql/pricingengines/mclongstaffschwartzengine.hpp>
+#include <ql/pricingengines/mcsimulation.hpp>
 //
 //#include <ql/pricingengines/asian/all.hpp>
 //#include <ql/pricingengines/barrier/all.hpp>
