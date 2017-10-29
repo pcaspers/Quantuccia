@@ -20,8 +20,8 @@
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
 
-/*! \file couponpricer.hpp
-    \brief Coupon pricers
+/*! \file pricersetter.hpp
+    \brief Implementation of Class PricerSetter
 */
 
 #ifndef quantlib_pricer_setter_hpp
