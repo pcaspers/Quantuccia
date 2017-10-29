@@ -124,7 +124,6 @@ namespace QuantLib {
 */
 
 #include <ql/cashflows/cashflowvectors.hpp>
-#include <ql/cashflows/capflooredcoupon.hpp>
 #include <ql/indexes/swapindex.hpp>
 
 namespace QuantLib {
@@ -242,13 +241,6 @@ namespace QuantLib {
         zeroPayments_ = flag;
         return *this;
     }
-
-  inline CmsLeg::operator Leg() const {
-        return FloatingLeg<SwapIndex, CmsCoupon, CappedFlooredCmsCoupon>(
-                         schedule_, notionals_, swapIndex_, paymentDayCounter_,
-                         paymentAdjustment_, fixingDays_, gearings_, spreads_,
-                         caps_, floors_, inArrears_, zeroPayments_);
-   }
 
 }
 

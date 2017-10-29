@@ -140,7 +140,6 @@ namespace QuantLib {
 */
 
 #include <ql/cashflows/couponpricer.hpp>
-#include <ql/cashflows/capflooredcoupon.hpp>
 #include <ql/cashflows/cashflowvectors.hpp>
 #include <ql/indexes/interestrateindex.hpp>
 #include <ql/termstructures/yieldtermstructure.hpp>
@@ -342,21 +341,6 @@ namespace QuantLib {
     inline IborLeg& IborLeg::withZeroPayments(bool flag) {
         zeroPayments_ = flag;
         return *this;
-    }
-
-    inline IborLeg::operator Leg() const {
-
-        Leg leg = FloatingLeg<IborIndex, IborCoupon, CappedFlooredIborCoupon>(
-                         schedule_, notionals_, index_, paymentDayCounter_,
-                         paymentAdjustment_, fixingDays_, gearings_, spreads_,
-                         caps_, floors_, inArrears_, zeroPayments_, paymentLag_, paymentCalendar_);
-
-        if (caps_.empty() && floors_.empty() && !inArrears_) {
-            shared_ptr<IborCouponPricer> pricer(new BlackIborCouponPricer);
-            setCouponPricer(leg, pricer);
-        }
-
-        return leg;
     }
 
 }

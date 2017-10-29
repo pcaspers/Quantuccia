@@ -301,6 +301,31 @@ namespace QuantLib {
         else
             super::accept(v);
     }
+	
+	//Nicola Scaramuzzino: i moved those implementation there in order to solve the multiple include problem
+	
+	inline IborLeg::operator Leg() const {
+
+        Leg leg = FloatingLeg<IborIndex, IborCoupon, CappedFlooredIborCoupon>(
+                         schedule_, notionals_, index_, paymentDayCounter_,
+                         paymentAdjustment_, fixingDays_, gearings_, spreads_,
+                         caps_, floors_, inArrears_, zeroPayments_, paymentLag_, paymentCalendar_);
+
+        if (caps_.empty() && floors_.empty() && !inArrears_) {
+            shared_ptr<IborCouponPricer> pricer(new BlackIborCouponPricer);
+            setCouponPricer(leg, pricer);
+        }
+
+        return leg;
+    }
+	
+	
+	 inline CmsLeg::operator Leg() const {
+        return FloatingLeg<SwapIndex, CmsCoupon, CappedFlooredCmsCoupon>(
+                         schedule_, notionals_, swapIndex_, paymentDayCounter_,
+                         paymentAdjustment_, fixingDays_, gearings_, spreads_,
+                         caps_, floors_, inArrears_, zeroPayments_);
+   }
 
 }
 

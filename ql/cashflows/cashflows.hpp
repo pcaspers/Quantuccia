@@ -590,7 +590,7 @@ namespace QuantLib {
         return (*cf)->date();
     }
 
-    inline Real CashFlows::::previousCashFlowAmount(const Leg& leg,
+    inline Real CashFlows::previousCashFlowAmount(const Leg& leg,
                                            bool includeSettlementDateFlows,
                                            Date settlementDate) {
         Leg::const_reverse_iterator cf;
@@ -606,7 +606,7 @@ namespace QuantLib {
         return result;
     }
 
-    inline Real CashFlows::::nextCashFlowAmount(const Leg& leg,
+    inline Real CashFlows::nextCashFlowAmount(const Leg& leg,
                                        bool includeSettlementDateFlows,
                                        Date settlementDate) {
         Leg::const_iterator cf;
@@ -679,7 +679,7 @@ namespace QuantLib {
         return aggregateRate<Leg::const_iterator>(leg, cf, leg.end());
     }
 
-    inline Real CashFlows::::nominal(const Leg& leg,
+    inline Real CashFlows::nominal(const Leg& leg,
                             bool includeSettlementDateFlows,
                             Date settlementDate) {
         Leg::const_iterator cf = nextCashFlow(leg,
@@ -764,7 +764,7 @@ namespace QuantLib {
         return Date();
     }
 
-    inline inline Time CashFlows::accrualPeriod(const Leg& leg,
+    inline Time CashFlows::accrualPeriod(const Leg& leg,
                                   bool includeSettlementDateFlows,
                                   Date settlementDate) {
         Leg::const_iterator cf = nextCashFlow(leg,
@@ -781,7 +781,7 @@ namespace QuantLib {
         return 0;
     }
 
-    inline inline Date::serial_type CashFlows::accrualDays(const Leg& leg,
+    inline Date::serial_type CashFlows::accrualDays(const Leg& leg,
                                              bool includeSettlementDateFlows,
                                              Date settlementDate) {
         Leg::const_iterator cf = nextCashFlow(leg,
@@ -838,7 +838,7 @@ namespace QuantLib {
         return 0;
     }
 
-    inline Real CashFlows::::accruedAmount(const Leg& leg,
+    inline Real CashFlows::accruedAmount(const Leg& leg,
                                   bool includeSettlementDateFlows,
                                   Date settlementDate) {
         if (settlementDate == Date())
@@ -888,7 +888,7 @@ namespace QuantLib {
         const Spread basisPoint_ = 1.0e-4;
     } // anonymous namespace ends here
 
-    inline Real CashFlows::::npv(const Leg& leg,
+    inline Real CashFlows::npv(const Leg& leg,
                         const YieldTermStructure& discountCurve,
                         bool includeSettlementDateFlows,
                         Date settlementDate,
@@ -915,7 +915,7 @@ namespace QuantLib {
         return totalNPV/discountCurve.discount(npvDate);
     }
 
-    inline Real CashFlows::::bps(const Leg& leg,
+    inline Real CashFlows::bps(const Leg& leg,
                         const YieldTermStructure& discountCurve,
                         bool includeSettlementDateFlows,
                         Date settlementDate,
@@ -1219,7 +1219,7 @@ namespace QuantLib {
         checkSign();
     }
 
-    inline Real CashFlows::::IrrFinder::operator()(Rate y) const {
+    inline Real CashFlows::IrrFinder::operator()(Rate y) const {
         InterestRate yield(y, dayCounter_, compounding_, frequency_);
         Real NPV = CashFlows::npv(leg_, yield,
                                   includeSettlementDateFlows_,
@@ -1227,7 +1227,7 @@ namespace QuantLib {
         return npv_ - NPV;
     }
 
-    inline Real CashFlows::::IrrFinder::derivative(Rate y) const {
+    inline Real CashFlows::IrrFinder::derivative(Rate y) const {
         InterestRate yield(y, dayCounter_, compounding_, frequency_);
         return modifiedDuration(leg_, yield,
                                 includeSettlementDateFlows_,
@@ -1277,7 +1277,7 @@ namespace QuantLib {
         */
     }
 
-    inline Real CashFlows::::npv(const Leg& leg,
+    inline Real CashFlows::npv(const Leg& leg,
                         const InterestRate& y,
                         bool includeSettlementDateFlows,
                         Date settlementDate,
@@ -1322,7 +1322,7 @@ namespace QuantLib {
         return npv;
     }
 
-    inline Real CashFlows::::npv(const Leg& leg,
+    inline Real CashFlows::npv(const Leg& leg,
                         Rate yield,
                         const DayCounter& dc,
                         Compounding comp,
@@ -1335,7 +1335,7 @@ namespace QuantLib {
                    settlementDate, npvDate);
     }
 
-    inline Real CashFlows::::bps(const Leg& leg,
+    inline Real CashFlows::bps(const Leg& leg,
                         const InterestRate& yield,
                         bool includeSettlementDateFlows,
                         Date settlementDate,
@@ -1357,7 +1357,7 @@ namespace QuantLib {
                    settlementDate, npvDate);
     }
 
-    inline Real CashFlows::::bps(const Leg& leg,
+    inline Real CashFlows::bps(const Leg& leg,
                         Rate yield,
                         const DayCounter& dc,
                         Compounding comp,
@@ -1440,7 +1440,7 @@ namespace QuantLib {
                         settlementDate, npvDate);
     }
 
-    inline Real CashFlows::::convexity(const Leg& leg,
+    inline Real CashFlows::convexity(const Leg& leg,
                               const InterestRate& y,
                               bool includeSettlementDateFlows,
                               Date settlementDate,
@@ -1512,7 +1512,7 @@ namespace QuantLib {
     }
 
 
-    inline Real CashFlows::::convexity(const Leg& leg,
+    inline Real CashFlows::convexity(const Leg& leg,
                               Rate yield,
                               const DayCounter& dc,
                               Compounding comp,
@@ -1525,7 +1525,7 @@ namespace QuantLib {
                          settlementDate, npvDate);
     }
 
-    inline Real CashFlows::::basisPointValue(const Leg& leg,
+    inline Real CashFlows::basisPointValue(const Leg& leg,
                                     const InterestRate& y,
                                     bool includeSettlementDateFlows,
                                     Date settlementDate,
@@ -1559,7 +1559,7 @@ namespace QuantLib {
         return delta + 0.5*gamma;
     }
 
-    inline Real CashFlows::::basisPointValue(const Leg& leg,
+    inline Real CashFlows::basisPointValue(const Leg& leg,
                                     Rate yield,
                                     const DayCounter& dc,
                                     Compounding comp,
@@ -1572,7 +1572,7 @@ namespace QuantLib {
                                settlementDate, npvDate);
     }
 
-    inline Real CashFlows::::yieldValueBasisPoint(const Leg& leg,
+    inline Real CashFlows::yieldValueBasisPoint(const Leg& leg,
                                          const InterestRate& y,
                                          bool includeSettlementDateFlows,
                                          Date settlementDate,
@@ -1598,7 +1598,7 @@ namespace QuantLib {
         return (1.0/(-npv*modifiedDuration))*shift;
     }
 
-    inline Real CashFlows::::yieldValueBasisPoint(const Leg& leg,
+    inline Real CashFlows::yieldValueBasisPoint(const Leg& leg,
                                          Rate yield,
                                          const DayCounter& dc,
                                          Compounding comp,
@@ -1661,7 +1661,7 @@ namespace QuantLib {
 
     } // anonymous namespace ends here
 
-    inline Real CashFlows::::npv(const Leg& leg,
+    inline Real CashFlows::npv(const Leg& leg,
                         const shared_ptr<YieldTermStructure>& discountCurve,
                         Spread zSpread,
                         const DayCounter& dc,

@@ -180,8 +180,8 @@ inline OptionletStripper::OptionletStripper(
         return optionletStrikes_[i];
     }   
 
-    const vector<Volatility>&
-    inline OptionletStripper::optionletVolatilities(Size i) const {
+    inline const vector<Volatility>&
+    OptionletStripper::optionletVolatilities(Size i) const {
         calculate();
         QL_REQUIRE(i<optionletVolatilities_.size(),
                    "index (" << i <<
