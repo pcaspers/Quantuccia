@@ -4,7 +4,7 @@
 //#include <ql/indexes/inflationindex.hpp>
 #include <ql/indexes/interestrateindex.hpp>
 //#include <ql/indexes/region.hpp>
-//#include <ql/indexes/swapindex.hpp>
+#include <ql/indexes/swapindex.hpp>
 //
 #include <ql/indexes/ibor/all.hpp>
 //#include <ql/indexes/inflation/all.hpp>

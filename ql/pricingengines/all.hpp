@@ -13,13 +13,13 @@
 //#include <ql/pricingengines/barrier/all.hpp>
 //#include <ql/pricingengines/basket/all.hpp>
 //#include <ql/pricingengines/bond/all.hpp>
-//#include <ql/pricingengines/capfloor/all.hpp>
+#include <ql/pricingengines/capfloor/all.hpp>
 //#include <ql/pricingengines/cliquet/all.hpp>
 //#include <ql/pricingengines/credit/all.hpp>
 //#include <ql/pricingengines/forward/all.hpp>
 //#include <ql/pricingengines/inflation/all.hpp>
 //#include <ql/pricingengines/lookback/all.hpp>
 //#include <ql/pricingengines/quanto/all.hpp>
-//#include <ql/pricingengines/swap/all.hpp>
-//#include <ql/pricingengines/swaption/all.hpp>
+#include <ql/pricingengines/swap/all.hpp>
+#include <ql/pricingengines/swaption/all.hpp>
 #include <ql/pricingengines/vanilla/all.hpp>

@@ -15,5 +15,5 @@
 //#include <ql/termstructures/yield/quantotermstructure.hpp>
 //#include <ql/termstructures/yield/ratehelpers.hpp>
 //#include <ql/termstructures/yield/zerocurve.hpp>
-//#include <ql/termstructures/yield/zerospreadedtermstructure.hpp>
-//#include <ql/termstructures/yield/zeroyieldstructure.hpp>
+#include <ql/termstructures/yield/zerospreadedtermstructure.hpp>
+#include <ql/termstructures/yield/zeroyieldstructure.hpp>

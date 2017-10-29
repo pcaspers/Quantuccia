@@ -117,15 +117,14 @@ namespace QuantLib {
 #include <ql/pricingengines/capfloor/blackcapfloorengine.hpp>
 #include <ql/utilities/dataformatters.hpp>
 
-using std::vector;
 
 namespace QuantLib {
 
 inline StrippedOptionlet::StrippedOptionlet(
     Natural settlementDays, const Calendar &calendar, BusinessDayConvention bdc,
     const boost::shared_ptr< IborIndex > &iborIndex,
-    const std::vector< Date > &optionletDates, const vector< Rate > &strikes,
-    const vector< vector< Handle< Quote > > > &v, const DayCounter &dc,
+    const std::vector< Date > &optionletDates, const std::vector< Rate > &strikes,
+    const std::vector< std::vector< Handle< Quote > > > &v, const DayCounter &dc,
     VolatilityType type, Real displacement)
     : calendar_(calendar), settlementDays_(settlementDays),
       businessDayConvention_(bdc), dc_(dc), iborIndex_(iborIndex), type_(type),
@@ -134,7 +133,7 @@ inline StrippedOptionlet::StrippedOptionlet(
       optionletAtmRates_(nOptionletDates_),
       optionletStrikes_(nOptionletDates_, strikes), nStrikes_(strikes.size()),
       optionletVolQuotes_(v),
-      optionletVolatilities_(nOptionletDates_, vector< Volatility >(nStrikes_))
+      optionletVolatilities_(nOptionletDates_, std::vector< Volatility >(nStrikes_))
 
 {
         checkInputs();
@@ -186,7 +185,7 @@ inline StrippedOptionlet::StrippedOptionlet(
             optionletVolatilities_[i][j] = optionletVolQuotes_[i][j]->value();
     }
 
-    inline const vector<Rate>& StrippedOptionlet::optionletStrikes(Size i) const{
+    inline const std::vector<Rate>& StrippedOptionlet::optionletStrikes(Size i) const{
         QL_REQUIRE(i<optionletStrikes_.size(),
                    "index (" << i <<
                    ") must be less than optionletStrikes size (" <<
@@ -194,8 +193,8 @@ inline StrippedOptionlet::StrippedOptionlet(
         return optionletStrikes_[i];
     }
 
-    const vector<Volatility>&
-    inline StrippedOptionlet::optionletVolatilities(Size i) const{
+    inline const std::vector<Volatility>&
+    StrippedOptionlet::optionletVolatilities(Size i) const{
         calculate();
         QL_REQUIRE(i<optionletVolatilities_.size(),
                    "index (" << i <<
@@ -204,12 +203,12 @@ inline StrippedOptionlet::StrippedOptionlet(
         return optionletVolatilities_[i];
     }
 
-    inline const vector<Date>& StrippedOptionlet::optionletFixingDates() const {
+    inline const std::vector<Date>& StrippedOptionlet::optionletFixingDates() const {
         calculate();
         return optionletDates_;
     }
 
-    inline const vector<Time>& StrippedOptionlet::optionletFixingTimes() const {
+    inline const std::vector<Time>& StrippedOptionlet::optionletFixingTimes() const {
         calculate();
         return optionletTimes_;
     }
@@ -218,7 +217,7 @@ inline StrippedOptionlet::StrippedOptionlet(
         return nOptionletDates_;
     }
 
-    inline const vector<Time>& StrippedOptionlet::atmOptionletRates() const {
+    inline const std::vector<Time>& StrippedOptionlet::atmOptionletRates() const {
         calculate();
         for (Size i=0; i<nOptionletDates_; ++i)
             optionletAtmRates_[i] = iborIndex_->fixing(optionletDates_[i], true);

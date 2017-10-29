@@ -119,7 +119,7 @@ using boost::shared_ptr;
 
 namespace QuantLib {
 
-OptionletStripper1::OptionletStripper1(
+inline OptionletStripper1::OptionletStripper1(
     const shared_ptr< CapFloorTermVolSurface > &termVolSurface,
     const shared_ptr< IborIndex > &index, Rate switchStrike, Real accuracy,
     Natural maxIter, const Handle< YieldTermStructure > &discount,
