@@ -1,4 +1,4 @@
-#include <ql/math/matrixutilities/basisincompleteordered.hpp>
+//#include <ql/math/matrixutilities/basisincompleteordered.hpp> // causes weird compile error
 #include <ql/math/matrixutilities/bicgstab.hpp>
 #include <ql/math/matrixutilities/choleskydecomposition.hpp>
 #include <ql/math/matrixutilities/factorreduction.hpp>
