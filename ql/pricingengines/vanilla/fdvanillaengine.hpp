@@ -81,7 +81,7 @@ namespace QuantLib {
       private:
         Size safeGridPoints(Size gridPoints,
                             Time residualTime) const;
-        const Real safetyZoneFactor_ = 1.1;;
+        static Real safetyZoneFactor() { return 1.1; }
     };
 
     template <typename base, typename engine>
@@ -175,13 +175,13 @@ namespace QuantLib {
             return;
         Real requiredGridValue = striked_payoff->strike();
 
-        if(sMin_ > requiredGridValue/safetyZoneFactor_){
-            sMin_ = requiredGridValue/safetyZoneFactor_;
+        if(sMin_ > requiredGridValue/safetyZoneFactor()){
+            sMin_ = requiredGridValue/safetyZoneFactor();
             // enforce central placement of the underlying
             sMax_ = center_/(sMin_/center_);
         }
-        if(sMax_ < requiredGridValue*safetyZoneFactor_){
-            sMax_ = requiredGridValue*safetyZoneFactor_;
+        if(sMax_ < requiredGridValue*safetyZoneFactor()){
+            sMax_ = requiredGridValue*safetyZoneFactor();
             // enforce central placement of the underlying
             sMin_ = center_/(sMax_/center_);
         }
