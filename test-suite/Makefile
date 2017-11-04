@@ -1,5 +1,5 @@
 
-cc = g++ -Wall -Werror -std=c++03 -I..
+cc = g++ -Wall -Wno-unknown-pragmas -Werror -std=c++03 -I..
 
 targets = clean test
 
