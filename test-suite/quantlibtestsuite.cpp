@@ -195,10 +195,6 @@
 
 using namespace boost::unit_test_framework;
 
-namespace QuantLib{
-	std::vector<BigNatural> PrimeNumbers::primeNumbers_;
-}
-
 namespace {
 
     boost::timer t;
