@@ -118,7 +118,7 @@ namespace QuantLib {
         Size i, j, k=1;
         base_=2;
         while (base_<dimensionality_) {
-            base_ = (Size)PrimeNumbers::get(k);
+            base_ = (Size)PrimeNumbers::instance().get(k);
             k++;
         }
 

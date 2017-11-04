@@ -35,6 +35,7 @@
 #define quantlib_primenumbers_h
 
 #include <ql/types.hpp>
+#include <ql/patterns/singleton.hpp>
 #include <vector>
 #include <iterator>
 
@@ -53,10 +54,11 @@ namespace QuantLib {
     //! Prime numbers calculator
     /*! Taken from "Monte Carlo Methods in Finance", by Peter Jäckel
      */
-    class PrimeNumbers {
+    class PrimeNumbers : public Singleton<PrimeNumbers> {
       public:
+        PrimeNumbers() {}
         //! Get and store one after another.
-        static BigNatural get(Size absoluteIndex)
+       BigNatural get(Size absoluteIndex)
 		{
 			if (primeNumbers_.empty()) {
 				Size n = sizeof(firstPrimes)/sizeof(firstPrimes[0]);
@@ -68,9 +70,8 @@ namespace QuantLib {
 			return primeNumbers_[absoluteIndex];
 		};
       private:
-        PrimeNumbers() {primeNumbers_=std::vector<BigNatural>();}
-        static std::vector<BigNatural> primeNumbers_;
-		static BigNatural nextPrimeNumber()
+        std::vector<BigNatural> primeNumbers_;
+		BigNatural nextPrimeNumber()
 		{
 			BigNatural p, n, m = primeNumbers_.back();
 			do {

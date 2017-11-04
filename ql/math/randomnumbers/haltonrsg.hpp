@@ -122,7 +122,7 @@ namespace QuantLib {
         ++sequenceCounter_;
         for (Size i=0; i<dimensionality_; ++i) {
             double h = 0.0;
-            unsigned long b = PrimeNumbers::get(i);
+            unsigned long b = PrimeNumbers::instance().get(i);
             double f = 1.0;
             unsigned long k = sequenceCounter_+randomStart_[i];
             while (k) {
