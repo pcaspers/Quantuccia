@@ -13,10 +13,9 @@ install:
 
 script:
   - cd check
-  - g++ -std=c++03 -Wall -Werror -I.. main.cpp checkduplicatesymbols1.cpp checkduplicatesymbols2.cpp -o main
+  - make
   - cd ../test-suite
-  - g++ -std=c++03 -Wall -Werror -I.. -o quantlibtestsuite quantlibtestsuite.cpp
-  - ./quantlibtestsuite --log_level=message
+  - make
 
 notifications:
   email:
